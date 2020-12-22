@@ -17,7 +17,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Account
-        - PoapToken
+        - Token
         - PoapEvent
         - Transfer
       abis:

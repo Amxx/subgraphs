@@ -1,13 +1,13 @@
 type Account @entity {
 	id:                           ID!
-	tokens:                       [PoapToken!]! @derivedFrom(field: "owner")
+	tokens:                       [Token!]! @derivedFrom(field: "owner")
 	transfersFrom:                [Transfer!]! @derivedFrom(field: "from")
 	transfersTo:                  [Transfer!]! @derivedFrom(field: "to")
 	approvalsOwner:               [Approval!]! @derivedFrom(field: "owner")
 	approvalsSpender:             [Approval!]! @derivedFrom(field: "spender")
 }
 
-type PoapToken @entity {
+type Token @entity {
 	id:                           ID!
 	identifier:                   BigInt!
 	owner:                        Account!
@@ -18,14 +18,14 @@ type PoapToken @entity {
 
 type PoapEvent @entity {
 	id:                           ID!
-	tokens:                       [PoapToken!]! @derivedFrom(field: "event")
+	tokens:                       [Token!]! @derivedFrom(field: "event")
 }
 
 type Transfer implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
-	token:                        PoapToken!
+	token:                        Token!
 	from:                         Account!
 	to:                           Account!
 }
@@ -34,7 +34,7 @@ type Approval implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
-	token:                        PoapToken!
+	token:                        Token!
 	owner:                        Account!
 	spender:                      Account!
 }
