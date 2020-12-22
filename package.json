@@ -4,6 +4,14 @@
   "description": "A dictionnary of subgraphs",
   "author": "Hadrien Croubois (@Amxx)",
   "license": "MIT",
+  "homepage": "https://github.com/amxx/subgraphs.git#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amxx/subgraphs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amxx/subgraphs.git/issues"
+  },
   "workspaces": [
     "packages/*",
     "subgraphs/*"
