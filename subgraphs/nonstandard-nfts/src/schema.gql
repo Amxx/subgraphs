@@ -1,0 +1,42 @@
+type Account @entity {
+	id:                           ID!
+	tokens:                       [Token!]! @derivedFrom(field: "owner")
+	transfersFrom:                [Transfer!]! @derivedFrom(field: "from")
+	transfersTo:                  [Transfer!]! @derivedFrom(field: "to")
+	approvalsOwner:               [Approval!]! @derivedFrom(field: "owner")
+	approvalsSpender:             [Approval!]! @derivedFrom(field: "spender")
+}
+
+type TokenRegistry @entity {
+	id:                           ID!
+	name:                         String
+	symbol:                       String
+	tokens:                       [Token!]! @derivedFrom(field: "registry")
+}
+
+type Token @entity {
+	id:                           ID!
+	registry:                     TokenRegistry!
+	identifier:                   BigInt!
+	owner:                        Account!
+	transfers:                    [Transfer!]! @derivedFrom(field: "token")
+	approvals:                    [Transfer!]! @derivedFrom(field: "token")
+}
+
+type Transfer implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	token:                        Token!
+	from:                         Account!
+	to:                           Account!
+}
+
+type Approval implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	token:                        Token!
+	owner:                        Account!
+	spender:                      Account!
+}

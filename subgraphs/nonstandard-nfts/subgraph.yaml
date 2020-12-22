@@ -1,0 +1,68 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  # CryptoKitties
+  - kind: ethereum/contract
+    name: CryptoKitties
+    network: mainnet
+    source:
+      address: "0x06012c8cf97BEaD5deAe237070F9587f8E7A266d"
+      startBlock: 4605167
+      abi: KittyCore
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Token
+      abis:
+        - name: KittyCore
+          file: ./abis/KittyCore.json
+      eventHandlers:
+        - event: Approval(address,address,uint256)
+          handler: handleApproval
+        - event: Birth(address,uint256,uint256,uint256,uint256)
+          handler: handleBirth
+        - event: ContractUpgrade(address)
+          handler: handleContractUpgrade
+        - event: Pregnant(address,uint256,uint256,uint256)
+          handler: handlePregnant
+        - event: Transfer(address,address,uint256)
+          handler: handleTransfer
+      file: ./src/cryptokitties/index.ts
+  # CryptoPunks
+  - kind: ethereum/contract
+    name: CryptoPunks
+    network: mainnet
+    source:
+      address: "0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB"
+      startBlock: 3914495
+      abi: CryptoPunk
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Token
+      abis:
+        - name: CryptoPunk
+          file: ./abis/CryptoPunk.json
+      eventHandlers:
+        - event: Assign(indexed address,uint256)
+          handler: handleAssign
+        - event: PunkBidEntered(indexed uint256,uint256,indexed address)
+          handler: handlePunkBidEntered
+        - event: PunkBidWithdrawn(indexed uint256,uint256,indexed address)
+          handler: handlePunkBidWithdrawn
+        - event: PunkBought(indexed uint256,uint256,indexed address,indexed address)
+          handler: handlePunkBought
+        - event: PunkNoLongerForSale(indexed uint256)
+          handler: handlePunkNoLongerForSale
+        - event: PunkOffered(indexed uint256,uint256,indexed address)
+          handler: handlePunkOffered
+        - event: PunkTransfer(indexed address,indexed address,uint256)
+          handler: handlePunkTransfer
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/cryptopunks/index.ts

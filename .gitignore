@@ -1,0 +1,9 @@
+subgraphs/*
+!subgraphs/nonstandard-nfts
+
+node_modules
+generated
+build
+
+package-lock.json
+yarn.lock
