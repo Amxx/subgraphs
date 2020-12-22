@@ -15,6 +15,7 @@ import {
 
 import {
 	IERC1155,
+	ApprovalForAll as ApprovalForAllEvent,
 	TransferBatch  as TransferBatchEvent,
 	TransferSingle as TransferSingleEvent,
 	URI            as URIEvent,
@@ -92,6 +93,12 @@ function registerTransfer(
 
 	token.save()
 	ev.save()
+}
+
+export function handleApprovalForAll(event: ApprovalForAllEvent): void {
+	// event.account
+	// event.operator
+	// event.approved
 }
 
 export function handleTransferSingle(event: TransferSingleEvent): void

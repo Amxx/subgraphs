@@ -24,8 +24,24 @@ dataSources:
         - name: POAP
           file: ./abis/Poap.json
       eventHandlers:
+        # - event: AdminAdded(indexed address)
+        #   handler: handleAdminAdded
+        # - event: AdminRemoved(indexed address)
+        #   handler: handleAdminRemoved
+        # - event: Approval(indexed address,indexed address,indexed uint256)
+        #   handler: handleApproval
+        # - event: ApprovalForAll(indexed address,indexed address,bool)
+        #   handler: handleApprovalForAll
+        # - event: EventMinterAdded(indexed uint256,indexed address)
+        #   handler: handleEventMinterAdded
+        # - event: EventMinterRemoved(indexed uint256,indexed address)
+        #   handler: handleEventMinterRemoved
         - event: EventToken(uint256,uint256)
           handler: handleEventToken
+        # - event: Paused(address)
+        #   handler: handlePaused
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
+        # - event: Unpaused(address)
+        #   handler: handleUnpaused
       file: ./src/index.ts

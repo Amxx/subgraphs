@@ -1,10 +1,15 @@
 import {
-	ethereum,
-} from '@graphprotocol/graph-ts'
-
-import {
-	EventToken as EventTokenEvent,
-	Transfer   as TransferEvent,
+	POAP,
+	AdminAdded         as AdminAddedEvent,
+	AdminRemoved       as AdminRemovedEvent,
+	Approval           as ApprovalEvent,
+	ApprovalForAll     as ApprovalForAllEvent,
+	EventMinterAdded   as EventMinterAddedEvent,
+	EventMinterRemoved as EventMinterRemovedEvent,
+	EventToken         as EventTokenEvent,
+	Paused             as PausedEvent,
+	Transfer           as TransferEvent,
+	Unpaused           as UnpausedEvent,
 } from '../generated/POAP/POAP'
 
 import {
@@ -19,8 +24,25 @@ import {
 	transactions,
 } from '@amxx/graphprotocol-utils'
 
-export function handleEventToken(event: EventTokenEvent): void
-{
+export function handleAdminAdded(event: AdminAddedEvent): void {
+}
+
+export function handleAdminRemoved(event: AdminRemovedEvent): void {
+}
+
+export function handleApproval(event: ApprovalEvent): void {
+}
+
+export function handleApprovalForAll(event: ApprovalForAllEvent): void {
+}
+
+export function handleEventMinterAdded(event: EventMinterAddedEvent): void {
+}
+
+export function handleEventMinterRemoved(event: EventMinterRemovedEvent): void {
+}
+
+export function handleEventToken(event: EventTokenEvent): void {
 	let poapevent = new PoapEvent(event.params.eventId.toString());
 	let token     = new Token(event.params.tokenId.toString());
 
@@ -28,6 +50,9 @@ export function handleEventToken(event: EventTokenEvent): void
 
 	poapevent.save();
 	token.save();
+}
+
+export function handlePaused(event: PausedEvent): void {
 }
 
 export function handleTransfer(event: TransferEvent): void {
@@ -48,4 +73,7 @@ export function handleTransfer(event: TransferEvent): void {
 	ev.from        = from.id;
 	ev.to          = to.id;
 	ev.save();
+}
+
+export function handleUnpaused(event: UnpausedEvent): void {
 }
