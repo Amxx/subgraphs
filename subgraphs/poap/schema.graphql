@@ -1,0 +1,70 @@
+type Account @entity {
+	id:                           ID!
+	tokens:                       [PoapToken!]! @derivedFrom(field: "owner")
+	transfersFrom:                [Transfer!]! @derivedFrom(field: "from")
+	transfersTo:                  [Transfer!]! @derivedFrom(field: "to")
+	approvalsOwner:               [Approval!]! @derivedFrom(field: "owner")
+	approvalsSpender:             [Approval!]! @derivedFrom(field: "spender")
+}
+
+type PoapToken @entity {
+	id:                           ID!
+	identifier:                   BigInt!
+	owner:                        Account!
+	event:                        PoapEvent!
+	transfers:                    [Transfer!]! @derivedFrom(field: "token")
+	approvals:                    [Transfer!]! @derivedFrom(field: "token")
+}
+
+type PoapEvent @entity {
+	id:                           ID!
+	tokens:                       [PoapToken!]! @derivedFrom(field: "event")
+}
+
+type Transfer implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	token:                        PoapToken!
+	from:                         Account!
+	to:                           Account!
+}
+
+type Approval implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	token:                        PoapToken!
+	owner:                        Account!
+	spender:                      Account!
+}
+
+type DecimalValue @entity {
+	id:                           ID!
+	value:                        BigDecimal!
+	exact:                        BigInt!
+	decimals:                     Int!
+}
+
+interface Event {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+}
+
+type Transaction @entity {
+	id:                           ID!
+	timestamp:                    BigInt!
+	blockNumber:                  BigInt!
+	events:                       [Event!]! @derivedFrom(field: "transaction")
+}
+
+type PersistentStringArray @entity {
+	id:                           ID!
+	values:                       [String!]!
+}
+
+type PersistentString @entity {
+	id:                           ID!
+	value:                        String!
+}

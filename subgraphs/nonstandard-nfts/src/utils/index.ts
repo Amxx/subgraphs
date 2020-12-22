@@ -26,8 +26,8 @@ export function fetchToken(registry: TokenRegistry, id: BigInt): Token {
 	let token = Token.load(tokenid)
 	if (token == null) {
 		token = new Token(tokenid)
-		token.registry    = registry.id
-		token.identifier  = id
+		token.registry   = registry.id
+		token.identifier = id
 	}
 	return token as Token
 }
