@@ -30,6 +30,25 @@ import {
 } from '@amxx/graphprotocol-utils'
 
 export function handleAssign(event: AssignEvent): void {
+	let registry = fetchRegistry(CryptoPunk.bind(event.address));
+	let token    = fetchToken(registry, event.params.punkIndex)
+	let from     = new Account(constants.ADDRESS_ZERO)
+	let to       = new Account(event.params.to.toHex())
+
+	token.owner = to.id
+
+	registry.save()
+	token.save()
+	from.save()
+	to.save()
+
+	let ev = new Transfer(events.id(event))
+	ev.transaction = transactions.log(event).id
+	ev.timestamp   = event.block.timestamp
+	ev.token       = token.id
+	ev.from        = from.id
+	ev.to          = to.id
+	ev.save()
 }
 
 export function handlePunkBidEntered(event: PunkBidEnteredEvent): void {
