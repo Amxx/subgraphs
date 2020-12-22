@@ -1,5 +1,5 @@
 {
-  "name": "@amxx/subgraphs-nonstandard-nfts",
+  "name": "@amxx/subgraphs-eip1155",
   "version": "1.0.0",
   "description": "",
   "author": "Hadrien Croubois (@Amxx)",
@@ -17,7 +17,10 @@
     "build:codegen": "graph codegen subgraph.yaml",
     "build:compile": "graph build subgraph.yaml",
     "build:*": "yarn build:schema && yarn build:codegen && yarn build:compile",
-    "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/nonstandard-nfts"
+    "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/eip1155-subgraph"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^3.3.0"
   },
   "devDependencies": {
     "@amxx/graphprotocol-utils": "0.0.6-2",

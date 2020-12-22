@@ -1,5 +1,6 @@
 subgraphs/*
 !subgraphs/nonstandard-nfts
+!subgraphs/eip1155
 
 node_modules
 generated

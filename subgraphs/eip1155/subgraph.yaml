@@ -1,0 +1,29 @@
+specVersion: 0.0.2
+description: eip1155
+repository: https://github.com/amxx/subgraphs
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: IERC1155
+    network: mainnet
+    source:
+      abi: IERC1155
+      startBlock: 6930510
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Token
+      abis:
+        - name: IERC1155
+          file: ./node_modules/@openzeppelin/contracts/build/contracts/IERC1155.json
+      eventHandlers:
+        - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
+          handler: handleTransferBatch
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+        - event: URI(string,indexed uint256)
+          handler: handleURI
+      file: ./src/index.ts
