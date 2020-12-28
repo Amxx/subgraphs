@@ -1,6 +1,7 @@
 subgraphs/*
-!subgraphs/nonstandard-nfts
+!subgraphs/eip721
 !subgraphs/eip1155
+!subgraphs/nonstandard-nfts
 !subgraphs/poap
 
 node_modules
