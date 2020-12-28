@@ -1,17 +1,12 @@
-import {
-	ethereum,
-	Bytes
-} from '@graphprotocol/graph-ts'
+import { ethereum, Address, Bytes } from '@graphprotocol/graph-ts'
 
 export function supportsInterface(contract: ethereum.SmartContract, interfaceId: String, expected: boolean = true): boolean {
-	let result = contract.tryCall(
-		'supportsInterface',
+	let result = ethereum.call(new ethereum.SmartContractCall(
+		contract._name,      // '',
+		contract._address,   // address,
+		'supportsInterface', // '',
 		'supportsInterface(bytes4):(bool)',
 		[ethereum.Value.fromFixedBytes(Bytes.fromHexString(interfaceId) as Bytes)]
-	)
-	if (!result.reverted) {
-		let value = result.value
-		return value[0].toBoolean() == expected
-	}
-	return false
+	))
+	return result != null && (result as Array<ethereum.Value>)[0].toBoolean() == expected
 }
