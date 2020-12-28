@@ -1,3 +1,8 @@
+type Contract @entity {
+	id:                           ID!
+	isERC721:                     Boolean!
+}
+
 type Account @entity {
 	id:                           ID!
 	tokens:                       [Token!]! @derivedFrom(field: "owner")
@@ -9,6 +14,7 @@ type Account @entity {
 
 type TokenRegistry @entity {
 	id:                           ID!
+	supportsMetadata:             Boolean!
 	name:                         String
 	symbol:                       String
 	tokens:                       [Token!]! @derivedFrom(field: "registry")
@@ -19,6 +25,7 @@ type Token @entity {
 	registry:                     TokenRegistry!
 	identifier:                   BigInt!
 	owner:                        Account!
+	uri:                          String
 	transfers:                    [Transfer!]! @derivedFrom(field: "token")
 	approvals:                    [Transfer!]! @derivedFrom(field: "token")
 }

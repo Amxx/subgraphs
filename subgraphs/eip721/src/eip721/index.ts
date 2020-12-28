@@ -13,7 +13,6 @@ import {
 } from '../../generated/schema'
 
 import {
-	IERC721,
 	Approval       as ApprovalEvent,
 	ApprovalForAll as ApprovalForAllEvent,
 	Transfer       as TransferEvent,
@@ -22,7 +21,7 @@ import {
 import {
 	fetchRegistry,
 	fetchToken,
-} from '../utils'
+} from '../utils/erc721'
 
 import {
 	events,
@@ -36,23 +35,26 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
 }
 
 export function handleTransfer(event: TransferEvent): void {
-	let registry = fetchRegistry(IERC721.bind(event.address));
-	let token    = fetchToken(registry, event.params.tokenId)
-	let from     = new Account(event.params.from.toHex())
-	let to       = new Account(event.params.to.toHex())
+	let registry = fetchRegistry(event.address);
+	if (registry != null)
+	{
+		let token = fetchToken(registry, event.params.tokenId)
+		let from  = new Account(event.params.from.toHex())
+		let to    = new Account(event.params.to.toHex())
 
-	token.owner = to.id
+		token.owner = to.id
 
-	registry.save()
-	token.save()
-	from.save()
-	to.save()
+		registry.save()
+		token.save()
+		from.save()
+		to.save()
 
-	let ev = new Transfer(events.id(event))
-	ev.transaction = transactions.log(event).id
-	ev.timestamp   = event.block.timestamp
-	ev.token       = token.id
-	ev.from        = from.id
-	ev.to          = to.id
-	ev.save()
+		let ev = new Transfer(events.id(event))
+		ev.transaction = transactions.log(event).id
+		ev.timestamp   = event.block.timestamp
+		ev.token       = token.id
+		ev.from        = from.id
+		ev.to          = to.id
+		ev.save()
+	}
 }

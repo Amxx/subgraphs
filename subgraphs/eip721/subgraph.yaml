@@ -18,11 +18,13 @@ dataSources:
       abis:
         - name: IERC721
           file: ./node_modules/@openzeppelin/contracts/build/contracts/IERC721.json
+        - name: IERC721Metadata
+          file: ./node_modules/@openzeppelin/contracts/build/contracts/IERC721Metadata.json
       eventHandlers:
-        - event: Approval(indexed address,indexed address,indexed uint256)
-          handler: handleApproval
-        - event: ApprovalForAll(indexed address,indexed address,bool)
-          handler: handleApprovalForAll
+        # - event: Approval(indexed address,indexed address,indexed uint256)
+        #   handler: handleApproval
+        # - event: ApprovalForAll(indexed address,indexed address,bool)
+        #   handler: handleApprovalForAll
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/eip721/index.ts
