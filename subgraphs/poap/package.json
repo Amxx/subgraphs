@@ -16,8 +16,10 @@
     "build:schema": "concat -o schema.graphql src/schema.gql node_modules/@amxx/graphprotocol-utils/schema.graphql",
     "build:codegen": "graph codegen subgraph.mainnet.yaml",
     "build:compile": "graph build subgraph.mainnet.yaml",
-    "build:*": "yarn build:schema && yarn build:codegen && yarn build:compile",
-    "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/poap"
+    "build:all": "yarn build:schema && yarn build:codegen && yarn build:compile",
+    "deploy:mainnet": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/poap subgraph.mainnet.yaml",
+    "deploy:xdai": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/poap-xdai subgraph.xdai.yaml",
+    "deploy:all": "yarn deploy:mainnet && yarn deploy:xdai"
   },
   "dependencies": {},
   "devDependencies": {

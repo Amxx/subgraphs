@@ -27,7 +27,7 @@ type Token @entity {
 	owner:                        Account!
 	uri:                          String
 	transfers:                    [Transfer!]! @derivedFrom(field: "token")
-	approvals:                    [Transfer!]! @derivedFrom(field: "token")
+	approvals:                    [Approval!]! @derivedFrom(field: "token")
 }
 
 type Transfer implements Event @entity {

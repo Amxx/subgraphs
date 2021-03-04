@@ -20,7 +20,7 @@ type Token @entity {
 	identifier:                   BigInt!
 	owner:                        Account!
 	transfers:                    [Transfer!]! @derivedFrom(field: "token")
-	approvals:                    [Transfer!]! @derivedFrom(field: "token")
+	approvals:                    [Approval!]! @derivedFrom(field: "token")
 }
 
 type Transfer implements Event @entity {

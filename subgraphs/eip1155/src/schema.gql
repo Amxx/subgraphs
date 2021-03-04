@@ -21,7 +21,7 @@ type Token @entity {
 	totalSupply:                  BigInt!
 	balances:                     [Balance!]! @derivedFrom(field: "token")
 	transfers:                    [Transfer!]! @derivedFrom(field: "token")
-	approvals:                    [Transfer!]! @derivedFrom(field: "token")
+	approvals:                    [Approval!]! @derivedFrom(field: "token")
 }
 
 type Balance @entity {

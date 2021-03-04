@@ -13,7 +13,7 @@ type Token @entity {
 	owner:                        Account!
 	event:                        PoapEvent!
 	transfers:                    [Transfer!]! @derivedFrom(field: "token")
-	approvals:                    [Transfer!]! @derivedFrom(field: "token")
+	approvals:                    [Approval!]! @derivedFrom(field: "token")
 }
 
 type PoapEvent @entity {

@@ -16,7 +16,7 @@
     "build:schema": "concat -o schema.graphql src/schema.gql node_modules/@amxx/graphprotocol-utils/schema.graphql",
     "build:codegen": "graph codegen subgraph.yaml",
     "build:compile": "graph build subgraph.yaml",
-    "build:*": "yarn build:schema && yarn build:codegen && yarn build:compile",
+    "build:all": "yarn build:schema && yarn build:codegen && yarn build:compile",
     "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/non-standard-nfts"
   },
   "devDependencies": {
