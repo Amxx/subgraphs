@@ -1,4 +1,4 @@
-import { ethereum, Address, Bytes } from '@graphprotocol/graph-ts'
+import { ethereum, Bytes } from '@graphprotocol/graph-ts'
 
 export function supportsInterface(contract: ethereum.SmartContract, interfaceId: String, expected: boolean = true): boolean {
 	let result = ethereum.call(new ethereum.SmartContractCall(
