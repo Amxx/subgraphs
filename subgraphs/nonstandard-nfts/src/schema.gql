@@ -1,14 +1,24 @@
+type Contract @entity {
+	id:                           ID!
+	isERC721:                     Boolean!
+}
+
 type Account @entity {
 	id:                           ID!
 	tokens:                       [Token!]! @derivedFrom(field: "owner")
+	delegationsOwner:             [OperatorDelegation!]! @derivedFrom(field: "owner")
+	delegationsOperator:          [OperatorDelegation!]! @derivedFrom(field: "operator")
 	transfersFrom:                [Transfer!]! @derivedFrom(field: "from")
 	transfersTo:                  [Transfer!]! @derivedFrom(field: "to")
 	approvalsOwner:               [Approval!]! @derivedFrom(field: "owner")
-	approvalsSpender:             [Approval!]! @derivedFrom(field: "spender")
+	approvalsApproved:            [Approval!]! @derivedFrom(field: "approved")
+	approvalsForAllOwner:         [ApprovalForAll!]! @derivedFrom(field: "owner")
+	approvalsForAllOperator:      [ApprovalForAll!]! @derivedFrom(field: "operator")
 }
 
 type TokenRegistry @entity {
 	id:                           ID!
+	supportsMetadata:             Boolean!
 	name:                         String
 	symbol:                       String
 	tokens:                       [Token!]! @derivedFrom(field: "registry")
@@ -19,8 +29,19 @@ type Token @entity {
 	registry:                     TokenRegistry!
 	identifier:                   BigInt!
 	owner:                        Account!
+	approval:                     Account!
+	uri:                          String
 	transfers:                    [Transfer!]! @derivedFrom(field: "token")
 	approvals:                    [Approval!]! @derivedFrom(field: "token")
+}
+
+type OperatorDelegation @entity {
+	id:                           ID!
+	registry:                     TokenRegistry!
+	owner:                        Account!
+	operator:                     Account!
+	approved:                     Boolean!
+	events:                       [ApprovalForAll!]! @derivedFrom(field: "delegation")
 }
 
 type Transfer implements Event @entity {
@@ -38,5 +59,15 @@ type Approval implements Event @entity {
 	timestamp:                    BigInt!
 	token:                        Token!
 	owner:                        Account!
-	spender:                      Account!
+	approved:                     Account!
+}
+
+type ApprovalForAll implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	delegation:                   OperatorDelegation!
+	owner:                        Account!
+	operator:                     Account!
+	approved:                     Boolean!
 }

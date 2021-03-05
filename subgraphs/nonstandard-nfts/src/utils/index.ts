@@ -4,9 +4,14 @@ import {
 } from '@graphprotocol/graph-ts'
 
 import {
+	Account,
 	TokenRegistry,
 	Token,
 } from '../../generated/schema'
+
+import {
+	constants,
+} from '@amxx/graphprotocol-utils'
 
 export function fetchRegistry(contract: ethereum.SmartContract): TokenRegistry {
 	let registryid = contract._address.toHex()
@@ -25,9 +30,13 @@ export function fetchToken(registry: TokenRegistry, id: BigInt): Token {
 	let tokenid = registry.id.concat('-').concat(id.toHex())
 	let token = Token.load(tokenid)
 	if (token == null) {
-		token = new Token(tokenid)
+		let account_zero = new Account(constants.ADDRESS_ZERO)
+		account_zero.save()
+
+		token            = new Token(tokenid)
 		token.registry   = registry.id
 		token.identifier = id
+		token.approval   = account_zero.id
 	}
 	return token as Token
 }

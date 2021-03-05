@@ -1,9 +1,6 @@
 import {
 	Account,
-	TokenRegistry,
-	Token,
 	Transfer,
-	Approval,
 } from '../../generated/schema'
 
 import {
