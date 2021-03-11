@@ -18,7 +18,7 @@ type Account @entity {
 
 type TokenRegistry @entity {
 	id:                           ID!
-	supportsMetadata:             Boolean!
+	supportsMetadata:             Boolean
 	name:                         String
 	symbol:                       String
 	tokens:                       [Token!]! @derivedFrom(field: "registry")
