@@ -16,7 +16,7 @@ type Token @entity {
 	identifier:                   BigInt!
 	owner:                        Account!
 	approval:                     Account
-	event:                        PoapEvent!
+	event:                        PoapEvent
 	transfers:                    [Transfer!]! @derivedFrom(field: "token")
 	approvals:                    [Approval!]! @derivedFrom(field: "token")
 }
