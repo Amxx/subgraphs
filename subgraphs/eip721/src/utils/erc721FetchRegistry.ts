@@ -24,11 +24,12 @@ export function fetchRegistry(address: Address): TokenRegistry {
 		let introspection_01ffc9a7 = supportsInterface(erc721, '01ffc9a7') // ERC165
 		let introspection_80ac58cd = supportsInterface(erc721, '80ac58cd') // ERC721
 		let introspection_00000000 = supportsInterface(erc721, '00000000', false)
-		contract.isERC721          = introspection_01ffc9a7 && introspection_80ac58cd && introspection_00000000
+		let isERC721               = introspection_01ffc9a7 && introspection_80ac58cd && introspection_00000000
+		contract.asERC721          = isERC721 ? contract.id : null
 		contract.save()
 	}
 
-	if (contract.isERC721)
+	if (contract.asERC721 != null)
 	{
 		let registry = TokenRegistry.load(contract.id)
 		if (registry == null) {

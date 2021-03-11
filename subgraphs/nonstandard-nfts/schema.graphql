@@ -1,6 +1,6 @@
 type Contract @entity {
 	id:                           ID!
-	isERC721:                     Boolean!
+	asERC721:                     TokenRegistry
 }
 
 type Account @entity {
