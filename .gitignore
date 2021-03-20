@@ -1,4 +1,5 @@
 subgraphs/*
+!subgraphs/access-control
 !subgraphs/eip721
 !subgraphs/eip1155
 !subgraphs/nonstandard-nfts
