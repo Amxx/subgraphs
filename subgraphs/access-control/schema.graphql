@@ -1,6 +1,10 @@
 type Account @entity {
 	id:                           ID!
 	membership:                   [AccessControlRoleMember!]! @derivedFrom(field: "account")
+	roleGranted:                  [RoleGranted!]! @derivedFrom(field: "account")
+	roleGrantedSender:            [RoleGranted!]! @derivedFrom(field: "sender")
+	roleRevoked:                  [RoleRevoked!]! @derivedFrom(field: "account")
+	roleRevokedSender:            [RoleRevoked!]! @derivedFrom(field: "sender")
 }
 
 type AccessControl @entity {
@@ -20,6 +24,9 @@ type AccessControlRole @entity {
 	role:                         Role!
 	admin:                        Role
 	members:                      [AccessControlRoleMember!]! @derivedFrom(field: "accesscontrolrole")
+	roleGranted:                  [RoleGranted!]! @derivedFrom(field: "role")
+	roleRevoked:                  [RoleRevoked!]! @derivedFrom(field: "role")
+	roleAdminChanged:             [RoleAdminChanged!]! @derivedFrom(field: "role")
 }
 
 type AccessControlRoleMember @entity {
@@ -27,9 +34,6 @@ type AccessControlRoleMember @entity {
 	accesscontrolrole:            AccessControlRole!
 	account:                      Account!
 }
-
-
-
 
 type RoleAdminChanged implements Event @entity {
 	id:                           ID!

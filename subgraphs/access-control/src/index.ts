@@ -94,7 +94,7 @@ export function handleRoleRevoked(event: RoleRevokedEvent): void {
 	accesscontrolrole.role     = role.id;
 	accesscontrolrole.save()
 
-	store.remove('accesscontrolrolemember', accesscontrolrole.id.concat('-').concat(account.id));
+	store.remove('AccessControlRoleMember', accesscontrolrole.id.concat('-').concat(account.id));
 
 	let ev         = new RoleRevoked(events.id(event));
 	ev.transaction = transactions.log(event).id;
