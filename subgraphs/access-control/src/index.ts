@@ -18,12 +18,9 @@ import {
 } from '../generated/AccessControl/AccessControl'
 
 import {
-	constants,
 	events,
-	integers,
 	transactions,
 } from '@amxx/graphprotocol-utils'
-
 
 export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
 	let contract = new AccessControl(event.address.toHex());
