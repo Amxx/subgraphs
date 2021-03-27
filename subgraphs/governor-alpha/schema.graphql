@@ -14,7 +14,7 @@ type Account @entity {
 type GovernorAlpha @entity {
 	id:                           ID!
 	name:                         String!
-	comp:                         Account!
+	comp:                         Account # optional ? → missing/renames in some forks
 	timelock:                     Account # optional ?
 	guardian:                     Account # optional ?
 	quorumVotes:                  BigInt!
