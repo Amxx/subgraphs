@@ -1,6 +1,14 @@
 type Account @entity {
 	id:                           ID!
 	asGovernorAlpha:              GovernorAlpha
+	compFor:                      [GovernorAlpha!]! @derivedFrom(field: "comp")
+	timelockFor:                  [GovernorAlpha!]! @derivedFrom(field: "timelock")
+	guardianFor:                  [GovernorAlpha!]! @derivedFrom(field: "guardian")
+	proposals:                    [Proposal!]! @derivedFrom(field: "proposer")
+	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "proposer")
+	receipts:                     [Receipt!]! @derivedFrom(field: "voter")
+	votecast:                     [VoteCast!]! @derivedFrom(field: "voter")
+	targetedCalls:                [ProposalCall!]! @derivedFrom(field: "target")
 }
 
 type GovernorAlpha @entity {
@@ -15,6 +23,11 @@ type GovernorAlpha @entity {
 	votingDelay:                  BigInt!
 	votingPeriod:                 BigInt!
 	proposals:                    [Proposal!]! @derivedFrom(field: "governoralpha")
+	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "governoralpha")
+	proposalqueued:               [ProposalQueued!]! @derivedFrom(field: "governoralpha")
+	proposalexecuted:             [ProposalExecuted!]! @derivedFrom(field: "governoralpha")
+	proposalcanceled:             [ProposalCanceled!]! @derivedFrom(field: "governoralpha")
+	votecast:                     [VoteCast!]! @derivedFrom(field: "governoralpha")
 }
 
 type Proposal @entity {
@@ -29,8 +42,14 @@ type Proposal @entity {
 	againstVotes:                 BigInt!
 	canceled:                     Boolean!
 	executed:                     Boolean!
+	description:                  String!
 	calls:                        [ProposalCall!]! @derivedFrom(field: "proposal")
 	receipts:                     [Receipt!]! @derivedFrom(field: "proposal")
+	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "proposal")
+	proposalqueued:               [ProposalQueued!]! @derivedFrom(field: "proposal")
+	proposalexecuted:             [ProposalExecuted!]! @derivedFrom(field: "proposal")
+	proposalcanceled:             [ProposalCanceled!]! @derivedFrom(field: "proposal")
+	votecast:                     [VoteCast!]! @derivedFrom(field: "proposal")
 }
 
 type ProposalCall @entity {
@@ -46,36 +65,51 @@ type ProposalCall @entity {
 type Receipt @entity {
 	id:                           ID!
 	proposal:                     Proposal!
+	voter:                        Account!
 	support:                      Boolean!
 	votes:                        BigInt!
-}
-
-type ProposalCanceled implements Event @entity {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
 }
 
 type ProposalCreated implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
-}
-
-type ProposalExecuted implements Event @entity {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
+	governoralpha:                GovernorAlpha!
+	proposal:                     Proposal!
+	proposer:                     Account!
 }
 
 type ProposalQueued implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
+	governoralpha:                GovernorAlpha!
+	proposal:                     Proposal!
+	eta:                          BigInt!
+}
+
+type ProposalExecuted implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	governoralpha:                GovernorAlpha!
+	proposal:                     Proposal!
+}
+
+type ProposalCanceled implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	governoralpha:                GovernorAlpha!
+	proposal:                     Proposal!
 }
 
 type VoteCast implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
+	governoralpha:                GovernorAlpha!
+	proposal:                     Proposal!
+	receipt:                      Receipt!
+	voter:                        Account!
 }

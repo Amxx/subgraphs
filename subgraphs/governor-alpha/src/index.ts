@@ -89,6 +89,7 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 	proposal.againstVotes  = constants.BIGINT_ZERO
 	proposal.canceled      = false
 	proposal.executed      = false
+	proposal.description   = event.params.description
 	proposal.save()
 
 	let targets    = event.params.targets;
@@ -106,6 +107,14 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 		call.calldata  = calldatas[i]
 		call.save()
 	}
+
+	let ev = new ProposalCreated(events.id(event))
+	ev.transaction     = transactions.log(event).id
+	ev.timestamp       = event.block.timestamp
+	ev.governoralpha   = proposal.governoralpha
+	ev.proposal        = proposal.id
+	ev.proposer        = proposal.proposer
+	ev.save()
 }
 
 export function handleProposalQueued(event: ProposalQueuedEvent): void {
@@ -113,6 +122,14 @@ export function handleProposalQueued(event: ProposalQueuedEvent): void {
 	let proposal      = new Proposal(governoralpha.id.concat('/').concat(event.params.id.toString()))
 	proposal.eta      = event.params.eta
 	proposal.save()
+
+	let ev = new ProposalQueued(events.id(event))
+	ev.transaction     = transactions.log(event).id
+	ev.timestamp       = event.block.timestamp
+	ev.governoralpha   = governoralpha.id
+	ev.proposal        = proposal.id
+	ev.eta             = event.params.eta
+	ev.save()
 }
 
 export function handleProposalExecuted(event: ProposalExecutedEvent): void {
@@ -120,6 +137,13 @@ export function handleProposalExecuted(event: ProposalExecutedEvent): void {
 	let proposal      = new Proposal(governoralpha.id.concat('/').concat(event.params.id.toString()))
 	proposal.executed = true
 	proposal.save()
+
+	let ev = new ProposalExecuted(events.id(event))
+	ev.transaction     = transactions.log(event).id
+	ev.timestamp       = event.block.timestamp
+	ev.governoralpha   = governoralpha.id
+	ev.proposal        = proposal.id
+	ev.save()
 }
 
 export function handleProposalCanceled(event: ProposalCanceledEvent): void {
@@ -127,6 +151,13 @@ export function handleProposalCanceled(event: ProposalCanceledEvent): void {
 	let proposal      = new Proposal(governoralpha.id.concat('/').concat(event.params.id.toString()))
 	proposal.canceled = true
 	proposal.save()
+
+	let ev = new ProposalCanceled(events.id(event))
+	ev.transaction     = transactions.log(event).id
+	ev.timestamp       = event.block.timestamp
+	ev.governoralpha   = governoralpha.id
+	ev.proposal        = proposal.id
+	ev.save()
 }
 
 export function handleVoteCast(event: VoteCastEvent): void {
@@ -142,7 +173,17 @@ export function handleVoteCast(event: VoteCastEvent): void {
 
 	let receipt      = new Receipt(proposal.id.concat('/').concat(event.params.voter.toHex()))
 	receipt.proposal = proposal.id
+	receipt.voter    = fetchAccount(event.params.voter).id
 	receipt.support  = event.params.support
 	receipt.votes    = event.params.votes
 	receipt.save()
+
+	let ev = new VoteCast(events.id(event))
+	ev.transaction     = transactions.log(event).id
+	ev.timestamp       = event.block.timestamp
+	ev.governoralpha   = governoralpha.id
+	ev.proposal        = proposal.id
+	ev.receipt         = receipt.id
+	ev.voter           = event.params.voter.toHex()
+	ev.save()
 }

@@ -9,7 +9,7 @@ dataSources:
     network: mainnet
     source:
       abi: GovernorAlpha
-      # startBlock: 0
+      startBlock: 9595178
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
