@@ -5,23 +5,23 @@ type Account @entity {
 	timelockFor:                  [GovernorAlpha!]! @derivedFrom(field: "timelock")
 	guardianFor:                  [GovernorAlpha!]! @derivedFrom(field: "guardian")
 	proposals:                    [Proposal!]! @derivedFrom(field: "proposer")
-	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "proposer")
-	receipts:                     [Receipt!]! @derivedFrom(field: "voter")
-	votecast:                     [VoteCast!]! @derivedFrom(field: "voter")
 	targetedCalls:                [ProposalCall!]! @derivedFrom(field: "target")
+	receipts:                     [Receipt!]! @derivedFrom(field: "voter")
+	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "proposer")
+	votecast:                     [VoteCast!]! @derivedFrom(field: "voter")
 }
 
 type GovernorAlpha @entity {
 	id:                           ID!
-	name:                         String!
+	name:                         String # optional ? → missing in some forks
 	comp:                         Account # optional ? → missing/renames in some forks
 	timelock:                     Account # optional ?
 	guardian:                     Account # optional ?
-	quorumVotes:                  BigInt!
-	proposalThreshold:            BigInt!
-	proposalMaxOperations:        BigInt!
-	votingDelay:                  BigInt!
-	votingPeriod:                 BigInt!
+	quorumVotes:                  BigInt # optional ?
+	proposalThreshold:            BigInt # optional ?
+	proposalMaxOperations:        BigInt # optional ?
+	votingDelay:                  BigInt # optional ?
+	votingPeriod:                 BigInt # optional ?
 	proposals:                    [Proposal!]! @derivedFrom(field: "governoralpha")
 	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "governoralpha")
 	proposalqueued:               [ProposalQueued!]! @derivedFrom(field: "governoralpha")
@@ -38,10 +38,11 @@ type Proposal @entity {
 	eta:                          BigInt
 	startBlock:                   BigInt!
 	endBlock:                     BigInt!
-	forVotes:                     BigInt!
-	againstVotes:                 BigInt!
+	forVotes:                     DecimalValue! # BigInt!
+	againstVotes:                 DecimalValue! # BigInt!
 	canceled:                     Boolean!
 	executed:                     Boolean!
+	title:                        String
 	description:                  String!
 	calls:                        [ProposalCall!]! @derivedFrom(field: "proposal")
 	receipts:                     [Receipt!]! @derivedFrom(field: "proposal")
@@ -67,7 +68,7 @@ type Receipt @entity {
 	proposal:                     Proposal!
 	voter:                        Account!
 	support:                      Boolean!
-	votes:                        BigInt!
+	votes:                        DecimalValue! # BigInt!
 }
 
 type ProposalCreated implements Event @entity {
