@@ -36,10 +36,10 @@ type Proposal @entity {
 	proposalId:                   BigInt!
 	proposer:                     Account!
 	eta:                          BigInt
-	startBlock:                   BigInt!
-	endBlock:                     BigInt!
-	forVotes:                     DecimalValue! # BigInt!
-	againstVotes:                 DecimalValue! # BigInt!
+	startBlock:                   BigInt # missing in some forks
+	endBlock:                     BigInt # missing in some forks
+	forVotes:                     DecimalValue!
+	againstVotes:                 DecimalValue!
 	canceled:                     Boolean!
 	executed:                     Boolean!
 	title:                        String
@@ -68,7 +68,7 @@ type Receipt @entity {
 	proposal:                     Proposal!
 	voter:                        Account!
 	support:                      Boolean!
-	votes:                        DecimalValue! # BigInt!
+	votes:                        DecimalValue!
 }
 
 type ProposalCreated implements Event @entity {

@@ -23,7 +23,9 @@ dataSources:
         - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)
           handler: handleProposalCreated
         - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string,string)
-          handler: handleProposalCreatedData
+          handler: handleProposalCreated1
+        - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],string)
+          handler: handleProposalCreated2
         - event: ProposalQueued(uint256,uint256)
           handler: handleProposalQueued
         - event: ProposalExecuted(uint256)

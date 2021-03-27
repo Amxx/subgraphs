@@ -52,6 +52,8 @@ interface IGovernorAlpha {
 
     event ProposalCreated(uint id, address proposer, address[] targets, uint[] values, string[] signatures, bytes[] calldatas, uint startBlock, uint endBlock, string description);
     event ProposalCreated(uint id, address proposer, address[] targets, uint[] values, string[] signatures, bytes[] calldatas, uint startBlock, uint endBlock, string title, string description);
+    event ProposalCreated(uint id, address proposer, address[] targets, uint[] values, string[] signatures, bytes[] calldatas, string description);
+
     event ProposalQueued(uint id, uint eta);
     event ProposalExecuted(uint id);
     event VoteCast(address voter, uint proposalId, bool support, uint votes);

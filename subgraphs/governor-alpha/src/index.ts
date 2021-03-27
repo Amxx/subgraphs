@@ -19,7 +19,8 @@ import {
 import {
 	IGovernorAlpha   as IGovernorAlpha,
 	ProposalCreated  as ProposalCreatedEvent,
-	ProposalCreated1 as ProposalCreatedDataEvent,
+	ProposalCreated1 as ProposalCreated1Event,
+	ProposalCreated2 as ProposalCreated2Event,
 	ProposalQueued   as ProposalQueuedEvent,
 	ProposalExecuted as ProposalExecutedEvent,
 	ProposalCanceled as ProposalCanceledEvent,
@@ -73,7 +74,8 @@ function fetchGovernorAlpha(address: Address) : GovernorAlpha {
 	return governoralpha as GovernorAlpha
 }
 
-export function handleProposalCreated(event: ProposalCreatedEvent): void {
+
+function handleProposalCreatedBase(event: ProposalCreatedEvent): Proposal {
 	let governoralpha      = fetchGovernorAlpha(event.address)
 	let proposal           = new Proposal(governoralpha.id.concat('/').concat(event.params.id.toString()))
 	let forVotes           = new decimals.Value(proposal.id.concat('/forVotes'))
@@ -81,12 +83,13 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 	proposal.governoralpha = governoralpha.id
 	proposal.proposalId    = event.params.id
 	proposal.proposer      = fetchAccount(event.params.proposer).id
-	proposal.startBlock    = event.params.startBlock
-	proposal.endBlock      = event.params.endBlock
 	proposal.forVotes      = forVotes.id
 	proposal.againstVotes  = againstVotes.id
+	// proposal.startBlock    = event.params.startBlock // Not available in all proposal events
+	// proposal.endBlock      = event.params.endBlock // Not available in all proposal events
 	proposal.canceled      = false
 	proposal.executed      = false
+	// proposal.title         = event.params.title // Not available in all proposal events
 	proposal.description   = event.params.description
 	proposal.save()
 
@@ -113,13 +116,27 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 	ev.proposal        = proposal.id
 	ev.proposer        = proposal.proposer
 	ev.save()
+
+	return proposal
 }
 
-export function handleProposalCreatedData(event: ProposalCreatedDataEvent): void {
-	handleProposalCreated(event as ProposalCreatedEvent);
-	let proposal   = new Proposal(event.address.toHex().concat('/').concat(event.params.id.toString()))
-	proposal.title = event.params.title
+export function handleProposalCreated(event: ProposalCreatedEvent): void {
+	let proposal        = handleProposalCreatedBase(event as ProposalCreatedEvent);
+	proposal.startBlock = event.params.startBlock
+	proposal.endBlock   = event.params.endBlock
 	proposal.save()
+}
+
+export function handleProposalCreated1(event: ProposalCreated1Event): void {
+	let proposal        = handleProposalCreatedBase(event as ProposalCreatedEvent);
+	proposal.startBlock = event.params.startBlock
+	proposal.endBlock   = event.params.endBlock
+	proposal.title      = event.params.title
+	proposal.save()
+}
+
+export function handleProposalCreated2(event: ProposalCreated2Event): void {
+	let proposal        = handleProposalCreatedBase(event as ProposalCreatedEvent);
 }
 
 export function handleProposalQueued(event: ProposalQueuedEvent): void {
