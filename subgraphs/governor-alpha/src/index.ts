@@ -90,8 +90,8 @@ function handleProposalCreatedBase(event: ProposalCreatedEvent): Proposal {
 	proposal.canceled      = false
 	proposal.executed      = false
 	// proposal.title         = event.params.title // Not available in all proposal events
-	proposal.description   = event.params.description
-	proposal.save()
+	// proposal.description   = event.params.description
+	// proposal.save()
 
 	let targets    = event.params.targets
 	let values     = event.params.values
@@ -121,22 +121,26 @@ function handleProposalCreatedBase(event: ProposalCreatedEvent): Proposal {
 }
 
 export function handleProposalCreated(event: ProposalCreatedEvent): void {
-	let proposal        = handleProposalCreatedBase(event as ProposalCreatedEvent);
-	proposal.startBlock = event.params.startBlock
-	proposal.endBlock   = event.params.endBlock
+	let proposal           = handleProposalCreatedBase(event as ProposalCreatedEvent);
+	proposal.startBlock    = event.params.startBlock
+	proposal.endBlock      = event.params.endBlock
+	proposal.description   = event.params.description
 	proposal.save()
 }
 
 export function handleProposalCreated1(event: ProposalCreated1Event): void {
-	let proposal        = handleProposalCreatedBase(event as ProposalCreatedEvent);
-	proposal.startBlock = event.params.startBlock
-	proposal.endBlock   = event.params.endBlock
-	proposal.title      = event.params.title
+	let proposal           = handleProposalCreatedBase(event as ProposalCreatedEvent);
+	proposal.startBlock    = event.params.startBlock
+	proposal.endBlock      = event.params.endBlock
+	proposal.title         = event.params.title
+	proposal.description   = event.params.description
 	proposal.save()
 }
 
 export function handleProposalCreated2(event: ProposalCreated2Event): void {
-	let proposal        = handleProposalCreatedBase(event as ProposalCreatedEvent);
+	let proposal           = handleProposalCreatedBase(event as ProposalCreatedEvent);
+	proposal.description   = event.params.description
+	proposal.save()
 }
 
 export function handleProposalQueued(event: ProposalQueuedEvent): void {

@@ -35,15 +35,15 @@ type Proposal @entity {
 	governoralpha:                GovernorAlpha!
 	proposalId:                   BigInt!
 	proposer:                     Account!
-	eta:                          BigInt
+	eta:                          BigInt # not set until queue
 	startBlock:                   BigInt # missing in some forks
 	endBlock:                     BigInt # missing in some forks
 	forVotes:                     DecimalValue!
 	againstVotes:                 DecimalValue!
 	canceled:                     Boolean!
 	executed:                     Boolean!
-	title:                        String
-	description:                  String!
+	title:                        String # extension
+	description:                  String # optional ?
 	calls:                        [ProposalCall!]! @derivedFrom(field: "proposal")
 	receipts:                     [Receipt!]! @derivedFrom(field: "proposal")
 	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "proposal")
