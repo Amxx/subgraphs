@@ -1,0 +1,81 @@
+type Account @entity {
+	id:                           ID!
+	asGovernorAlpha:              GovernorAlpha
+}
+
+type GovernorAlpha @entity {
+	id:                           ID!
+	name:                         String!
+	comp:                         Account!
+	timelock:                     Account # optional ?
+	guardian:                     Account # optional ?
+	quorumVotes:                  BigInt!
+	proposalThreshold:            BigInt!
+	proposalMaxOperations:        BigInt!
+	votingDelay:                  BigInt!
+	votingPeriod:                 BigInt!
+	proposals:                    [Proposal!]! @derivedFrom(field: "governoralpha")
+}
+
+type Proposal @entity {
+	id:                           ID!
+	governoralpha:                GovernorAlpha!
+	proposalId:                   BigInt!
+	proposer:                     Account!
+	eta:                          BigInt
+	startBlock:                   BigInt!
+	endBlock:                     BigInt!
+	forVotes:                     BigInt!
+	againstVotes:                 BigInt!
+	canceled:                     Boolean!
+	executed:                     Boolean!
+	calls:                        [ProposalCall!]! @derivedFrom(field: "proposal")
+	receipts:                     [Receipt!]! @derivedFrom(field: "proposal")
+}
+
+type ProposalCall @entity {
+	id:                           ID!
+	proposal:                     Proposal!
+	index:                        Int!
+	target:                       Account!
+	value:                        BigInt!
+	signature:                    String!
+	calldata:                     Bytes!
+}
+
+type Receipt @entity {
+	id:                           ID!
+	proposal:                     Proposal!
+	support:                      Boolean!
+	votes:                        BigInt!
+}
+
+type ProposalCanceled implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+}
+
+type ProposalCreated implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+}
+
+type ProposalExecuted implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+}
+
+type ProposalQueued implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+}
+
+type VoteCast implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+}
