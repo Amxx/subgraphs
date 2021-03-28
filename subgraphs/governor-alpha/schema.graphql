@@ -22,6 +22,7 @@ type GovernorAlpha @entity {
 	proposalMaxOperations:        BigInt # optional ?
 	votingDelay:                  BigInt # optional ?
 	votingPeriod:                 BigInt # optional ?
+	proposalCount:                Int!
 	proposals:                    [Proposal!]! @derivedFrom(field: "governoralpha")
 	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "governoralpha")
 	proposalqueued:               [ProposalQueued!]! @derivedFrom(field: "governoralpha")
@@ -58,9 +59,9 @@ type ProposalCall @entity {
 	proposal:                     Proposal!
 	index:                        Int!
 	target:                       Account!
-	value:                        BigInt!
-	signature:                    String!
-	calldata:                     Bytes!
+	value:                        BigInt
+	signature:                    String
+	calldata:                     Bytes
 }
 
 type Receipt @entity {

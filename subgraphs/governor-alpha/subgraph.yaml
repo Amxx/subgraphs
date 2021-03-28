@@ -26,6 +26,13 @@ dataSources:
           handler: handleProposalCreated1
         - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],string)
           handler: handleProposalCreated2
+        - event: ProposalCreated(uint256,address,address[],string[],bytes[],string)
+          handler: handleProposalCreated3
+        - event: ProposalCreated(indexed uint256,address,address[],uint256[],string[],bytes[],string,bool)
+          handler: handleProposalCreated4
+        - event: ProposalCreated(uint256,address,uint256,uint256,string)
+          handler: handleProposalCreated5
+
         - event: ProposalQueued(uint256,uint256)
           handler: handleProposalQueued
         - event: ProposalExecuted(uint256)
@@ -34,4 +41,4 @@ dataSources:
           handler: handleProposalCanceled
         - event: VoteCast(address,uint256,bool,uint256)
           handler: handleVoteCast
-      file: ./src/index.ts
+      file: ./src/handlers/index.ts
