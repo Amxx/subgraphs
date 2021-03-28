@@ -41,4 +41,4 @@ dataSources:
           handler: handleProposalCanceled
         - event: VoteCast(address,uint256,bool,uint256)
           handler: handleVoteCast
-      file: ./src/handlers/index.ts
+      file: ./src/index.ts

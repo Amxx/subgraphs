@@ -30,6 +30,7 @@ export function fetchGovernorAlpha(address: Address) : GovernorAlpha {
 		let guardian              = contract.try_guardian()
 
 		governoralpha = new GovernorAlpha(address.toHex())
+		governoralpha.proposalCount = 0
 		if (!name.reverted                 ) governoralpha.name                  = name.value
 		if (!quorumVotes.reverted          ) governoralpha.quorumVotes           = quorumVotes.value
 		if (!proposalThreshold.reverted    ) governoralpha.proposalThreshold     = proposalThreshold.value
@@ -39,7 +40,6 @@ export function fetchGovernorAlpha(address: Address) : GovernorAlpha {
 		if (!comp.reverted                 ) governoralpha.comp                  = fetchAccount(comp.value).id
 		if (!timelock.reverted             ) governoralpha.timelock              = fetchAccount(timelock.value).id
 		if (!guardian.reverted             ) governoralpha.guardian              = fetchAccount(guardian.value).id
-		governoralpha.proposalCount = 0
 		governoralpha.save()
 
 		let account             = fetchAccount(address)
