@@ -65,4 +65,7 @@ interface IGovernorBravo {
     function getActions(uint256 proposalId) external view returns (address[] memory targets, uint256[] memory values, string[] memory signatures, bytes[] memory calldatas);
     function getReceipt(uint256 proposalId, address voter) external view returns (Receipt memory);
     function state(uint256 proposalId) external view returns (ProposalState);
+
+    function DOMAIN_TYPEHASH() external view returns (bytes32);
+    function BALLOT_TYPEHASH() external view returns (bytes32);
 }

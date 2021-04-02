@@ -22,6 +22,7 @@ import {
 
 export function handleProposalExecuted(event: ProposalExecutedEvent): void {
 	let governor = fetchGovernor(event.address)
+	if (governor == null) return
 	governor.executedProposalCount++
 	governor.save()
 

@@ -22,6 +22,7 @@ import {
 
 export function handleProposalCanceled(event: ProposalCanceledEvent): void {
 	let governor = fetchGovernor(event.address)
+	if (governor == null) return
 	governor.canceledProposalCount++
 	governor.save()
 

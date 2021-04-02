@@ -25,8 +25,9 @@ import {
 	fetchGovernor,
 } from '../fetch'
 
-function handleProposalCreatedBase(event: ProposalCreatedEvent): Proposal {
+function handleProposalCreatedBase(event: ProposalCreatedEvent): Proposal | null {
 	let governor = fetchGovernor(event.address)
+	if (governor == null) return null
 	governor.proposalCount++
 	governor.save()
 
@@ -53,6 +54,7 @@ function handleProposalCreatedBase(event: ProposalCreatedEvent): Proposal {
 
 export function handleProposalCreated(event: ProposalCreatedEvent): void {
 	let proposal         = handleProposalCreatedBase(event as ProposalCreatedEvent)
+	if (proposal == null) return
 	proposal.startBlock  = event.params.startBlock
 	proposal.endBlock    = event.params.endBlock
 	proposal.description = event.params.description
@@ -76,6 +78,7 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 
 export function handleProposalCreated1(event: ProposalCreated1Event): void {
 	let proposal         = handleProposalCreatedBase(event as ProposalCreatedEvent)
+	if (proposal == null) return
 	proposal.startBlock  = event.params.startBlock
 	proposal.endBlock    = event.params.endBlock
 	proposal.title       = event.params.title
@@ -100,6 +103,7 @@ export function handleProposalCreated1(event: ProposalCreated1Event): void {
 
 export function handleProposalCreated2(event: ProposalCreated2Event): void {
 	let proposal         = handleProposalCreatedBase(event as ProposalCreatedEvent)
+	if (proposal == null) return
 	proposal.description = event.params.description
 	proposal.save()
 
@@ -121,6 +125,7 @@ export function handleProposalCreated2(event: ProposalCreated2Event): void {
 
 export function handleProposalCreated3(event: ProposalCreated3Event): void {
 	let proposal         = handleProposalCreatedBase(event as ProposalCreatedEvent)
+	if (proposal == null) return
 	proposal.description = event.params.description
 	proposal.save()
 
@@ -141,6 +146,7 @@ export function handleProposalCreated3(event: ProposalCreated3Event): void {
 
 export function handleProposalCreated4(event: ProposalCreated4Event): void {
 	let proposal         = handleProposalCreatedBase(event as ProposalCreatedEvent)
+	if (proposal == null) return
 	proposal.description = event.params.description
 	// event.params.expedited
 	proposal.save()
@@ -163,6 +169,7 @@ export function handleProposalCreated4(event: ProposalCreated4Event): void {
 
 export function handleProposalCreated5(event: ProposalCreated5Event): void {
 	let proposal         = handleProposalCreatedBase(event as ProposalCreatedEvent)
+	if (proposal == null) return
 	proposal.description = event.params.description
 	proposal.startBlock  = event.params.startBlock
 	proposal.endBlock    = event.params.endBlock

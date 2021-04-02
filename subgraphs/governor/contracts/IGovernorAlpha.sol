@@ -56,6 +56,9 @@ interface IGovernorAlpha {
     function getReceipt(uint256 proposalId, address voter) external view returns (Receipt memory);
     function state(uint256 proposalId) external view returns (ProposalState);
 
+    function DOMAIN_TYPEHASH() external view returns (bytes32);
+    function BALLOT_TYPEHASH() external view returns (bytes32);
+
     // ProposalCreated1
     event ProposalCreated(uint256 id, address proposer, address[] targets, uint256[] values, string[] signatures, bytes[] calldatas, uint256 startBlock, uint256 endBlock, string title, string description);
     // ProposalCreated2

@@ -18,12 +18,19 @@ import {
 	fetchAccount
 } from './account'
 
-export function fetchGovernor(address: Address) : Governor {
+export function fetchGovernor(address: Address) : Governor | null {
 	let governor = Governor.load(address.toHex())
 
 	if (governor == null) {
 		let contractAlpha         = IGovernorAlpha.bind(address)
 		let contractBravo         = IGovernorBravo.bind(address)
+
+		// sanity check
+		let ballot_typehash = contractAlpha.try_BALLOT_TYPEHASH()
+		if (ballot_typehash.reverted || ballot_typehash.value.toHex() != "0x8e25870c07e0b0b3884c78da52790939a455c275406c44ae8b434b692fb916ee") {
+			return null
+		}
+
 		let name                  = contractAlpha.try_name()
 		let quorumVotes           = contractAlpha.try_quorumVotes()
 		let proposalThreshold     = contractAlpha.try_proposalThreshold()
@@ -64,5 +71,5 @@ export function fetchGovernor(address: Address) : Governor {
 		account.save()
 	}
 
-	return governor as Governor
+	return governor
 }

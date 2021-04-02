@@ -28,6 +28,7 @@ import {
 
 export function handleNewAdmin(event: NewAdminEvent): void {
 	let governor               = fetchGovernor(event.address)
+	if (governor == null) return
 	governor.admin             = fetchAccount(event.params.newAdmin).id
 	governor.save()
 
@@ -42,6 +43,7 @@ export function handleNewAdmin(event: NewAdminEvent): void {
 
 export function handleNewPendingAdmin(event: NewPendingAdminEvent): void {
 	let governor               = fetchGovernor(event.address)
+	if (governor == null) return
 	governor.pendingAdmin      = fetchAccount(event.params.newPendingAdmin).id
 	governor.save()
 
@@ -56,6 +58,7 @@ export function handleNewPendingAdmin(event: NewPendingAdminEvent): void {
 
 export function handleNewImplementation(event: NewImplementationEvent): void {
 	let governor               = fetchGovernor(event.address)
+	if (governor == null) return
 	governor.implementation    = fetchAccount(event.params.newImplementation).id
 	governor.save()
 
@@ -70,6 +73,7 @@ export function handleNewImplementation(event: NewImplementationEvent): void {
 
 export function handleProposalThresholdSet(event: ProposalThresholdSetEvent): void {
 	let governor               = fetchGovernor(event.address)
+	if (governor == null) return
 	governor.proposalThreshold = event.params.newProposalThreshold
 	governor.save()
 
@@ -84,6 +88,7 @@ export function handleProposalThresholdSet(event: ProposalThresholdSetEvent): vo
 
 export function handleVotingDelaySet(event: VotingDelaySetEvent): void {
 	let governor               = fetchGovernor(event.address)
+	if (governor == null) return
 	governor.votingDelay       = event.params.newVotingDelay
 	governor.save()
 	// TODO eventset
@@ -99,6 +104,7 @@ export function handleVotingDelaySet(event: VotingDelaySetEvent): void {
 
 export function handleVotingPeriodSet(event: VotingPeriodSetEvent): void {
 	let governor               = fetchGovernor(event.address)
+	if (governor == null) return
 	governor.votingPeriod      = event.params.newVotingPeriod
 	governor.save()
 

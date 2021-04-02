@@ -22,6 +22,7 @@ import {
 
 export function handleProposalQueued(event: ProposalQueuedEvent): void {
 	let governor = fetchGovernor(event.address)
+	if (governor == null) return
 	governor.queuedProposalCount++
 	governor.save()
 

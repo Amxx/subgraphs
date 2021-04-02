@@ -30,6 +30,7 @@ import {
 
 export function handleVoteCast(event: VoteCastEvent): void {
 	let governor = fetchGovernor(event.address)
+	if (governor == null) return
 	let proposal = Proposal.load(governor.id.concat('/').concat(event.params.proposalId.toString()))
 
 	if (proposal != null) {
@@ -60,6 +61,7 @@ export function handleVoteCast(event: VoteCastEvent): void {
 
 export function handleVoteCastBravo(event: VoteCastBravoEvent): void {
 	let governor = fetchGovernor(event.address)
+	if (governor == null) return
 	let proposal = Proposal.load(governor.id.concat('/').concat(event.params.proposalId.toString()))
 
 	if (proposal != null) {
