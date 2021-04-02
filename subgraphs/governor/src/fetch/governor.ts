@@ -18,19 +18,23 @@ import {
 	fetchAccount
 } from './account'
 
+function isGovernor(address: Address): boolean {
+	// keccak256("Ballot(uint256 proposalId,bool support)");
+	// keccak256("Ballot(uint256 proposalId,uint8 support)");
+	let call = IGovernorAlpha.bind(address).try_BALLOT_TYPEHASH()
+	if (call.reverted) { return false }
+	let value = call.value.toHex()
+	if (value == "0x8e25870c07e0b0b3884c78da52790939a455c275406c44ae8b434b692fb916ee") { return true }
+	if (value == "0x150214d74d59b7d1e90c73fc22ef3d991dd0a76b046543d4d80ab92d2a50328f") { return true }
+	return false
+}
+
 export function fetchGovernor(address: Address) : Governor | null {
 	let governor = Governor.load(address.toHex())
 
-	if (governor == null) {
+	if (governor == null && isGovernor(address)) {
 		let contractAlpha         = IGovernorAlpha.bind(address)
 		let contractBravo         = IGovernorBravo.bind(address)
-
-		// sanity check
-		let ballot_typehash = contractAlpha.try_BALLOT_TYPEHASH()
-		if (ballot_typehash.reverted || ballot_typehash.value.toHex() != "0x8e25870c07e0b0b3884c78da52790939a455c275406c44ae8b434b692fb916ee") {
-			return null
-		}
-
 		let name                  = contractAlpha.try_name()
 		let quorumVotes           = contractAlpha.try_quorumVotes()
 		let proposalThreshold     = contractAlpha.try_proposalThreshold()

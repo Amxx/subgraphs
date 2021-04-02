@@ -9,7 +9,7 @@ dataSources:
     network: kovan
     source:
       abi: IGovernorAlpha
-      # startBlock: 9595178
+      startBlock: 18700000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -49,7 +49,7 @@ dataSources:
     network: kovan
     source:
       abi: IGovernorBravo
-      # startBlock: 9595178
+      startBlock: 18700000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
