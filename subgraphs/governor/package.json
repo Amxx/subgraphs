@@ -1,5 +1,5 @@
 {
-  "name": "@amxx/subgraphs-governor-alpha",
+  "name": "@amxx/subgraphs-compound-governance",
   "version": "1.0.0",
   "description": "",
   "author": "Hadrien Croubois (@Amxx)",
@@ -15,10 +15,12 @@
   "scripts": {
     "build:contract": "hardhat compile",
     "build:schema": "concat -o schema.graphql src/schema.gql node_modules/@amxx/graphprotocol-utils/schema.graphql",
-    "build:codegen": "graph codegen subgraph.yaml",
-    "build:compile": "graph build subgraph.yaml",
+    "build:codegen": "graph codegen subgraph.*.yaml",
+    "build:compile": "graph build subgraph.*.yaml",
     "build:all": "yarn build:contract && yarn build:schema && yarn build:codegen && yarn build:compile",
-    "deploy": "yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/governor-alpha"
+    "deploy:mainnet": "yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/compound-governance subgraph.mainnet.yaml",
+    "deploy:goerli": "yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/compound-governance-goerli subgraph.goerli.yaml",
+    "deploy:kovan": "yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/compound-governance-kovan subgraph.kovan.yaml"
   },
   "devDependencies": {
     "@amxx/graphprotocol-utils": "^0.0.8",

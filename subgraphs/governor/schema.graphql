@@ -1,9 +1,9 @@
 type Account @entity {
 	id:                           ID!
-	asGovernorAlpha:              GovernorAlpha
-	compFor:                      [GovernorAlpha!]! @derivedFrom(field: "comp")
-	timelockFor:                  [GovernorAlpha!]! @derivedFrom(field: "timelock")
-	guardianFor:                  [GovernorAlpha!]! @derivedFrom(field: "guardian")
+	asGovernor:                   Governor
+	compFor:                      [Governor!]! @derivedFrom(field: "comp")
+	timelockFor:                  [Governor!]! @derivedFrom(field: "timelock")
+	guardianFor:                  [Governor!]! @derivedFrom(field: "guardian")
 	proposals:                    [Proposal!]! @derivedFrom(field: "proposer")
 	targetedCalls:                [ProposalCall!]! @derivedFrom(field: "target")
 	receipts:                     [Receipt!]! @derivedFrom(field: "voter")
@@ -11,29 +11,35 @@ type Account @entity {
 	votecast:                     [VoteCast!]! @derivedFrom(field: "voter")
 }
 
-type GovernorAlpha @entity {
+type Governor @entity {
 	id:                           ID!
 	name:                         String # optional ? → missing in some forks
 	comp:                         Account # optional ? → missing/renames in some forks
 	timelock:                     Account # optional ?
-	guardian:                     Account # optional ?
+	guardian:                     Account # part of GovernorAlpha
+	admin:                        Account # part of GovernorBravo
+	pendingAdmin:                 Account # part of GovernorBravo
+	implementation:               Account # part of GovernorBravo
 	quorumVotes:                  BigInt # optional ?
 	proposalThreshold:            BigInt # optional ?
 	proposalMaxOperations:        BigInt # optional ?
 	votingDelay:                  BigInt # optional ?
 	votingPeriod:                 BigInt # optional ?
 	proposalCount:                Int!
-	proposals:                    [Proposal!]! @derivedFrom(field: "governoralpha")
-	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "governoralpha")
-	proposalqueued:               [ProposalQueued!]! @derivedFrom(field: "governoralpha")
-	proposalexecuted:             [ProposalExecuted!]! @derivedFrom(field: "governoralpha")
-	proposalcanceled:             [ProposalCanceled!]! @derivedFrom(field: "governoralpha")
-	votecast:                     [VoteCast!]! @derivedFrom(field: "governoralpha")
+	queuedProposalCount:          Int!
+	executedProposalCount:        Int!
+	canceledProposalCount:        Int!
+	proposals:                    [Proposal!]! @derivedFrom(field: "governor")
+	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "governor")
+	proposalqueued:               [ProposalQueued!]! @derivedFrom(field: "governor")
+	proposalexecuted:             [ProposalExecuted!]! @derivedFrom(field: "governor")
+	proposalcanceled:             [ProposalCanceled!]! @derivedFrom(field: "governor")
+	votecast:                     [VoteCast!]! @derivedFrom(field: "governor")
 }
 
 type Proposal @entity {
 	id:                           ID!
-	governoralpha:                GovernorAlpha!
+	governor:                     Governor!
 	proposalId:                   BigInt!
 	proposer:                     Account!
 	eta:                          BigInt # not set until queue
@@ -41,6 +47,7 @@ type Proposal @entity {
 	endBlock:                     BigInt # missing in some forks
 	forVotes:                     DecimalValue!
 	againstVotes:                 DecimalValue!
+	abstainVotes:                 DecimalValue!
 	canceled:                     Boolean!
 	executed:                     Boolean!
 	title:                        String # extension
@@ -64,11 +71,17 @@ type ProposalCall @entity {
 	calldata:                     Bytes
 }
 
+enum Support {
+	AGAINST
+	FOR
+	ABSTAIN
+}
+
 type Receipt @entity {
 	id:                           ID!
 	proposal:                     Proposal!
 	voter:                        Account!
-	support:                      Boolean!
+	support:                      Support!
 	votes:                        DecimalValue!
 }
 
@@ -76,7 +89,7 @@ type ProposalCreated implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
-	governoralpha:                GovernorAlpha!
+	governor:                     Governor!
 	proposal:                     Proposal!
 	proposer:                     Account!
 }
@@ -85,7 +98,7 @@ type ProposalQueued implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
-	governoralpha:                GovernorAlpha!
+	governor:                     Governor!
 	proposal:                     Proposal!
 	eta:                          BigInt!
 }
@@ -94,7 +107,7 @@ type ProposalExecuted implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
-	governoralpha:                GovernorAlpha!
+	governor:                     Governor!
 	proposal:                     Proposal!
 }
 
@@ -102,7 +115,7 @@ type ProposalCanceled implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
-	governoralpha:                GovernorAlpha!
+	governor:                     Governor!
 	proposal:                     Proposal!
 }
 
@@ -110,10 +123,64 @@ type VoteCast implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
-	governoralpha:                GovernorAlpha!
+	governor:                     Governor!
 	proposal:                     Proposal!
 	receipt:                      Receipt!
 	voter:                        Account!
+}
+
+type NewAdmin implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	governor:                     Governor!
+	oldAdmin:                     Account!
+	newAdmin:                     Account!
+}
+
+type NewPendingAdmin implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	governor:                     Governor!
+	oldPendingAdmin:              Account!
+	newPendingAdmin:              Account!
+}
+
+type NewImplementation implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	governor:                     Governor!
+	oldImplementation:            Account!
+	newImplementation:            Account!
+}
+
+type ProposalThresholdSet implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	governor:                     Governor!
+	oldProposalThreshold:         BigInt!
+	newProposalThreshold:         BigInt!
+}
+
+type VotingDelaySet implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	governor:                     Governor!
+	oldVotingDelay:               BigInt!
+	newVotingDelay:               BigInt!
+}
+
+type VotingPeriodSet implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	governor:                     Governor!
+	oldVotingPeriod:              BigInt!
+	newVotingPeriod:              BigInt!
 }
 
 type DecimalValue @entity {
