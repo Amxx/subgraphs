@@ -4,6 +4,9 @@ type Account @entity {
 	compFor:                      [Governor!]! @derivedFrom(field: "comp")
 	timelockFor:                  [Governor!]! @derivedFrom(field: "timelock")
 	guardianFor:                  [Governor!]! @derivedFrom(field: "guardian")
+	adminFor:                     [Governor!]! @derivedFrom(field: "admin")
+	pendingAdminFor:              [Governor!]! @derivedFrom(field: "pendingAdmin")
+	implementationFor:            [Governor!]! @derivedFrom(field: "implementation")
 	proposals:                    [Proposal!]! @derivedFrom(field: "proposer")
 	targetedCalls:                [ProposalCall!]! @derivedFrom(field: "target")
 	receipts:                     [Receipt!]! @derivedFrom(field: "voter")
@@ -35,6 +38,12 @@ type Governor @entity {
 	proposalexecuted:             [ProposalExecuted!]! @derivedFrom(field: "governor")
 	proposalcanceled:             [ProposalCanceled!]! @derivedFrom(field: "governor")
 	votecast:                     [VoteCast!]! @derivedFrom(field: "governor")
+	newadmin:                     [NewAdmin!]! @derivedFrom(field: "governor")
+	newpendingadmin:              [NewPendingAdmin!]! @derivedFrom(field: "governor")
+	newimplementation:            [NewImplementation!]! @derivedFrom(field: "governor")
+	proposalthresholdset:         [ProposalThresholdSet!]! @derivedFrom(field: "governor")
+	votingdelayset:               [VotingDelaySet!]! @derivedFrom(field: "governor")
+	votingperiodset:              [VotingPeriodSet!]! @derivedFrom(field: "governor")
 }
 
 type Proposal @entity {
