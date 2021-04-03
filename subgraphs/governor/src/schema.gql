@@ -14,8 +14,14 @@ type Account @entity {
 	votecast:                     [VoteCast!]! @derivedFrom(field: "voter")
 }
 
+enum GovernorType {
+	ALPHA
+	BRABO
+}
+
 type Governor @entity {
 	id:                           ID!
+	type:                         GovernorType!
 	name:                         String # optional ? → missing in some forks
 	comp:                         Account # optional ? → missing/renames in some forks
 	timelock:                     Account # optional ?

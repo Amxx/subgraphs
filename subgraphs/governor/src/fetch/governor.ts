@@ -18,21 +18,22 @@ import {
 	fetchAccount
 } from './account'
 
-function isGovernor(address: Address): boolean {
-	// keccak256("Ballot(uint256 proposalId,bool support)");
-	// keccak256("Ballot(uint256 proposalId,uint8 support)");
+function governorType(address: Address): string | null {
 	let call = IGovernorAlpha.bind(address).try_BALLOT_TYPEHASH()
-	if (call.reverted) { return false }
+	if (call.reverted) { return null }
 	let value = call.value.toHex()
-	if (value == "0x8e25870c07e0b0b3884c78da52790939a455c275406c44ae8b434b692fb916ee") { return true }
-	if (value == "0x150214d74d59b7d1e90c73fc22ef3d991dd0a76b046543d4d80ab92d2a50328f") { return true }
-	return false
+	if (value == "0x8e25870c07e0b0b3884c78da52790939a455c275406c44ae8b434b692fb916ee") { return 'ALPHA' } // keccak256("Ballot(uint256 proposalId,bool support)");
+	if (value == "0x150214d74d59b7d1e90c73fc22ef3d991dd0a76b046543d4d80ab92d2a50328f") { return 'BRAVO' } // keccak256("Ballot(uint256 proposalId,uint8 support)");
+	return null
 }
 
 export function fetchGovernor(address: Address) : Governor | null {
 	let governor = Governor.load(address.toHex())
 
-	if (governor == null && isGovernor(address)) {
+	if (governor == null) {
+		let type                  = governorType(address)
+		if (type == null) { return null }
+
 		let contractAlpha         = IGovernorAlpha.bind(address)
 		let contractBravo         = IGovernorBravo.bind(address)
 		let name                  = contractAlpha.try_name()
@@ -49,6 +50,7 @@ export function fetchGovernor(address: Address) : Governor | null {
 		let implementation        = contractBravo.try_implementation()
 
 		governor                       = new Governor(address.toHex())
+		governor.type                  = type
 		governor.proposalCount         = 0
 		governor.queuedProposalCount   = 0
 		governor.executedProposalCount = 0
