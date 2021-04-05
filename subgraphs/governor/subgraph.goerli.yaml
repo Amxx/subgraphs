@@ -43,7 +43,7 @@ dataSources:
           handler: handleProposalCreated4
         - event: ProposalCreated(uint256,address,uint256,uint256,string)
           handler: handleProposalCreated5
-      file: ./src/index.ts
+      file: ./src/alpha.ts
   - kind: ethereum/contract
     name: GovernorBravo
     network: goerli
@@ -76,4 +76,4 @@ dataSources:
           handler: handleVotingDelaySet
         - event: VotingPeriodSet(uint256,uint256)
           handler: handleVotingPeriodSet
-      file: ./src/index.ts
+      file: ./src/bravo.ts

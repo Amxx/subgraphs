@@ -8,12 +8,5 @@ export {
 	handleProposalQueued,
 	handleProposalExecuted,
 	handleProposalCanceled,
-	handleVoteCast,
-	handleVoteCastBravo,
-	handleNewAdmin,
-	handleNewPendingAdmin,
-	handleNewImplementation,
-	handleProposalThresholdSet,
-	handleVotingDelaySet,
-	handleVotingPeriodSet,
+	handleVoteCastAlpha as handleVoteCast,
 } from './handlers';

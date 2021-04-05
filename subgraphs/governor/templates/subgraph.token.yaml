@@ -1,0 +1,26 @@
+  - kind: ethereum/contract
+    name: Comp
+    network: {blockchain}
+    source:
+      abi: IComp
+      address: '{tokenAddress}'
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Token
+      abis:
+        - name: IComp
+          file: ./artifacts/contracts/IComp.sol/IComp.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: DelegateChanged(indexed address,indexed address,indexed address)
+          handler: handleDelegateChanged
+        - event: DelegateVotesChanged(indexed address,uint256,uint256)
+          handler: handleDelegateVotesChanged
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/comp.ts

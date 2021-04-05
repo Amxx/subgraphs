@@ -1,0 +1,30 @@
+  - kind: ethereum/contract
+    name: GovernorAlpha
+    network: {blockchain}
+    source:
+      abi: IGovernorAlpha
+      address: '{governorAddress}'
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - GovernorAlpha
+      abis:
+        - name: IGovernorAlpha
+          file: ./artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json
+        - name: IGovernorBravo
+          file: ./artifacts/contracts/IGovernorBravo.sol/IGovernorBravo.json
+      eventHandlers:
+        - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)
+          handler: handleProposalCreated
+        - event: ProposalQueued(uint256,uint256)
+          handler: handleProposalQueued
+        - event: ProposalExecuted(uint256)
+          handler: handleProposalExecuted
+        - event: ProposalCanceled(uint256)
+          handler: handleProposalCanceled
+        - event: VoteCast(address,uint256,bool,uint256)
+          handler: handleVoteCast
+      file: ./src/alpha.ts

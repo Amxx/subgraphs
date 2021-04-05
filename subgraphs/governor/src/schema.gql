@@ -1,6 +1,9 @@
 type Account @entity {
 	id:                           ID!
+
 	asGovernor:                   Governor
+	asToken:                      Token
+
 	compFor:                      [Governor!]! @derivedFrom(field: "comp")
 	timelockFor:                  [Governor!]! @derivedFrom(field: "timelock")
 	guardianFor:                  [Governor!]! @derivedFrom(field: "guardian")
@@ -12,11 +15,24 @@ type Account @entity {
 	receipts:                     [Receipt!]! @derivedFrom(field: "voter")
 	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "proposer")
 	votecast:                     [VoteCast!]! @derivedFrom(field: "voter")
+
+	balances:                     [Balance!]! @derivedFrom(field: "account")
+	votes:                        [Votes!]! @derivedFrom(field: "account")
+	delegationFrom:               [Delegation!]! @derivedFrom(field: "delegator")
+	delegationTo:                 [Delegation!]! @derivedFrom(field: "delegate")
+	transfersFrom:                [Transfer!]! @derivedFrom(field: "from")
+	transfersTo:                  [Transfer!]! @derivedFrom(field: "to")
+	approvalsOwner:               [Approval!]! @derivedFrom(field: "owner")
+	approvalsSpender:             [Approval!]! @derivedFrom(field: "spender")
+
 }
 
+###############################################################################
+#                                  Governor                                   #
+###############################################################################
 enum GovernorType {
 	ALPHA
-	BRABO
+	BRAVO
 }
 
 type Governor @entity {
@@ -196,4 +212,83 @@ type VotingPeriodSet implements Event @entity {
 	governor:                     Governor!
 	oldVotingPeriod:              BigInt!
 	newVotingPeriod:              BigInt!
+}
+
+###############################################################################
+#                                ERC20 + Comp                                 #
+###############################################################################
+type Token @entity {
+	id:                           ID!
+	name:                         String
+	symbol:                       String
+	decimals:                     Int!
+	balances:                     [Balance!]! @derivedFrom(field: "token")
+	votes:                        [Votes!]! @derivedFrom(field: "token")
+	delegations:                  [Delegation!]! @derivedFrom(field: "token")
+	transfers:                    [Transfer!]! @derivedFrom(field: "token")
+	approvals:                    [Approval!]! @derivedFrom(field: "token")
+}
+
+type Balance @entity {
+	id:                           ID!
+	token:                        Token!
+	account:                      Account!
+	value:                        DecimalValue!
+	transfersFrom:                [Transfer!]! @derivedFrom(field: "fromBalance")
+	transfersTo:                  [Transfer!]! @derivedFrom(field: "toBalance")
+}
+
+type Votes @entity {
+	id:                           ID!
+	token:                        Token!
+	account:                      Account!
+	value:                        DecimalValue!
+}
+
+type Delegation @entity {
+	id:                           ID!
+	token:                        Token!
+	delegator:                    Account!
+	delegate:                     Account!
+}
+
+type Transfer implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	token:                        Token!
+	from:                         Account!
+	fromBalance:                  Balance
+	to:                           Account!
+	toBalance:                    Balance
+	value:                        BigDecimal!
+}
+
+type Approval implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	token:                        Token!
+	owner:                        Account!
+	spender:                      Account!
+	value:                        BigDecimal!
+}
+
+type DelegateChanged implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	token:                        Token!
+	delegator:                    Account!
+	fromDelegate:                 Account!
+	toDelegate:                   Account!
+}
+
+type DelegateVotesChanged implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	token:                        Token!
+	delegate:                     Account!
+	balance:                      DecimalValue!
 }

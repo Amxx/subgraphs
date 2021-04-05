@@ -1,0 +1,74 @@
+specVersion: 0.0.2
+description: compound-governor
+repository: https://github.com/amxx/subgraphs
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: GovernorBravo
+    network: kovan
+    source:
+      abi: IGovernorBravo
+      address: '0x8e27607ceF3E2EAf1EC01101eEbFcA5a25884940'
+      startBlock: 18750992
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - GovernorBravo
+      abis:
+        - name: IGovernorAlpha
+          file: ./artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json
+        - name: IGovernorBravo
+          file: ./artifacts/contracts/IGovernorBravo.sol/IGovernorBravo.json
+      eventHandlers:
+        - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)
+          handler: handleProposalCreated
+        - event: ProposalQueued(uint256,uint256)
+          handler: handleProposalQueued
+        - event: ProposalExecuted(uint256)
+          handler: handleProposalExecuted
+        - event: ProposalCanceled(uint256)
+          handler: handleProposalCanceled
+        - event: VoteCast(indexed address,uint256,uint8,uint256,string)
+          handler: handleVoteCast
+        - event: NewAdmin(address,address)
+          handler: handleNewAdmin
+        - event: NewImplementation(address,address)
+          handler: handleNewImplementation
+        - event: NewPendingAdmin(address,address)
+          handler: handleNewPendingAdmin
+        - event: ProposalThresholdSet(uint256,uint256)
+          handler: handleProposalThresholdSet
+        - event: VotingDelaySet(uint256,uint256)
+          handler: handleVotingDelaySet
+        - event: VotingPeriodSet(uint256,uint256)
+          handler: handleVotingPeriodSet
+      file: ./src/bravo.ts
+  - kind: ethereum/contract
+    name: Comp
+    network: kovan
+    source:
+      abi: IComp
+      address: '0x61460874a7196d6a22D1eE4922473664b3E95270'
+      startBlock: 18750992
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Token
+      abis:
+        - name: IComp
+          file: ./artifacts/contracts/IComp.sol/IComp.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: DelegateChanged(indexed address,indexed address,indexed address)
+          handler: handleDelegateChanged
+        - event: DelegateVotesChanged(indexed address,uint256,uint256)
+          handler: handleDelegateVotesChanged
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/comp.ts

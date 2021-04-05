@@ -9,7 +9,7 @@ import {
 } from '../../generated/schema'
 
 import {
-	VoteCast as VoteCastEvent,
+	VoteCast as VoteCastAlphaEvent,
 } from '../../generated/GovernorAlpha/IGovernorAlpha'
 
 import {
@@ -17,7 +17,6 @@ import {
 } from '../../generated/GovernorBravo/IGovernorBravo'
 
 import {
-	decimals,
 	events,
 	transactions,
 } from '@amxx/graphprotocol-utils'
@@ -28,7 +27,7 @@ import {
 	fetchGovernor,
 } from '../fetch'
 
-export function handleVoteCast(event: VoteCastEvent): void {
+export function handleVoteCastAlpha(event: VoteCastAlphaEvent): void {
 	let governor = fetchGovernor(event.address)
 	if (governor == null) return
 	let proposal = Proposal.load(governor.id.concat('/').concat(event.params.proposalId.toString()))

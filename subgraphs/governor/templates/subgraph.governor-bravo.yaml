@@ -1,0 +1,42 @@
+  - kind: ethereum/contract
+    name: GovernorBravo
+    network: {blockchain}
+    source:
+      abi: IGovernorBravo
+      address: '{governorAddress}'
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - GovernorBravo
+      abis:
+        - name: IGovernorAlpha
+          file: ./artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json
+        - name: IGovernorBravo
+          file: ./artifacts/contracts/IGovernorBravo.sol/IGovernorBravo.json
+      eventHandlers:
+        - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)
+          handler: handleProposalCreated
+        - event: ProposalQueued(uint256,uint256)
+          handler: handleProposalQueued
+        - event: ProposalExecuted(uint256)
+          handler: handleProposalExecuted
+        - event: ProposalCanceled(uint256)
+          handler: handleProposalCanceled
+        - event: VoteCast(indexed address,uint256,uint8,uint256,string)
+          handler: handleVoteCast
+        - event: NewAdmin(address,address)
+          handler: handleNewAdmin
+        - event: NewImplementation(address,address)
+          handler: handleNewImplementation
+        - event: NewPendingAdmin(address,address)
+          handler: handleNewPendingAdmin
+        - event: ProposalThresholdSet(uint256,uint256)
+          handler: handleProposalThresholdSet
+        - event: VotingDelaySet(uint256,uint256)
+          handler: handleVotingDelaySet
+        - event: VotingPeriodSet(uint256,uint256)
+          handler: handleVotingPeriodSet
+      file: ./src/bravo.ts
