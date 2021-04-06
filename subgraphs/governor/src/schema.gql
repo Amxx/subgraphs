@@ -17,7 +17,7 @@ type Account @entity {
 	votecast:                     [VoteCast!]! @derivedFrom(field: "voter")
 
 	balances:                     [Balance!]! @derivedFrom(field: "account")
-	votes:                        [Votes!]! @derivedFrom(field: "account")
+	votingPowers:                 [VotingPower!]! @derivedFrom(field: "account")
 	delegationFrom:               [Delegation!]! @derivedFrom(field: "delegator")
 	delegationTo:                 [Delegation!]! @derivedFrom(field: "delegate")
 	transfersFrom:                [Transfer!]! @derivedFrom(field: "from")
@@ -223,7 +223,7 @@ type Token @entity {
 	symbol:                       String
 	decimals:                     Int!
 	balances:                     [Balance!]! @derivedFrom(field: "token")
-	votes:                        [Votes!]! @derivedFrom(field: "token")
+	votingPowers:                 [VotingPower!]! @derivedFrom(field: "token")
 	delegations:                  [Delegation!]! @derivedFrom(field: "token")
 	transfers:                    [Transfer!]! @derivedFrom(field: "token")
 	approvals:                    [Approval!]! @derivedFrom(field: "token")
@@ -238,7 +238,7 @@ type Balance @entity {
 	transfersTo:                  [Transfer!]! @derivedFrom(field: "toBalance")
 }
 
-type Votes @entity {
+type VotingPower @entity {
 	id:                           ID!
 	token:                        Token!
 	account:                      Account!

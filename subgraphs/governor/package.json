@@ -16,7 +16,7 @@
     "prepublish": "rimraf artifacts build cache generated",
     "prepare": "yarn prepare:contracts && yarn prepare:schema",
     "prepare:contracts": "hardhat compile",
-    "prepare:schema": "mkdir -p generated && concat -o generated/schema.graphql src/schema.gql node_modules/@amxx/graphprotocol-utils/schema.graphql",
+    "prepare:schema": "mkdir -p generated && concat -o generated/schema.graphql src/schema.gql node_modules/@amxx/graphprotocol-utils/generated/schema.graphql",
     "setup": "templates/generator.js",
     "build": "yarn build:codegen && yarn build:compile",
     "build:codegen": "graph codegen ${SUBGRAPH:-generated/subgraph.yaml}",
@@ -28,7 +28,7 @@
     "deploy:sandbox": "NAME=amxx/sandbox SUBGRAPH=generated/subgraph.yaml yarn deploy"
   },
   "devDependencies": {
-    "@amxx/graphprotocol-utils": "^0.0.8",
+    "@amxx/graphprotocol-utils": "^0.1.0",
     "@graphprotocol/graph-cli": "^0.20.0",
     "@graphprotocol/graph-ts": "^0.20.0",
     "concat": "^1.0.3",

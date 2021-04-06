@@ -1,6 +1,5 @@
 import {
-	Account,
-	Votes,
+	VotingPower,
 	Delegation,
 	DelegateChanged,
 	DelegateVotesChanged,
@@ -13,7 +12,6 @@ import {
 } from '../../generated/Comp/IComp'
 
 import {
-	constants,
 	decimals,
 	events,
 	transactions,
@@ -57,7 +55,7 @@ export function handleDelegateVotesChanged(event: DelegateVotesChangedEvent): vo
 
 	let delegate = fetchAccount(event.params.delegate)
 
-	let votes     = new Votes(token.id.concat('/').concat(delegate.id))
+	let votes     = new VotingPower(token.id.concat('/').concat(delegate.id))
 	let value     = new decimals.Value(votes.id, token.decimals)
 	value.set(event.params.newBalance)
 	votes.token   = token.id
