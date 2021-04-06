@@ -69,7 +69,7 @@ dataSources:
         - event: NewPendingAdmin(address,address)
           handler: handleNewPendingAdmin
         - event: VoteCast(indexed address,uint256,uint8,uint256,string)
-          handler: handleVoteCastBravo
+          handler: handleVoteCast
         - event: ProposalThresholdSet(uint256,uint256)
           handler: handleProposalThresholdSet
         - event: VotingDelaySet(uint256,uint256)
