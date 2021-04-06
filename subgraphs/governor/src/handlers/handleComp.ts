@@ -21,8 +21,11 @@ import {
 
 import {
 	fetchAccount,
+} from '../fetch/account'
+
+import {
 	fetchToken,
-} from '../fetch'
+} from '../fetch/token'
 
 export function handleDelegateChanged(event: DelegateChangedEvent): void {
 	let token = fetchToken(event.address)

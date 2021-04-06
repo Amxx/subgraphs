@@ -4,6 +4,7 @@
 
 const ethers  = require('ethers');
 const fs      = require('fs');
+const path    = require('path');
 const prompts = require('prompts');
 const yargs   = require('yargs');
 
@@ -77,7 +78,7 @@ const yargs   = require('yargs');
     type: (_, { components }) => components.length && 'text',
     name: 'path',
     message: 'Result path',
-    initial: './subgraph.yaml',
+    initial: './generated/subgraph.yaml',
   }]);
 
   const subgraph = [
@@ -92,6 +93,7 @@ const yargs   = require('yargs');
   .reduce((acc, content) => acc + content, '');
 
   if (responces.path) {
+    fs.mkdirSync(path.dirname(responces.path), { recursive: true });
     fs.writeFileSync(responces.path, subgraph, { encoding: 'utf-8' });
   } else {
     console.log(subgraph);

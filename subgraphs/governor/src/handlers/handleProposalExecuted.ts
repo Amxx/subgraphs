@@ -9,7 +9,7 @@ import {
 
 import {
 	ProposalExecuted as ProposalExecutedEvent,
-} from '../../generated/GovernorAlpha/IGovernorAlpha'
+} from '../../generated/Governor/IGovernorAlpha'
 
 import {
 	events,
@@ -18,7 +18,7 @@ import {
 
 import {
 	fetchGovernor,
-} from '../fetch'
+} from '../fetch/governor'
 
 export function handleProposalExecuted(event: ProposalExecutedEvent): void {
 	let governor = fetchGovernor(event.address)

@@ -1,5 +1,4 @@
 import {
-	Account,
 	Balance,
 	Transfer,
 	Approval,
@@ -19,17 +18,19 @@ import {
 } from '@amxx/graphprotocol-utils'
 
 import {
+	fetchAccount,
+} from '../fetch/account'
+
+import {
 	fetchToken,
-} from '../fetch'
+} from '../fetch/token'
 
 export function handleTransfer(event: TransferEvent): void {
 	let token = fetchToken(event.address)
 	if (token == null) return
 
-	let from  = new Account(event.params.from.toHex())
-	let to    = new Account(event.params.to.toHex())
-	from.save()
-	to.save()
+	let from  = fetchAccount(event.params.from)
+	let to    = fetchAccount(event.params.to)
 
 	let ev         = new Transfer(events.id(event))
 	ev.transaction = transactions.log(event).id
@@ -85,10 +86,8 @@ export function handleApproval(event: ApprovalEvent): void {
 	let token   = fetchToken(event.address)
 	if (token == null) return
 
-	let owner   = new Account(event.params.owner.toHex())
-	let spender = new Account(event.params.spender.toHex())
-	owner.save()
-	spender.save()
+	let owner   = fetchAccount(event.params.owner)
+	let spender = fetchAccount(event.params.spender)
 
 	let ev         = new Approval(events.id(event))
 	ev.transaction = transactions.log(event).id

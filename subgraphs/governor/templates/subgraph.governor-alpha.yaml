@@ -2,7 +2,7 @@
     name: GovernorAlpha
     network: {blockchain}
     source:
-      abi: IGovernorAlpha
+      abi: IGovernor
       address: '{governorAddress}'
       startBlock: {startBlock}
     mapping:
@@ -13,9 +13,9 @@
         - GovernorAlpha
       abis:
         - name: IGovernorAlpha
-          file: ./artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json
+          file: ../artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json
         - name: IGovernorBravo
-          file: ./artifacts/contracts/IGovernorBravo.sol/IGovernorBravo.json
+          file: ../artifacts/contracts/IGovernorBravo.sol/IGovernorBravo.json
       eventHandlers:
         - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)
           handler: handleProposalCreated
@@ -27,4 +27,4 @@
           handler: handleProposalCanceled
         - event: VoteCast(address,uint256,bool,uint256)
           handler: handleVoteCast
-      file: ./src/alpha.ts
+      file: ../src/alpha.ts

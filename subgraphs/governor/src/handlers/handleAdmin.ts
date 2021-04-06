@@ -14,7 +14,7 @@ import {
 	ProposalThresholdSet as ProposalThresholdSetEvent,
 	VotingDelaySet       as VotingDelaySetEvent,
 	VotingPeriodSet      as VotingPeriodSetEvent,
-} from '../../generated/GovernorBravo/IGovernorBravo'
+} from '../../generated/Governor/IGovernorBravo'
 
 import {
 	events,
@@ -23,8 +23,11 @@ import {
 
 import {
 	fetchAccount,
+} from '../fetch/account'
+
+import {
 	fetchGovernor,
-} from '../fetch'
+} from '../fetch/governor'
 
 export function handleNewAdmin(event: NewAdminEvent): void {
 	let governor               = fetchGovernor(event.address)
@@ -91,7 +94,6 @@ export function handleVotingDelaySet(event: VotingDelaySetEvent): void {
 	if (governor == null) return
 	governor.votingDelay       = event.params.newVotingDelay
 	governor.save()
-	// TODO eventset
 
 	let ev                     = new VotingDelaySet(events.id(event))
 	ev.transaction             = transactions.log(event).id

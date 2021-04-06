@@ -2,10 +2,10 @@ specVersion: 0.0.2
 description: compound-governor
 repository: https://github.com/amxx/subgraphs
 schema:
-  file: ./schema.graphql
+  file: ./generated/schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: GovernorAlpha
+    name: Governor
     network: mainnet
     source:
       abi: IGovernorAlpha
@@ -15,7 +15,7 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - GovernorAlpha
+        - Governor
       abis:
         - name: IGovernorAlpha
           file: ./artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json
@@ -45,7 +45,7 @@ dataSources:
           handler: handleProposalCreated5
       file: ./src/alpha.ts
   - kind: ethereum/contract
-    name: GovernorBravo
+    name: Governor2
     network: mainnet
     source:
       abi: IGovernorBravo
@@ -55,7 +55,7 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - GovernorBravo
+        - Governor
       abis:
         - name: IGovernorAlpha
           file: ./artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json

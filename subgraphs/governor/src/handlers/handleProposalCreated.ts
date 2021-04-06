@@ -11,7 +11,7 @@ import {
 	ProposalCreated3 as ProposalCreated3Event,
 	ProposalCreated4 as ProposalCreated4Event,
 	ProposalCreated5 as ProposalCreated5Event,
-} from '../../generated/GovernorAlpha/IGovernorAlpha'
+} from '../../generated/Governor/IGovernorAlpha'
 
 import {
 	constants,
@@ -21,9 +21,15 @@ import {
 
 import {
 	fetchAccount,
+} from '../fetch/account'
+
+import {
 	fetchDecimal,
+} from '../fetch/decimals'
+
+import {
 	fetchGovernor,
-} from '../fetch'
+} from '../fetch/governor'
 
 function handleProposalCreatedBase(event: ProposalCreatedEvent): Proposal | null {
 	let governor = fetchGovernor(event.address)

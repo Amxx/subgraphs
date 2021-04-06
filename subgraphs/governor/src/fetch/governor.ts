@@ -8,11 +8,11 @@ import {
 
 import {
 	IGovernorAlpha as IGovernorAlpha,
-} from '../../generated/GovernorAlpha/IGovernorAlpha'
+} from '../../generated/Governor/IGovernorAlpha'
 
 import {
 	IGovernorBravo as IGovernorBravo,
-} from '../../generated/GovernorBravo/IGovernorBravo'
+} from '../../generated/Governor/IGovernorBravo'
 
 import {
 	fetchAccount

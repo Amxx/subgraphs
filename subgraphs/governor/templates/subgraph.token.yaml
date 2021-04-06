@@ -13,7 +13,7 @@
         - Token
       abis:
         - name: IComp
-          file: ./artifacts/contracts/IComp.sol/IComp.json
+          file: ../artifacts/contracts/IComp.sol/IComp.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
@@ -23,4 +23,4 @@
           handler: handleDelegateVotesChanged
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/comp.ts
+      file: ../src/comp.ts

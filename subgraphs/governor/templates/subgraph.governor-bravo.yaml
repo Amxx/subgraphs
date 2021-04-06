@@ -2,7 +2,7 @@
     name: GovernorBravo
     network: {blockchain}
     source:
-      abi: IGovernorBravo
+      abi: IGovernor
       address: '{governorAddress}'
       startBlock: {startBlock}
     mapping:
@@ -13,9 +13,9 @@
         - GovernorBravo
       abis:
         - name: IGovernorAlpha
-          file: ./artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json
+          file: ../artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json
         - name: IGovernorBravo
-          file: ./artifacts/contracts/IGovernorBravo.sol/IGovernorBravo.json
+          file: ../artifacts/contracts/IGovernorBravo.sol/IGovernorBravo.json
       eventHandlers:
         - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)
           handler: handleProposalCreated
@@ -39,4 +39,4 @@
           handler: handleVotingDelaySet
         - event: VotingPeriodSet(uint256,uint256)
           handler: handleVotingPeriodSet
-      file: ./src/bravo.ts
+      file: ../src/bravo.ts

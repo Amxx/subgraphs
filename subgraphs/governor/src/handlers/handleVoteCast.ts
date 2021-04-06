@@ -10,11 +10,11 @@ import {
 
 import {
 	VoteCast as VoteCastAlphaEvent,
-} from '../../generated/GovernorAlpha/IGovernorAlpha'
+} from '../../generated/Governor/IGovernorAlpha'
 
 import {
 	VoteCast as VoteCastBravoEvent,
-} from '../../generated/GovernorBravo/IGovernorBravo'
+} from '../../generated/Governor/IGovernorBravo'
 
 import {
 	events,
@@ -23,9 +23,15 @@ import {
 
 import {
 	fetchAccount,
+} from '../fetch/account'
+
+import {
 	fetchDecimal,
+} from '../fetch/decimals'
+
+import {
 	fetchGovernor,
-} from '../fetch'
+} from '../fetch/governor'
 
 export function handleVoteCastAlpha(event: VoteCastAlphaEvent): void {
 	let governor = fetchGovernor(event.address)
