@@ -20,7 +20,7 @@ Queries examples
 List of known governance instances, with name, and address, type and proposal count
 ```
 {
-	governors{
+	governors {
 		id
 		name
 		type
@@ -41,12 +41,10 @@ List of proposals in a specific governance instance, with proposer
 			forVotes { value }
 			againstVotes { value }
 			abstainVotes { value }
-			votecast {
+			receipts {
 				voter { id }
-				receipt {
-					support
-					votes { id }
-				}
+				support
+				votes { value}
 			}
 		}
 	}
@@ -56,56 +54,56 @@ List of proposals in a specific governance instance, with proposer
 Latest 5 proposal in a specific governance instance with proposal details
 ```
 {
-  proposalCreateds(
-    first: 5
-    orderBy: timestamp
-    orderDirection: desc
-    where: { governor: "0xc0da01a04c3f3e0be433606045bb7017a7323e38"}
-  ) {
-    timestamp
-    proposal {
-      description
-      startBlock
-      endBlock
-      executed
-      canceled
-      calls {
-        target { id }
-        value
-        signature
-        calldata
-      }
-    }
-  }
+	proposalCreateds(
+		first: 5
+		orderBy: timestamp
+		orderDirection: desc
+		where: { governor: "0xc0da01a04c3f3e0be433606045bb7017a7323e38"}
+	) {
+		timestamp
+		proposal {
+			description
+			startBlock
+			endBlock
+			executed
+			canceled
+			calls {
+				target { id }
+				value
+				signature
+				calldata
+			}
+		}
+	}
 }
 ```
 
 All proposal by an account
 ```
 {
-  account(id: "0x6626593c237f530d15ae9980a95ef938ac15c35c") {
-    proposals {
-      governor { name }
-      description
-    }
-  }
+	account(id: "0x6626593c237f530d15ae9980a95ef938ac15c35c") {
+		proposals {
+			governor { name }
+			description
+		}
+	}
 }
 ```
 
 Latest votes by an account, with timestamp and details about the corresponding proposal
 ```
 {
-  account(id: "0x1f766d64ccb4b7e63a6cf347c5ff859a8697f6dd") {
-    votecast(orderBy: timestamp, orderDirection: desc) {
-      timestamp
-      governor { name }
-      proposal { description }
-      receipt {
-        support
-        votes { value }
-      }
-    }
-  }
+	account(id: "0x1f766d64ccb4b7e63a6cf347c5ff859a8697f6dd") {
+		votecast(orderBy: timestamp, orderDirection: desc) {
+			timestamp
+			governor { name }
+			proposal { description }
+			receipt {
+				support
+				votes { value }
+			}
+		}
+	}
 }
 ```
 
