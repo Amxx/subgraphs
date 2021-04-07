@@ -10,7 +10,6 @@ interface ITimelock {
 
     function admin() external view returns (address);
     function pendingAdmin() external view returns (address);
-    function implementation() external view returns (address);
 
     function delay() external view returns (uint256);
     function GRACE_PERIOD() external view returns (uint256);

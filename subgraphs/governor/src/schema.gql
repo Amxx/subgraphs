@@ -3,6 +3,7 @@ type Account @entity {
 
 	asGovernor:                   Governor
 	asToken:                      Token
+	asTimelock:                   Timelock
 
 	compFor:                      [Governor!]! @derivedFrom(field: "comp")
 	timelockFor:                  [Governor!]! @derivedFrom(field: "timelock")
@@ -25,6 +26,7 @@ type Account @entity {
 	approvalsOwner:               [Approval!]! @derivedFrom(field: "owner")
 	approvalsSpender:             [Approval!]! @derivedFrom(field: "spender")
 
+	targetedTransactions:         [TimelockTransaction!]! @derivedFrom(field: "target")
 }
 
 ###############################################################################
@@ -60,9 +62,9 @@ type Governor @entity {
 	proposalexecuted:             [ProposalExecuted!]! @derivedFrom(field: "governor")
 	proposalcanceled:             [ProposalCanceled!]! @derivedFrom(field: "governor")
 	votecast:                     [VoteCast!]! @derivedFrom(field: "governor")
-	newadmin:                     [NewAdmin!]! @derivedFrom(field: "governor")
-	newpendingadmin:              [NewPendingAdmin!]! @derivedFrom(field: "governor")
-	newimplementation:            [NewImplementation!]! @derivedFrom(field: "governor")
+	newadmin:                     [NewGovernanceAdmin!]! @derivedFrom(field: "governor")
+	newpendingadmin:              [NewGovernancePendingAdmin!]! @derivedFrom(field: "governor")
+	newimplementation:            [NewGovernanceImplementation!]! @derivedFrom(field: "governor")
 	proposalthresholdset:         [ProposalThresholdSet!]! @derivedFrom(field: "governor")
 	votingdelayset:               [VotingDelaySet!]! @derivedFrom(field: "governor")
 	votingperiodset:              [VotingPeriodSet!]! @derivedFrom(field: "governor")
@@ -160,7 +162,7 @@ type VoteCast implements Event @entity {
 	voter:                        Account!
 }
 
-type NewAdmin implements Event @entity {
+type NewGovernanceAdmin implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
@@ -169,7 +171,7 @@ type NewAdmin implements Event @entity {
 	newAdmin:                     Account!
 }
 
-type NewPendingAdmin implements Event @entity {
+type NewGovernancePendingAdmin implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
@@ -178,7 +180,7 @@ type NewPendingAdmin implements Event @entity {
 	newPendingAdmin:              Account!
 }
 
-type NewImplementation implements Event @entity {
+type NewGovernanceImplementation implements Event @entity {
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
@@ -212,6 +214,75 @@ type VotingPeriodSet implements Event @entity {
 	governor:                     Governor!
 	oldVotingPeriod:              BigInt!
 	newVotingPeriod:              BigInt!
+}
+
+###############################################################################
+#                                  Timelock                                   #
+###############################################################################
+type Timelock @entity {
+	id:                           ID!
+	admin:                        Account
+	pendingAdmin:                 Account
+	delay:                        BigInt
+	GRACE_PERIOD:                 BigInt
+	MINIMUM_DELAY:                BigInt
+	MAXIMUM_DELAY:                BigInt
+	newadmin:                     [NewTimelockAdmin!]! @derivedFrom(field: "timelock")
+	newpendingadmin:              [NewTimelockPendingAdmin!]! @derivedFrom(field: "timelock")
+	transactions:                 [TimelockTransaction!]! @derivedFrom(field: "timelock")
+}
+
+type TimelockTransaction @entity {
+	id:                           ID!
+	txHash:                       Bytes!
+	timelock:                     Timelock!
+	target:                       Account
+	value:                        BigInt
+	signature:                    String
+	data:                         Bytes
+	eta:                          BigInt
+	canceled:                     Boolean!
+	executed:                     Boolean!
+}
+
+type TimelockQueueTransaction implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	timelock:                     Timelock!
+	tx:                           TimelockTransaction!
+}
+
+type TimelockExecuteTransaction implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	timelock:                     Timelock!
+	tx:                           TimelockTransaction!
+}
+
+type TimelockCancelTransaction implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	timelock:                     Timelock!
+	tx:                           TimelockTransaction!
+}
+
+type NewTimelockAdmin implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	timelock:                     Timelock!
+	newAdmin:                     Account!
+}
+
+type NewTimelockPendingAdmin implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	timelock:                     Timelock!
+	newPendingAdmin:              Account!
 }
 
 ###############################################################################

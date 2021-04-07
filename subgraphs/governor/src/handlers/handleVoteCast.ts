@@ -9,12 +9,9 @@ import {
 } from '../../generated/schema'
 
 import {
-	VoteCast as VoteCastAlphaEvent,
-} from '../../generated/Governor/IGovernorAlpha'
-
-import {
-	VoteCast as VoteCastBravoEvent,
-} from '../../generated/Governor/IGovernorBravo'
+	VoteCast  as VoteCastAlphaEvent,
+	VoteCast1 as VoteCastBravoEvent,
+} from '../../generated/Governor/IGovernor'
 
 import {
 	events,

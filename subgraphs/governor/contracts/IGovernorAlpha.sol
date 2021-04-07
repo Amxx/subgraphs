@@ -58,24 +58,4 @@ interface IGovernorAlpha {
 
     function DOMAIN_TYPEHASH() external view returns (bytes32);
     function BALLOT_TYPEHASH() external view returns (bytes32);
-
-    // ProposalCreated1
-    event ProposalCreated(uint256 id, address proposer, address[] targets, uint256[] values, string[] signatures, bytes[] calldatas, uint256 startBlock, uint256 endBlock, string title, string description);
-    // ProposalCreated2
-    event ProposalCreated(uint256 id, address proposer, address[] targets, uint256[] values, string[] signatures, bytes[] calldatas, string description);
-    // ProposalCreated3
-    event ProposalCreated(uint256 id, address proposer, address[] targets, string[] signatures, bytes[] calldatas, string description);
-    // ProposalCreated4
-    event ProposalCreated(
-        uint256 indexed id,
-        address proposer,
-        address[] contracts,
-        uint256[] values,
-        string[] signatures,
-        bytes[] calldatas,
-        string description,
-        bool expedited
-    );
-    // ProposalCreated5
-    event ProposalCreated(uint256 id, address proposer, uint256 startBlock, uint256 endBlock, string description);
 }

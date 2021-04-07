@@ -11,7 +11,7 @@ import {
 	ProposalCreated3 as ProposalCreated3Event,
 	ProposalCreated4 as ProposalCreated4Event,
 	ProposalCreated5 as ProposalCreated5Event,
-} from '../../generated/Governor/IGovernorAlpha'
+} from '../../generated/Governor/IGovernor'
 
 import {
 	constants,

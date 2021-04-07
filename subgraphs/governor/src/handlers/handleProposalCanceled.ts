@@ -9,7 +9,7 @@ import {
 
 import {
 	ProposalCanceled as ProposalCanceledEvent,
-} from '../../generated/Governor/IGovernorAlpha'
+} from '../../generated/Governor/IGovernor'
 
 import {
 	events,

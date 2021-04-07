@@ -1,5 +1,5 @@
   - kind: ethereum/contract
-    name: GovernorBravo
+    name: Governor
     network: {blockchain}
     source:
       abi: IGovernor
@@ -10,12 +10,10 @@
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - GovernorBravo
+        - Governor
       abis:
-        - name: IGovernorAlpha
-          file: ../artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json
-        - name: IGovernorBravo
-          file: ../artifacts/contracts/IGovernorBravo.sol/IGovernorBravo.json
+        - name: IGovernor
+          file: ../artifacts/contracts/IGovernor.sol/IGovernor.json
       eventHandlers:
         - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)
           handler: handleProposalCreated

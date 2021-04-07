@@ -1,7 +1,7 @@
 import {
-	NewAdmin,
-	NewPendingAdmin,
-	NewImplementation,
+	NewGovernanceAdmin,
+	NewGovernancePendingAdmin,
+	NewGovernanceImplementation,
 	ProposalThresholdSet,
 	VotingDelaySet,
 	VotingPeriodSet,
@@ -14,7 +14,7 @@ import {
 	ProposalThresholdSet as ProposalThresholdSetEvent,
 	VotingDelaySet       as VotingDelaySetEvent,
 	VotingPeriodSet      as VotingPeriodSetEvent,
-} from '../../generated/Governor/IGovernorBravo'
+} from '../../generated/Governor/IGovernor'
 
 import {
 	events,
@@ -35,7 +35,7 @@ export function handleNewAdmin(event: NewAdminEvent): void {
 	governor.admin             = fetchAccount(event.params.newAdmin).id
 	governor.save()
 
-	let ev                     = new NewAdmin(events.id(event))
+	let ev                     = new NewGovernanceAdmin(events.id(event))
 	ev.transaction             = transactions.log(event).id
 	ev.timestamp               = event.block.timestamp
 	ev.governor                = governor.id
@@ -50,7 +50,7 @@ export function handleNewPendingAdmin(event: NewPendingAdminEvent): void {
 	governor.pendingAdmin      = fetchAccount(event.params.newPendingAdmin).id
 	governor.save()
 
-	let ev                     = new NewPendingAdmin(events.id(event))
+	let ev                     = new NewGovernancePendingAdmin(events.id(event))
 	ev.transaction             = transactions.log(event).id
 	ev.timestamp               = event.block.timestamp
 	ev.governor                = governor.id
@@ -65,7 +65,7 @@ export function handleNewImplementation(event: NewImplementationEvent): void {
 	governor.implementation    = fetchAccount(event.params.newImplementation).id
 	governor.save()
 
-	let ev                     = new NewImplementation(events.id(event))
+	let ev                     = new NewGovernanceImplementation(events.id(event))
 	ev.transaction             = transactions.log(event).id
 	ev.timestamp               = event.block.timestamp
 	ev.governor                = governor.id

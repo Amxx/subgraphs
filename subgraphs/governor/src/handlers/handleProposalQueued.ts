@@ -9,7 +9,7 @@ import {
 
 import {
 	ProposalQueued as ProposalQueuedEvent,
-} from '../../generated/Governor/IGovernorAlpha'
+} from '../../generated/Governor/IGovernor'
 
 import {
 	events,

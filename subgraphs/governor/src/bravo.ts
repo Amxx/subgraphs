@@ -25,4 +25,4 @@ export {
 	handleProposalThresholdSet,
 	handleVotingDelaySet,
 	handleVotingPeriodSet,
-} from './handlers/handleAdmin';
+} from './handlers/handleGovernorUpdate';

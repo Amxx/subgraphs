@@ -1,0 +1,30 @@
+  - kind: ethereum/contract
+    name: Timelock
+    network: {blockchain}
+    source:
+      abi: ITimelock
+      address: '{timelockAddress}'
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Timelock
+      abis:
+        - name: ITimelock
+          file: ../artifacts/contracts/ITimelock.sol/ITimelock.json
+      eventHandlers:
+        - event: CancelTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleCancelTransaction
+        - event: ExecuteTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleExecuteTransaction
+        - event: NewAdmin(indexed address)
+          handler: handleNewAdmin
+        - event: NewDelay(indexed uint256)
+          handler: handleNewDelay
+        - event: NewPendingAdmin(indexed address)
+          handler: handleNewPendingAdmin
+        - event: QueueTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleQueueTransaction
+      file: ../src/timelock.ts

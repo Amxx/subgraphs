@@ -85,7 +85,7 @@ const yargs   = require('yargs');
     responces.components.length               && `templates/subgraph.header.yaml`,
     responces.components.includes('governor') && `templates/subgraph.governor-${responces.governorType}.yaml`,
     responces.components.includes('token')    && `templates/subgraph.token.yaml`,
-    // responces.components.includes('timelock') && `templates/subgraph.timelock.yaml`,
+    responces.components.includes('timelock') && `templates/subgraph.timelock.yaml`,
   ]
   .filter(Boolean)
   .map(file => fs.readFileSync(file, { encoding: 'utf8' }))

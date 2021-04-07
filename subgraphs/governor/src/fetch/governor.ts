@@ -7,19 +7,15 @@ import {
 } from '../../generated/schema'
 
 import {
-	IGovernorAlpha as IGovernorAlpha,
-} from '../../generated/Governor/IGovernorAlpha'
-
-import {
-	IGovernorBravo as IGovernorBravo,
-} from '../../generated/Governor/IGovernorBravo'
+	IGovernor,
+} from '../../generated/Governor/IGovernor'
 
 import {
 	fetchAccount
 } from './account'
 
 function governorType(address: Address): string | null {
-	let call = IGovernorAlpha.bind(address).try_BALLOT_TYPEHASH()
+	let call = IGovernor.bind(address).try_BALLOT_TYPEHASH()
 	if (call.reverted) { return null }
 	let value = call.value.toHex()
 	if (value == "0x8e25870c07e0b0b3884c78da52790939a455c275406c44ae8b434b692fb916ee") { return 'ALPHA' } // keccak256("Ballot(uint256 proposalId,bool support)");
@@ -34,20 +30,19 @@ export function fetchGovernor(address: Address) : Governor | null {
 		let type                  = governorType(address)
 		if (type == null) { return null }
 
-		let contractAlpha         = IGovernorAlpha.bind(address)
-		let contractBravo         = IGovernorBravo.bind(address)
-		let name                  = contractAlpha.try_name()
-		let quorumVotes           = contractAlpha.try_quorumVotes()
-		let proposalThreshold     = contractAlpha.try_proposalThreshold()
-		let proposalMaxOperations = contractAlpha.try_proposalMaxOperations()
-		let votingDelay           = contractAlpha.try_votingDelay()
-		let votingPeriod          = contractAlpha.try_votingPeriod()
-		let comp                  = contractAlpha.try_comp()
-		let timelock              = contractAlpha.try_timelock()
-		let guardian              = contractAlpha.try_guardian()
-		let admin                 = contractBravo.try_admin()
-		let pendingAdmin          = contractBravo.try_pendingAdmin()
-		let implementation        = contractBravo.try_implementation()
+		let contract              = IGovernor.bind(address)
+		let name                  = contract.try_name()
+		let quorumVotes           = contract.try_quorumVotes()
+		let proposalThreshold     = contract.try_proposalThreshold()
+		let proposalMaxOperations = contract.try_proposalMaxOperations()
+		let votingDelay           = contract.try_votingDelay()
+		let votingPeriod          = contract.try_votingPeriod()
+		let comp                  = contract.try_comp()
+		let timelock              = contract.try_timelock()
+		let guardian              = contract.try_guardian()
+		let admin                 = contract.try_admin()
+		let pendingAdmin          = contract.try_pendingAdmin()
+		let implementation        = contract.try_implementation()
 
 		governor                       = new Governor(address.toHex())
 		governor.type                  = type
