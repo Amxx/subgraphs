@@ -8,13 +8,13 @@ type Account @entity {
 	compFor:                      [Governor!]! @derivedFrom(field: "comp")
 	timelockFor:                  [Governor!]! @derivedFrom(field: "timelock")
 	guardianFor:                  [Governor!]! @derivedFrom(field: "guardian")
-	adminFor:                     [Governor!]! @derivedFrom(field: "admin")
-	pendingAdminFor:              [Governor!]! @derivedFrom(field: "pendingAdmin")
-	implementationFor:            [Governor!]! @derivedFrom(field: "implementation")
+	adminForGovernor:             [Governor!]! @derivedFrom(field: "admin")
+	pendingAdminForGovernor:      [Governor!]! @derivedFrom(field: "pendingAdmin")
+	implementationForGovernor:    [Governor!]! @derivedFrom(field: "implementation")
 	proposals:                    [Proposal!]! @derivedFrom(field: "proposer")
 	targetedCalls:                [ProposalCall!]! @derivedFrom(field: "target")
 	receipts:                     [Receipt!]! @derivedFrom(field: "voter")
-	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "proposer")
+	proposalCreated:              [ProposalCreated!]! @derivedFrom(field: "proposer")
 	votecast:                     [VoteCast!]! @derivedFrom(field: "voter")
 
 	balances:                     [Balance!]! @derivedFrom(field: "account")
@@ -26,6 +26,8 @@ type Account @entity {
 	approvalsOwner:               [Approval!]! @derivedFrom(field: "owner")
 	approvalsSpender:             [Approval!]! @derivedFrom(field: "spender")
 
+	adminForTimelock:             [Timelock!]! @derivedFrom(field: "admin")
+	pendingAdminForTimelock:      [Timelock!]! @derivedFrom(field: "pendingAdmin")
 	targetedTransactions:         [TimelockTransaction!]! @derivedFrom(field: "target")
 }
 
@@ -57,17 +59,17 @@ type Governor @entity {
 	executedProposalCount:        Int!
 	canceledProposalCount:        Int!
 	proposals:                    [Proposal!]! @derivedFrom(field: "governor")
-	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "governor")
-	proposalqueued:               [ProposalQueued!]! @derivedFrom(field: "governor")
-	proposalexecuted:             [ProposalExecuted!]! @derivedFrom(field: "governor")
-	proposalcanceled:             [ProposalCanceled!]! @derivedFrom(field: "governor")
+	proposalCreated:              [ProposalCreated!]! @derivedFrom(field: "governor")
+	proposalQueued:               [ProposalQueued!]! @derivedFrom(field: "governor")
+	proposalExecuted:             [ProposalExecuted!]! @derivedFrom(field: "governor")
+	proposalCanceled:             [ProposalCanceled!]! @derivedFrom(field: "governor")
 	votecast:                     [VoteCast!]! @derivedFrom(field: "governor")
-	newadmin:                     [NewGovernanceAdmin!]! @derivedFrom(field: "governor")
-	newpendingadmin:              [NewGovernancePendingAdmin!]! @derivedFrom(field: "governor")
-	newimplementation:            [NewGovernanceImplementation!]! @derivedFrom(field: "governor")
-	proposalthresholdset:         [ProposalThresholdSet!]! @derivedFrom(field: "governor")
-	votingdelayset:               [VotingDelaySet!]! @derivedFrom(field: "governor")
-	votingperiodset:              [VotingPeriodSet!]! @derivedFrom(field: "governor")
+	newAdmin:                     [NewGovernanceAdmin!]! @derivedFrom(field: "governor")
+	newPendingAdmin:              [NewGovernancePendingAdmin!]! @derivedFrom(field: "governor")
+	newImplementation:            [NewGovernanceImplementation!]! @derivedFrom(field: "governor")
+	proposalThresholdSet:         [ProposalThresholdSet!]! @derivedFrom(field: "governor")
+	votingDelaySet:               [VotingDelaySet!]! @derivedFrom(field: "governor")
+	votingPeriodSet:              [VotingPeriodSet!]! @derivedFrom(field: "governor")
 }
 
 type Proposal @entity {
@@ -87,10 +89,10 @@ type Proposal @entity {
 	description:                  String # optional ?
 	calls:                        [ProposalCall!]! @derivedFrom(field: "proposal")
 	receipts:                     [Receipt!]! @derivedFrom(field: "proposal")
-	proposalcreated:              [ProposalCreated!]! @derivedFrom(field: "proposal")
-	proposalqueued:               [ProposalQueued!]! @derivedFrom(field: "proposal")
-	proposalexecuted:             [ProposalExecuted!]! @derivedFrom(field: "proposal")
-	proposalcanceled:             [ProposalCanceled!]! @derivedFrom(field: "proposal")
+	proposalCreated:              [ProposalCreated!]! @derivedFrom(field: "proposal")
+	proposalQueued:               [ProposalQueued!]! @derivedFrom(field: "proposal")
+	proposalExecuted:             [ProposalExecuted!]! @derivedFrom(field: "proposal")
+	proposalCanceled:             [ProposalCanceled!]! @derivedFrom(field: "proposal")
 	votecast:                     [VoteCast!]! @derivedFrom(field: "proposal")
 }
 
@@ -227,9 +229,13 @@ type Timelock @entity {
 	GRACE_PERIOD:                 BigInt
 	MINIMUM_DELAY:                BigInt
 	MAXIMUM_DELAY:                BigInt
-	newadmin:                     [NewTimelockAdmin!]! @derivedFrom(field: "timelock")
-	newpendingadmin:              [NewTimelockPendingAdmin!]! @derivedFrom(field: "timelock")
 	transactions:                 [TimelockTransaction!]! @derivedFrom(field: "timelock")
+	transactionsQueued:           [TimelockQueueTransaction!]! @derivedFrom(field: "timelock")
+	transactionsExecuted:         [TimelockExecuteTransaction!]! @derivedFrom(field: "timelock")
+	transactionsCanceled:         [TimelockCancelTransaction!]! @derivedFrom(field: "timelock")
+	newAdmins:                    [NewTimelockAdmin!]! @derivedFrom(field: "timelock")
+	newPendingAdmins:             [NewTimelockPendingAdmin!]! @derivedFrom(field: "timelock")
+	delaySet:                     [NewTimelockDelay!]! @derivedFrom(field: "timelock")
 }
 
 type TimelockTransaction @entity {
@@ -267,6 +273,14 @@ type TimelockCancelTransaction implements Event @entity {
 	timestamp:                    BigInt!
 	timelock:                     Timelock!
 	tx:                           TimelockTransaction!
+}
+
+type NewTimelockDelay implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	timelock:                     Timelock!
+	newDelay:                     BigInt!
 }
 
 type NewTimelockAdmin implements Event @entity {

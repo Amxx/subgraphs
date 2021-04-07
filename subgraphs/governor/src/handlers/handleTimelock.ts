@@ -7,6 +7,7 @@ import {
 	TimelockQueueTransaction,
 	TimelockExecuteTransaction,
 	TimelockCancelTransaction,
+	NewTimelockDelay,
 	NewTimelockAdmin,
 	NewTimelockPendingAdmin,
 } from '../../generated/schema'
@@ -99,6 +100,13 @@ export function handleNewDelay(event: NewDelayEvent): void {
 	if (timelock == null) return
 	timelock.delay             = event.params.newDelay
 	timelock.save()
+
+	let ev                     = new NewTimelockDelay(events.id(event))
+	ev.transaction             = transactions.log(event).id
+	ev.timestamp               = event.block.timestamp
+	ev.timelock                = timelock.id
+	ev.newDelay                = event.params.newDelay
+	ev.save()
 }
 
 export function handleNewAdmin(event: NewAdminEvent): void {
