@@ -55,6 +55,7 @@ export function handleApproval(event: ApprovalEvent): void {
 		let owner    = new Account(event.params.owner.toHex())
 		let approved = new Account(event.params.approved.toHex())
 
+		token.owner    = owner.id
 		token.approval = approved.id
 
 		token.save()
