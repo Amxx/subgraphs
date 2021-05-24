@@ -17,15 +17,15 @@
     "prepare": "yarn prepare:contracts && yarn prepare:schema",
     "prepare:contracts": "hardhat compile",
     "prepare:schema": "mkdir -p generated && concat -o generated/schema.graphql src/schema.gql node_modules/@amxx/graphprotocol-utils/generated/schema.graphql",
-    "setup": "templates/generator.js",
+    "setup": "subgraphs/generator.js",
     "build": "yarn build:codegen && yarn build:compile",
-    "build:codegen": "graph codegen ${SUBGRAPH:-generated/subgraph.yaml}",
-    "build:compile": "graph build ${SUBGRAPH:-generated/subgraph.yaml}",
+    "build:codegen": "graph codegen ${SUBGRAPH:-subgraphs/generated.yaml}",
+    "build:compile": "graph build ${SUBGRAPH:-subgraphs/generated.yaml}",
     "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/sandbox} ${SUBGRAPH:-generated/subgraph.yaml}",
-    "deploy:mainnet": "NAME=amxx/compound-governance SUBGRAPH=subgraph.mainnet.yaml yarn deploy",
-    "deploy:goerli": "NAME=amxx/compound-governance-goerli SUBGRAPH=subgraph.goerli.yaml yarn deploy",
-    "deploy:kovan": "NAME=amxx/compound-governance-kovan SUBGRAPH=subgraph.kovan.yaml yarn deploy",
-    "deploy:sandbox": "NAME=amxx/sandbox SUBGRAPH=generated/subgraph.yaml yarn deploy"
+    "deploy:mainnet": "NAME=amxx/compound-governance        SUBGRAPH=subgraphs/examples/meta.mainnet.yaml yarn deploy",
+    "deploy:goerli":  "NAME=amxx/compound-governance-goerli SUBGRAPH=subgraphs/examples/meta.goerli.yaml yarn deploy",
+    "deploy:kovan":   "NAME=amxx/compound-governance-kovan  SUBGRAPH=subgraphs/examples/meta.kovan.yaml yarn deploy",
+    "deploy:sandbox": "NAME=amxx/sandbox                    SUBGRAPH=subgraphs/generated.yaml yarn deploy"
   },
   "devDependencies": {
     "@amxx/graphprotocol-utils": "^0.1.0",

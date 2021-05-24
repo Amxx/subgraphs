@@ -9,7 +9,6 @@ const prompts = require('prompts');
 const yargs   = require('yargs');
 
 (async () => {
-
   const argv = yargs.option('address', { string: true }).argv;
   prompts.override(argv);
 
@@ -49,14 +48,6 @@ const yargs   = require('yargs');
     initial: 0,
     min: 0,
   },{
-    type: (_, { components }) => components.includes('governor') && 'select',
-    name: 'governorType',
-    message: 'Governor type',
-    choices: [
-      { title: 'Alpha', value: 'alpha' },
-      { title: 'Bravo', value: 'bravo' },
-    ],
-  },{
     type: (_, { components }) => components.includes('governor') && 'text',
     name: 'governorAddress',
     message: 'Governor address',
@@ -78,17 +69,17 @@ const yargs   = require('yargs');
     type: (_, { components }) => components.length && 'text',
     name: 'path',
     message: 'Result path',
-    initial: './generated/subgraph.yaml',
+    initial: './subgraphs/generated.yaml',
   }]);
 
   const subgraph = [
-    responces.components.length               && `templates/subgraph.header.yaml`,
-    responces.components.includes('governor') && `templates/subgraph.governor-${responces.governorType}.yaml`,
-    responces.components.includes('token')    && `templates/subgraph.token.yaml`,
-    responces.components.includes('timelock') && `templates/subgraph.timelock.yaml`,
+    responces.components.length               && `templates/header.yaml`,
+    responces.components.includes('governor') && `templates/governor.yaml`,
+    responces.components.includes('token')    && `templates/token.yaml`,
+    responces.components.includes('timelock') && `templates/timelock.yaml`,
   ]
   .filter(Boolean)
-  .map(file => fs.readFileSync(file, { encoding: 'utf8' }))
+  .map(file => fs.readFileSync(path.resolve(__dirname, file), { encoding: 'utf8' }))
   .map(template => template.replace(/\{(\w+)\}/g, (_, varname) => responces[varname]))
   .reduce((acc, content) => acc + content, '');
 

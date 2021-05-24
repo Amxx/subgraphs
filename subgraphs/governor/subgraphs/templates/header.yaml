@@ -2,5 +2,5 @@ specVersion: 0.0.2
 description: compound-governor
 repository: https://github.com/amxx/subgraphs
 schema:
-  file: ./schema.graphql
+  file: ../generated/schema.graphql
 dataSources:

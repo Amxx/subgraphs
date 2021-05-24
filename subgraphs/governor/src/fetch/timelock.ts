@@ -19,12 +19,13 @@ export function fetchTimelock(address: Address) : Timelock | null {
 
 	if (timelock == null) {
 		let contract      = ITimelock.bind(address)
+		let GRACE_PERIOD  = contract.try_GRACE_PERIOD()
+		if (GRACE_PERIOD.reverted) { return null }
+		let MINIMUM_DELAY = contract.try_MINIMUM_DELAY()
+		let MAXIMUM_DELAY = contract.try_MAXIMUM_DELAY()
 		let admin         = contract.try_admin()
 		let pendingAdmin  = contract.try_pendingAdmin()
 		let delay         = contract.try_delay()
-		let GRACE_PERIOD  = contract.try_GRACE_PERIOD()
-		let MINIMUM_DELAY = contract.try_MINIMUM_DELAY()
-		let MAXIMUM_DELAY = contract.try_MAXIMUM_DELAY()
 
 		timelock = new Timelock(address.toHex())
 		if (!admin.reverted        ) timelock.admin         = fetchAccount(admin.value).id

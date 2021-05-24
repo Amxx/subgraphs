@@ -1,15 +1,15 @@
 specVersion: 0.0.2
-description: compound-governor-kovan
+description: compound-governor-goerli
 repository: https://github.com/amxx/subgraphs
 schema:
-  file: ./generated/schema.graphql
+  file: ../../generated/schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Governor
-    network: kovan
+    network: goerli
     source:
-      abi: IGovernorAlpha
-      startBlock: 18700000
+      abi: IGovernor
+      startBlock: 3615367
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -17,10 +17,8 @@ dataSources:
       entities:
         - Governor
       abis:
-        - name: IGovernorAlpha
-          file: ./artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json
-        - name: IGovernorBravo
-          file: ./artifacts/contracts/IGovernorBravo.sol/IGovernorBravo.json
+        - name: IGovernor
+          file: ../../artifacts/contracts/IGovernor.sol/IGovernor.json
       eventHandlers:
         - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)
           handler: handleProposalCreated
@@ -31,7 +29,9 @@ dataSources:
         - event: ProposalCanceled(uint256)
           handler: handleProposalCanceled
         - event: VoteCast(address,uint256,bool,uint256)
-          handler: handleVoteCast
+          handler: handleVoteCastAlpha
+        - event: VoteCast(indexed address,uint256,uint8,uint256,string)
+          handler: handleVoteCastBravo
         # Forks tend to use all sort of strange events variations
         - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string,string)
           handler: handleProposalCreated1
@@ -43,37 +43,45 @@ dataSources:
           handler: handleProposalCreated4
         - event: ProposalCreated(uint256,address,uint256,uint256,string)
           handler: handleProposalCreated5
-      file: ./src/alpha.ts
-  - kind: ethereum/contract
-    name: Governor2
-    network: kovan
-    source:
-      abi: IGovernorBravo
-      startBlock: 18700000
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Governor
-      abis:
-        - name: IGovernorAlpha
-          file: ./artifacts/contracts/IGovernorAlpha.sol/IGovernorAlpha.json
-        - name: IGovernorBravo
-          file: ./artifacts/contracts/IGovernorBravo.sol/IGovernorBravo.json
-      eventHandlers:
         - event: NewAdmin(address,address)
           handler: handleNewAdmin
         - event: NewImplementation(address,address)
           handler: handleNewImplementation
         - event: NewPendingAdmin(address,address)
           handler: handleNewPendingAdmin
-        - event: VoteCast(indexed address,uint256,uint8,uint256,string)
-          handler: handleVoteCast
         - event: ProposalThresholdSet(uint256,uint256)
           handler: handleProposalThresholdSet
         - event: VotingDelaySet(uint256,uint256)
           handler: handleVotingDelaySet
         - event: VotingPeriodSet(uint256,uint256)
           handler: handleVotingPeriodSet
-      file: ./src/bravo.ts
+      file: ../../src/governor.ts
+  - kind: ethereum/contract
+    name: Timelock
+    network: goerli
+    source:
+      abi: ITimelock
+      startBlock: 3615367
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Timelock
+      abis:
+        - name: ITimelock
+          file: ../../artifacts/contracts/ITimelock.sol/ITimelock.json
+      eventHandlers:
+        - event: CancelTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleCancelTransaction
+        - event: ExecuteTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleExecuteTransaction
+        - event: NewAdmin(indexed address)
+          handler: handleNewAdmin
+        - event: NewDelay(indexed uint256)
+          handler: handleNewDelay
+        - event: NewPendingAdmin(indexed address)
+          handler: handleNewPendingAdmin
+        - event: QueueTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
+          handler: handleQueueTransaction
+      file: ../../src/timelock.ts

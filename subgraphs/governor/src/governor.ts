@@ -1,5 +1,10 @@
 export {
 	handleProposalCreated,
+	handleProposalCreated1,
+	handleProposalCreated2,
+	handleProposalCreated3,
+	handleProposalCreated4,
+	handleProposalCreated5,
 } from './handlers/handleProposalCreated';
 
 export {
@@ -15,7 +20,8 @@ export {
 } from './handlers/handleProposalCanceled';
 
 export {
-	handleVoteCastBravo as handleVoteCast,
+	handleVoteCastAlpha,
+	handleVoteCastBravo,
 } from './handlers/handleVoteCast';
 
 export {

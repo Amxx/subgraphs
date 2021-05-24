@@ -23,8 +23,21 @@
           handler: handleProposalExecuted
         - event: ProposalCanceled(uint256)
           handler: handleProposalCanceled
+        - event: VoteCast(address,uint256,bool,uint256)
+          handler: handleVoteCastAlpha
         - event: VoteCast(indexed address,uint256,uint8,uint256,string)
-          handler: handleVoteCast
+          handler: handleVoteCastBravo
+        # Forks tend to use all sort of strange events variations
+        - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string,string)
+          handler: handleProposalCreated1
+        - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],string)
+          handler: handleProposalCreated2
+        - event: ProposalCreated(uint256,address,address[],string[],bytes[],string)
+          handler: handleProposalCreated3
+        - event: ProposalCreated(indexed uint256,address,address[],uint256[],string[],bytes[],string,bool)
+          handler: handleProposalCreated4
+        - event: ProposalCreated(uint256,address,uint256,uint256,string)
+          handler: handleProposalCreated5
         - event: NewAdmin(address,address)
           handler: handleNewAdmin
         - event: NewImplementation(address,address)
@@ -37,4 +50,4 @@
           handler: handleVotingDelaySet
         - event: VotingPeriodSet(uint256,uint256)
           handler: handleVotingPeriodSet
-      file: ../src/bravo.ts
+      file: ../src/governor.ts
