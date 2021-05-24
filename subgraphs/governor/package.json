@@ -22,9 +22,9 @@
     "build:codegen": "graph codegen ${SUBGRAPH:-subgraphs/generated.yaml}",
     "build:compile": "graph build ${SUBGRAPH:-subgraphs/generated.yaml}",
     "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/sandbox} ${SUBGRAPH:-generated/subgraph.yaml}",
-    "deploy:mainnet": "NAME=amxx/compound-governance        SUBGRAPH=subgraphs/examples/meta.mainnet.yaml yarn deploy",
-    "deploy:goerli":  "NAME=amxx/compound-governance-goerli SUBGRAPH=subgraphs/examples/meta.goerli.yaml yarn deploy",
-    "deploy:kovan":   "NAME=amxx/compound-governance-kovan  SUBGRAPH=subgraphs/examples/meta.kovan.yaml yarn deploy",
+    "deploy:mainnet": "NAME=amxx/compound-governance        SUBGRAPH=subgraphs/meta-mainnet.yaml yarn deploy",
+    "deploy:goerli":  "NAME=amxx/compound-governance-goerli SUBGRAPH=subgraphs/meta-goerli.yaml yarn deploy",
+    "deploy:kovan":   "NAME=amxx/compound-governance-kovan  SUBGRAPH=subgraphs/meta-kovan.yaml yarn deploy",
     "deploy:sandbox": "NAME=amxx/sandbox                    SUBGRAPH=subgraphs/generated.yaml yarn deploy"
   },
   "devDependencies": {
