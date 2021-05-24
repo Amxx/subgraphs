@@ -1,15 +1,15 @@
 specVersion: 0.0.2
-description: compound-governor
+description: compound-governor-goerli
 repository: https://github.com/amxx/subgraphs
 schema:
-  file: ../../generated/schema.graphql
+  file: ../generated/schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Governor
-    network: mainnet
+    network: goerli
     source:
       abi: IGovernor
-      startBlock: 9595178
+      startBlock: 3615367
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -18,7 +18,7 @@ dataSources:
         - Governor
       abis:
         - name: IGovernor
-          file: ../../artifacts/contracts/IGovernor.sol/IGovernor.json
+          file: ../artifacts/contracts/IGovernor.sol/IGovernor.json
       eventHandlers:
         - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)
           handler: handleProposalCreated
@@ -55,13 +55,13 @@ dataSources:
           handler: handleVotingDelaySet
         - event: VotingPeriodSet(uint256,uint256)
           handler: handleVotingPeriodSet
-      file: ../../src/governor.ts
+      file: ../src/governor.ts
   - kind: ethereum/contract
     name: Timelock
-    network: mainnet
+    network: goerli
     source:
       abi: ITimelock
-      startBlock: 9595178
+      startBlock: 3615367
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -70,7 +70,7 @@ dataSources:
         - Timelock
       abis:
         - name: ITimelock
-          file: ../../artifacts/contracts/ITimelock.sol/ITimelock.json
+          file: ../artifacts/contracts/ITimelock.sol/ITimelock.json
       eventHandlers:
         - event: CancelTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
           handler: handleCancelTransaction
@@ -84,4 +84,4 @@ dataSources:
           handler: handleNewPendingAdmin
         - event: QueueTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
           handler: handleQueueTransaction
-      file: ../../src/timelock.ts
+      file: ../src/timelock.ts

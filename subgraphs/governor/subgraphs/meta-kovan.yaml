@@ -1,16 +1,15 @@
 specVersion: 0.0.2
-description: compound-governor
+description: compound-governor-kovan
 repository: https://github.com/amxx/subgraphs
 schema:
-  file: ../../generated/schema.graphql
+  file: ../generated/schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Governor
-    network: mainnet
+    network: kovan
     source:
       abi: IGovernor
-      address: '0xc0da02939e1441f497fd74f78ce7decb17b66529'
-      startBlock: 9600000
+      startBlock: 18700000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -19,7 +18,7 @@ dataSources:
         - Governor
       abis:
         - name: IGovernor
-          file: ../../artifacts/contracts/IGovernor.sol/IGovernor.json
+          file: ../artifacts/contracts/IGovernor.sol/IGovernor.json
       eventHandlers:
         - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)
           handler: handleProposalCreated
@@ -56,40 +55,13 @@ dataSources:
           handler: handleVotingDelaySet
         - event: VotingPeriodSet(uint256,uint256)
           handler: handleVotingPeriodSet
-      file: ../../src/governor.ts
-  - kind: ethereum/contract
-    name: Comp
-    network: mainnet
-    source:
-      abi: IComp
-      address: '0xc00e94cb662c3520282e6f5717214004a7f26888'
-      startBlock: 9600000
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Token
-      abis:
-        - name: IComp
-          file: ../../artifacts/contracts/IComp.sol/IComp.json
-      eventHandlers:
-        - event: Approval(indexed address,indexed address,uint256)
-          handler: handleApproval
-        - event: DelegateChanged(indexed address,indexed address,indexed address)
-          handler: handleDelegateChanged
-        - event: DelegateVotesChanged(indexed address,uint256,uint256)
-          handler: handleDelegateVotesChanged
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
-      file: ../../src/comp.ts
+      file: ../src/governor.ts
   - kind: ethereum/contract
     name: Timelock
-    network: mainnet
+    network: kovan
     source:
       abi: ITimelock
-      address: '0x6d903f6003cca6255d85cca4d3b5e5146dc33925'
-      startBlock: 9600000
+      startBlock: 18700000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -98,7 +70,7 @@ dataSources:
         - Timelock
       abis:
         - name: ITimelock
-          file: ../../artifacts/contracts/ITimelock.sol/ITimelock.json
+          file: ../artifacts/contracts/ITimelock.sol/ITimelock.json
       eventHandlers:
         - event: CancelTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
           handler: handleCancelTransaction
@@ -112,4 +84,4 @@ dataSources:
           handler: handleNewPendingAdmin
         - event: QueueTransaction(indexed bytes32,indexed address,uint256,string,bytes,uint256)
           handler: handleQueueTransaction
-      file: ../../src/timelock.ts
+      file: ../src/timelock.ts
