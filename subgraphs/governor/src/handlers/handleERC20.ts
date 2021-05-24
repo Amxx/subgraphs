@@ -43,40 +43,44 @@ export function handleTransfer(event: TransferEvent): void {
 	if (from.id != constants.ADDRESS_ZERO) {
 		let id      = token.id.concat('-').concat(from.id)
 		let balance = Balance.load(id)
+		let value   = new decimals.Value(id, token.decimals)
+		value.decrement(event.params.value)
+
 		// first time balance is seen
 		if (balance == null) {
-			let balance     = new Balance(id)
-			balance.token   = token.id
-			balance.account = from.id
-			balance.value   = balance.id
+			let balance        = new Balance(id)
+			balance.token      = token.id
+			balance.account    = from.id
+			balance.value      = value.id
+			balance.valueExact = value.exact
 			balance.save()
-			// read from contract
-			let value = new decimals.Value(balance.id, token.decimals)
-			value.set(IComp.bind(event.address).balanceOf(event.params.from))
 		} else {
-			let value = new decimals.Value(balance.id, token.decimals)
-			value.decrement(event.params.value)
+			balance.valueExact = value.exact
+			balance.save()
 		}
+
 		ev.fromBalance = id;
 	}
 
 	if (to.id != constants.ADDRESS_ZERO) {
 		let id      = token.id.concat('-').concat(to.id)
 		let balance = Balance.load(id)
+		let value   = new decimals.Value(id, token.decimals)
+		value.increment(event.params.value)
+
 		// first time balance is seen
 		if (balance == null) {
-			let balance     = new Balance(id)
-			balance.token   = token.id
-			balance.account = to.id
-			balance.value   = balance.id
+			let balance        = new Balance(id)
+			balance.token      = token.id
+			balance.account    = to.id
+			balance.value      = value.id
+			balance.valueExact = value.exact
 			balance.save()
-			// read from contract
-			let value = new decimals.Value(balance.id, token.decimals)
-			value.set(IComp.bind(event.address).balanceOf(event.params.to))
 		} else {
-			let value = new decimals.Value(balance.id, token.decimals)
-			value.increment(event.params.value)
+			balance.valueExact = value.exact
+			balance.save()
 		}
+
 		ev.toBalance = id;
 	}
 	ev.save()

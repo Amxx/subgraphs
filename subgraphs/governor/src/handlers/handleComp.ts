@@ -55,12 +55,13 @@ export function handleDelegateVotesChanged(event: DelegateVotesChangedEvent): vo
 
 	let delegate = fetchAccount(event.params.delegate)
 
-	let votes     = new VotingPower(token.id.concat('/').concat(delegate.id))
-	let value     = new decimals.Value(votes.id, token.decimals)
+	let votes        = new VotingPower(token.id.concat('/').concat(delegate.id))
+	let value        = new decimals.Value(votes.id, token.decimals)
 	value.set(event.params.newBalance)
-	votes.token   = token.id
-	votes.account = delegate.id
-	votes.value   = value.id
+	votes.token      = token.id
+	votes.account    = delegate.id
+	votes.value      = value.id
+	votes.valueExact = event.params.newBalance
 	votes.save()
 
 	let ev          = new DelegateVotesChanged(events.id(event))

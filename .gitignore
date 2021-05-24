@@ -11,6 +11,7 @@ artifacts
 build
 cache
 generated
+generated.yaml
 
 package-lock.json
 yarn.lock

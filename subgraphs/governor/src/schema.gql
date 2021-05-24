@@ -319,6 +319,7 @@ type Balance @entity {
 	token:                        Token!
 	account:                      Account!
 	value:                        DecimalValue!
+	valueExact:                   BigInt!
 	transfersFrom:                [Transfer!]! @derivedFrom(field: "fromBalance")
 	transfersTo:                  [Transfer!]! @derivedFrom(field: "toBalance")
 }
@@ -328,6 +329,7 @@ type VotingPower @entity {
 	token:                        Token!
 	account:                      Account!
 	value:                        DecimalValue!
+	valueExact:                   BigInt!
 }
 
 type Delegation @entity {
