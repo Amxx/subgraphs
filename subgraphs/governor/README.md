@@ -4,7 +4,7 @@
 
 This repository contains everything required to configure and deploy a subgraph that indexes data from a compound-like governance system. This includes [Governor Alpha and Bravo](https://github.com/compound-finance/compound-protocol/tree/master/contracts/Governance), as well as some slight variations that are currently live on-chain.
 
-An [interractive CLI](#configure-and-deploy my-instance) is available to guide you through the subgraph setup.
+An [interractive CLI](#configure-and-deploy-my-instance) is available to guide you through the subgraph setup.
 
 The produced subgraph can index a governor, timelock, and even comp-token activity.
 
