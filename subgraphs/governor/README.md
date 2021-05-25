@@ -1,4 +1,4 @@
-# Coumpound Governance Subgraph
+# Compound Governance Subgraph
 
 ## Introduction
 
