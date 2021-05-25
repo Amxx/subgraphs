@@ -1,8 +1,58 @@
-Coumpound Governance Subgraph
-===
+# Coumpound Governance Subgraph
 
-Explore the meta subgraphs
----
+## Introduction
+
+This repository contains everything required to configure and deploy a subgraph that indexes data from a compound-like governance system. This includes [Governor Alpha and Bravo](https://github.com/compound-finance/compound-protocol/tree/master/contracts/Governance), as well as some slight variations that are currently live on-chain.
+
+An [interractive CLI](#configure-and-deploy my-instance) is available to guide you through the subgraph setup.
+
+The produced subgraph can index a governor, timelock, and even comp-token activity.
+
+## Configure and deploy my instance
+
+You may want to deploy an extended subgraph, with comp token & timelock indexing, for a specific governance instance. This is easy to do:
+
+1. **Create a subgraph on the hosted service.** There is a button for that in [your dashboard](https://thegraph.com/explorer/dashboard)
+
+2. **Install the dependencies**
+
+	`npm i`
+
+3. **Generate a subgraph specific to your platform of interrest**
+
+	`npm run setup`
+
+	and follow the steps
+
+	* select the module(s) you want
+	* select your blockchain
+	* select your start block (optional, help speed-up indexing)
+	* fill the details of each module (governor type, contract addresses)
+
+*Example, for Coumpound's GovernorBravo mainnet deployment:*
+
+```
+$ npm run setup
+> @amxx/subgraphs-compound-governance@1.0.0 setup
+> src/generator.js
+
+✔ Components › Governor, Comp Token, Timelock
+✔ Blockchain › [1] mainnet
+✔ Start block … 9601359
+✔ Governor type › Bravo
+✔ Governor address … 0xc0da02939e1441f497fd74f78ce7decb17b66529
+✔ Comp token address … 0xc00e94cb662c3520282e6f5717214004a7f26888
+✔ Timelock address … 0x6d903f6003cca6255d85cca4d3b5e5146dc33925
+✔ Result path … ./subgraphs/generated.yaml
+```
+
+4. **Deploy the subgraph to the hosted service**
+
+	`NAME=myname/mysubgraphname npm run deploy`
+
+	You'll have to make sure your deployment token is setup, check [the deployment documentation](https://thegraph.com/docs/deploy-a-subgraph#create-a-graph-explorer-account).
+
+## Explore the meta subgraphs
 
 I maintain meta-subgraph that automatically index the activity of compound governance and equivalent contracts. Any compatible contract will automatically be indexed, there is no whitelist mechanism. However, some changes to the ABI (events in particular) can cause part of the data to not be indexed correctly. In general, when forking contract like compound, I would encourage you NOT to change the events interfaces. You can always add additional events on top of the existing ones to publish more infos.
 
@@ -14,8 +64,7 @@ The meta-subgraph are available for the following networks:
 
 Please raise an issue on this repo if you notice any issue with one of the meta-subgraph.
 
-Queries examples
----
+## Queries examples
 
 List of known governance instances, with name, and address, type and proposal count
 ```
@@ -107,53 +156,7 @@ Latest votes by an account, with timestamp and details about the corresponding p
 }
 ```
 
-Build and deploy my instance
----
-
-You may want to deploy an extended subgraph, with comp token & timelock indexing, for a specific governance instance. This is easy to do:
-
-1. **Create a subgraph on the hosted service.** There is a button for that in [your dashboard](https://thegraph.com/explorer/dashboard)
-
-2. **Install the dependencies**
-
-	`npm i`
-
-3. **Generate a subgraph specific to your platform of interrest**
-
-	`npm run setup`
-
-	and follow the steps
-
-	* select the module(s) you want
-	* select your blockchain
-	* select your start block (optional, help speed-up indexing)
-	* fill the details of each module (governor type, contract addresses)
-
-*Example, for Coumpound's GovernorBravo mainnet deployment:*
-
-```
-$ npm run setup
-> @amxx/subgraphs-compound-governance@1.0.0 setup /home/amxx/Work/Projects/subgraphs/subgraphs/governor
-> templates/generator.js
-
-✔ Components › Governor, Comp Token, Timelock
-✔ Blockchain › [1] mainnet
-✔ Start block … 9601359
-✔ Governor type › Bravo
-✔ Governor address … 0xc0da02939e1441f497fd74f78ce7decb17b66529
-✔ Comp token address … 0xc00e94cb662c3520282e6f5717214004a7f26888
-✔ Timelock address … 0x6d903f6003cca6255d85cca4d3b5e5146dc33925
-✔ Result path … ./generated/subgraph.yaml
-```
-
-4. **Deploy the subgraph to the hosted service**
-
-	`NAME=myname/mysubgraphname npm run deploy`
-
-	You'll have to make sure your deployment token is setup, check [the deployment documentation](https://thegraph.com/docs/deploy-a-subgraph#create-a-graph-explorer-account).
-
-FAQ:
----
+## FAQ
 
 - ***What networks are supported?***
 
