@@ -39,7 +39,6 @@ $ npm run setup
 ✔ Components › Governor, Comp Token, Timelock
 ✔ Blockchain › [1] mainnet
 ✔ Start block … 9601359
-✔ Governor type › Bravo
 ✔ Governor address … 0xc0da02939e1441f497fd74f78ce7decb17b66529
 ✔ Comp token address … 0xc00e94cb662c3520282e6f5717214004a7f26888
 ✔ Timelock address … 0x6d903f6003cca6255d85cca4d3b5e5146dc33925
