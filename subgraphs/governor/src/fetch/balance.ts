@@ -13,17 +13,17 @@ export function fetchBalance(token: Token, account: Account): Balance {
 	let balance = Balance.load(id)
 
 	if (balance == null) {
-		balance             = new Balance(id)
-		let value           = new decimals.Value(id.concat('/balance'), token.decimals)
-		let voting          = new decimals.Value(id.concat('/voting'), token.decimals)
-		balance.token       = token.id
-		balance.account     = account.id
-		balance.value       = value.id
-		balance.valueExact  = value.exact
-		balance.voting      = voting.id
-		balance.votingExact = voting.exact
-		balance.delegate    = null
-		balance.save()
+		balance                 = new Balance(id)
+		let value               = new decimals.Value(id.concat('/balance'), token.decimals)
+		let voting              = new decimals.Value(id.concat('/voting'), token.decimals)
+		balance.token           = token.id
+		balance.account         = account.id
+		balance.value           = value.id
+		balance.valueExact      = value.exact
+		balance.voting          = voting.id
+		balance.votingExact     = voting.exact
+		balance.delegate        = null
+		balance.delegatorsCount = 0
 	}
 	return balance as Balance
 }

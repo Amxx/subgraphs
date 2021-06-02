@@ -13,6 +13,7 @@ import {
 	constants,
 	decimals,
 	events,
+	integers,
 	transactions,
 } from '@amxx/graphprotocol-utils'
 
@@ -33,11 +34,24 @@ export function handleDelegateChanged(event: DelegateChangedEvent): void {
 	let delegator    = fetchAccount(event.params.delegator)
 	let fromDelegate = fetchAccount(event.params.fromDelegate)
 	let toDelegate   = fetchAccount(event.params.toDelegate)
+	let balance      = fetchBalance(token, delegator)
 
-	let balance = fetchBalance(token, delegator)
-	balance.delegate = toDelegate.id == constants.ADDRESS_ZERO
-		? null
-		: fetchBalance(token, toDelegate).id
+	if (fromDelegate.id !== constants.ADDRESS_ZERO) {
+		let delegateBalance = fetchBalance(token, fromDelegate)
+		delegateBalance.delegatorsCount -= 1
+		delegateBalance.save()
+	}
+
+	if (toDelegate.id !== constants.ADDRESS_ZERO) {
+		let delegateBalance = fetchBalance(token, toDelegate)
+		delegateBalance.delegatorsCount += 1
+		delegateBalance.save()
+
+		balance.delegate = delegateBalance.id
+	} else {
+		balance.delegate = null
+	}
+
 	balance.save()
 
 	let ev          = new DelegateChanged(events.id(event))
@@ -53,9 +67,8 @@ export function handleDelegateChanged(event: DelegateChangedEvent): void {
 export function handleDelegateVotesChanged(event: DelegateVotesChangedEvent): void {
 	let token    = fetchToken(event.address)
 	let delegate = fetchAccount(event.params.delegate)
-
-	let balance = fetchBalance(token, delegate)
-	let value   = new decimals.Value(balance.voting)
+	let balance  = fetchBalance(token, delegate)
+	let value    = new decimals.Value(balance.voting)
 	value.set(event.params.newBalance)
 	balance.votingExact = event.params.newBalance
 	balance.save()

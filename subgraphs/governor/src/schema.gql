@@ -319,8 +319,10 @@ type Balance @entity {
 	voting:                       DecimalValue!
 	votingExact:                  BigInt!
 	delegate:                     Balance
+	delegatorsCount:              Int!
 	transfersFrom:                [Transfer!]! @derivedFrom(field: "fromBalance")
 	transfersTo:                  [Transfer!]! @derivedFrom(field: "toBalance")
+	delegators:                   [Balance!]! @derivedFrom(field: "delegate")
 }
 
 type Transfer implements Event @entity {
