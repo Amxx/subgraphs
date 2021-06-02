@@ -1,17 +1,16 @@
 import {
-	VotingPower,
-	Delegation,
+	Balance,
 	DelegateChanged,
 	DelegateVotesChanged,
 } from '../../generated/schema'
 
 import {
-	IComp,
 	DelegateChanged as DelegateChangedEvent,
 	DelegateVotesChanged as DelegateVotesChangedEvent,
 } from '../../generated/Comp/IComp'
 
 import {
+	constants,
 	decimals,
 	events,
 	transactions,
@@ -25,19 +24,21 @@ import {
 	fetchToken,
 } from '../fetch/token'
 
-export function handleDelegateChanged(event: DelegateChangedEvent): void {
-	let token = fetchToken(event.address)
-	if (token == null) return
+import {
+	fetchBalance,
+} from '../fetch/balance'
 
+export function handleDelegateChanged(event: DelegateChangedEvent): void {
+	let token        = fetchToken(event.address)
 	let delegator    = fetchAccount(event.params.delegator)
 	let fromDelegate = fetchAccount(event.params.fromDelegate)
 	let toDelegate   = fetchAccount(event.params.toDelegate)
 
-	let delegation       = new Delegation(token.id.concat('/').concat(delegator.id))
-	delegation.token     = token.id
-	delegation.delegator = delegator.id
-	delegation.delegate  = toDelegate.id
-	delegation.save()
+	let balance = fetchBalance(token, delegator)
+	balance.delegate = toDelegate.id == constants.ADDRESS_ZERO
+		? null
+		: fetchBalance(token, toDelegate).id
+	balance.save()
 
 	let ev          = new DelegateChanged(events.id(event))
 	ev.transaction  = transactions.log(event).id
@@ -50,27 +51,20 @@ export function handleDelegateChanged(event: DelegateChangedEvent): void {
 }
 
 export function handleDelegateVotesChanged(event: DelegateVotesChangedEvent): void {
-	let token = fetchToken(event.address)
-	if (token == null) return
-
+	let token    = fetchToken(event.address)
 	let delegate = fetchAccount(event.params.delegate)
 
-	let votes        = new VotingPower(token.id.concat('/').concat(delegate.id))
-	let value        = new decimals.Value(votes.id, token.decimals)
+	let balance = fetchBalance(token, delegate)
+	let value   = new decimals.Value(balance.voting)
 	value.set(event.params.newBalance)
-	votes.token      = token.id
-	votes.account    = delegate.id
-	votes.value      = value.id
-	votes.valueExact = event.params.newBalance
-	votes.save()
+	balance.votingExact = event.params.newBalance
+	balance.save()
 
 	let ev          = new DelegateVotesChanged(events.id(event))
-	let balance     = new decimals.Value(ev.id, token.decimals)
-	balance.set(event.params.newBalance)
 	ev.transaction  = transactions.log(event).id
 	ev.timestamp    = event.block.timestamp
 	ev.token        = token.id
 	ev.delegate     = delegate.id
-	ev.balance      = balance.id
+	ev.balance      = decimals.toDecimals(event.params.newBalance, token.decimals)
 	ev.save()
 }

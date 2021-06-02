@@ -18,9 +18,6 @@ type Account @entity {
 	votecast:                     [VoteCast!]! @derivedFrom(field: "voter")
 
 	balances:                     [Balance!]! @derivedFrom(field: "account")
-	votingPowers:                 [VotingPower!]! @derivedFrom(field: "account")
-	delegationFrom:               [Delegation!]! @derivedFrom(field: "delegator")
-	delegationTo:                 [Delegation!]! @derivedFrom(field: "delegate")
 	transfersFrom:                [Transfer!]! @derivedFrom(field: "from")
 	transfersTo:                  [Transfer!]! @derivedFrom(field: "to")
 	approvalsOwner:               [Approval!]! @derivedFrom(field: "owner")
@@ -118,6 +115,7 @@ type Receipt @entity {
 	voter:                        Account!
 	support:                      Support!
 	votes:                        DecimalValue!
+	votesExact:                   BigInt!
 }
 
 type ProposalCreated implements Event @entity {
@@ -308,8 +306,6 @@ type Token @entity {
 	symbol:                       String
 	decimals:                     Int!
 	balances:                     [Balance!]! @derivedFrom(field: "token")
-	votingPowers:                 [VotingPower!]! @derivedFrom(field: "token")
-	delegations:                  [Delegation!]! @derivedFrom(field: "token")
 	transfers:                    [Transfer!]! @derivedFrom(field: "token")
 	approvals:                    [Approval!]! @derivedFrom(field: "token")
 }
@@ -320,23 +316,11 @@ type Balance @entity {
 	account:                      Account!
 	value:                        DecimalValue!
 	valueExact:                   BigInt!
+	voting:                       DecimalValue!
+	votingExact:                  BigInt!
+	delegate:                     Balance
 	transfersFrom:                [Transfer!]! @derivedFrom(field: "fromBalance")
 	transfersTo:                  [Transfer!]! @derivedFrom(field: "toBalance")
-}
-
-type VotingPower @entity {
-	id:                           ID!
-	token:                        Token!
-	account:                      Account!
-	value:                        DecimalValue!
-	valueExact:                   BigInt!
-}
-
-type Delegation @entity {
-	id:                           ID!
-	token:                        Token!
-	delegator:                    Account!
-	delegate:                     Account!
 }
 
 type Transfer implements Event @entity {
@@ -377,5 +361,5 @@ type DelegateVotesChanged implements Event @entity {
 	timestamp:                    BigInt!
 	token:                        Token!
 	delegate:                     Account!
-	balance:                      DecimalValue!
+	balance:                      BigDecimal!
 }

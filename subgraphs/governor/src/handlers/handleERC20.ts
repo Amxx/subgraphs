@@ -1,11 +1,9 @@
 import {
-	Balance,
 	Transfer,
 	Approval,
 } from '../../generated/schema'
 
 import {
-	IComp,
 	Transfer as TransferEvent,
 	Approval as ApprovalEvent,
 } from '../../generated/Comp/IComp'
@@ -25,10 +23,12 @@ import {
 	fetchToken,
 } from '../fetch/token'
 
+import {
+	fetchBalance,
+} from '../fetch/balance'
+
 export function handleTransfer(event: TransferEvent): void {
 	let token = fetchToken(event.address)
-	if (token == null) return
-
 	let from  = fetchAccount(event.params.from)
 	let to    = fetchAccount(event.params.to)
 
@@ -41,47 +41,23 @@ export function handleTransfer(event: TransferEvent): void {
 	ev.value       = decimals.toDecimals(event.params.value, token.decimals)
 
 	if (from.id != constants.ADDRESS_ZERO) {
-		let id      = token.id.concat('-').concat(from.id)
-		let balance = Balance.load(id)
-		let value   = new decimals.Value(id, token.decimals)
+		let balance = fetchBalance(token, from)
+		let value = new decimals.Value(balance.value)
 		value.decrement(event.params.value)
+		balance.valueExact = value.exact
+		balance.save()
 
-		// first time balance is seen
-		if (balance == null) {
-			let balance        = new Balance(id)
-			balance.token      = token.id
-			balance.account    = from.id
-			balance.value      = value.id
-			balance.valueExact = value.exact
-			balance.save()
-		} else {
-			balance.valueExact = value.exact
-			balance.save()
-		}
-
-		ev.fromBalance = id;
+		ev.fromBalance = balance.id;
 	}
 
 	if (to.id != constants.ADDRESS_ZERO) {
-		let id      = token.id.concat('-').concat(to.id)
-		let balance = Balance.load(id)
-		let value   = new decimals.Value(id, token.decimals)
+		let balance = fetchBalance(token, to)
+		let value = new decimals.Value(balance.value)
 		value.increment(event.params.value)
+		balance.valueExact = value.exact
+		balance.save()
 
-		// first time balance is seen
-		if (balance == null) {
-			let balance        = new Balance(id)
-			balance.token      = token.id
-			balance.account    = to.id
-			balance.value      = value.id
-			balance.valueExact = value.exact
-			balance.save()
-		} else {
-			balance.valueExact = value.exact
-			balance.save()
-		}
-
-		ev.toBalance = id;
+		ev.toBalance = balance.id;
 	}
 	ev.save()
 }

@@ -14,7 +14,7 @@ import {
 	fetchAccount
 } from './account'
 
-export function fetchToken(address: Address) : Token | null {
+export function fetchToken(address: Address) : Token {
 	let token = Token.load(address.toHex())
 
 	if (token == null) {
@@ -34,5 +34,5 @@ export function fetchToken(address: Address) : Token | null {
 		account.save()
 	}
 
-	return token
+	return token as Token
 }

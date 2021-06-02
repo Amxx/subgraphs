@@ -39,13 +39,14 @@ export function handleVoteCastAlpha(event: VoteCastAlphaEvent): void {
 		let totalVotes = fetchDecimal(proposal.id.concat(event.params.support ? '/forVotes' : '/againstVotes'))
 		totalVotes.increment(event.params.votes)
 
-		let receipt      = new Receipt(proposal.id.concat('/').concat(event.params.voter.toHex()))
-		let votes        = fetchDecimal(receipt.id.concat('/votes'))
+		let receipt        = new Receipt(proposal.id.concat('/').concat(event.params.voter.toHex()))
+		let votes          = fetchDecimal(receipt.id.concat('/votes'))
 		votes.set(event.params.votes)
-		receipt.proposal = proposal.id
-		receipt.voter    = fetchAccount(event.params.voter).id
-		receipt.support  = event.params.support ? 'FOR' : 'AGAINST'
-		receipt.votes    = votes.id
+		receipt.proposal   = proposal.id
+		receipt.voter      = fetchAccount(event.params.voter).id
+		receipt.support    = event.params.support ? 'FOR' : 'AGAINST'
+		receipt.votes      = votes.id
+		receipt.votesExact = event.params.votes
 		receipt.save()
 
 		let ev         = new VoteCast(events.id(event))
@@ -74,13 +75,14 @@ export function handleVoteCastBravo(event: VoteCastBravoEvent): void {
 		))
 		totalVotes.increment(event.params.votes)
 
-		let receipt      = new Receipt(proposal.id.concat('/').concat(event.params.voter.toHex()))
-		let votes        = fetchDecimal(receipt.id.concat('/votes'))
+		let receipt        = new Receipt(proposal.id.concat('/').concat(event.params.voter.toHex()))
+		let votes          = fetchDecimal(receipt.id.concat('/votes'))
 		votes.set(event.params.votes)
-		receipt.proposal = proposal.id
-		receipt.voter    = fetchAccount(event.params.voter).id
-		receipt.support  = event.params.support == 0 ? 'AGAINST' : event.params.support == 1 ? 'FOR' : 'ABSTAIN'
-		receipt.votes    = votes.id
+		receipt.proposal   = proposal.id
+		receipt.voter      = fetchAccount(event.params.voter).id
+		receipt.support    = event.params.support == 0 ? 'AGAINST' : event.params.support == 1 ? 'FOR' : 'ABSTAIN'
+		receipt.votesExact = event.params.votes
+		receipt.votes      = votes.id
 		receipt.save()
 
 		let ev         = new VoteCast(events.id(event))
