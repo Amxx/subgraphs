@@ -51,7 +51,7 @@ $ npm run setup
 
 	You'll have to make sure your deployment token is setup, check [the deployment documentation](https://thegraph.com/docs/deploy-a-subgraph#create-a-graph-explorer-account).
 
-A complete subgraph for governor bravo, including the token, the governor contract and the timelock is deployed on the the hosted service [here](https://thegraph.com/explorer/subgraph/amxx/compound-governance-bravo).
+A complete subgraph for governor bravo, including the token, the governor contract and the timelock is deployed on the the hosted service: [https://thegraph.com/explorer/subgraph/amxx/compound-governance-bravo](https://thegraph.com/explorer/subgraph/amxx/compound-governance-bravo).
 
 ## Explore the meta subgraphs
 
