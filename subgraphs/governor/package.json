@@ -21,7 +21,7 @@
     "build": "yarn build:codegen && yarn build:compile",
     "build:codegen": "graph codegen ${SUBGRAPH:-subgraphs/generated.yaml}",
     "build:compile": "graph build ${SUBGRAPH:-subgraphs/generated.yaml}",
-    "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/sandbox} ${SUBGRAPH:-generated/subgraph.yaml}",
+    "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/sandbox} ${SUBGRAPH:-subgraphs/generated.yaml}",
     "deploy:meta:mainnet": "NAME=${NAME:-amxx/compound-governance} SUBGRAPH=subgraphs/meta-mainnet.yaml yarn deploy",
     "deploy:meta:goerli": "NAME=${NAME:-amxx/compound-governance-goerli} SUBGRAPH=subgraphs/meta-goerli.yaml yarn deploy",
     "deploy:meta:kovan": "NAME=${NAME:-amxx/compound-governance-kovan} SUBGRAPH=subgraphs/meta-kovan.yaml yarn deploy",

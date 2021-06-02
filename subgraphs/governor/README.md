@@ -51,6 +51,8 @@ $ npm run setup
 
 	You'll have to make sure your deployment token is setup, check [the deployment documentation](https://thegraph.com/docs/deploy-a-subgraph#create-a-graph-explorer-account).
 
+A complete subgraph for governor bravo, including the token, the governor contract and the timelock is deployed on the the hosted service [here](https://thegraph.com/explorer/subgraph/amxx/compound-governance-bravo).
+
 ## Explore the meta subgraphs
 
 I maintain meta-subgraph that automatically index the activity of compound governance and equivalent contracts. Any compatible contract will automatically be indexed, there is no whitelist mechanism. However, some changes to the ABI (events in particular) can cause part of the data to not be indexed correctly. In general, when forking contract like compound, I would encourage you NOT to change the events interfaces. You can always add additional events on top of the existing ones to publish more infos.
