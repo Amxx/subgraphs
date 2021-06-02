@@ -1,5 +1,6 @@
 subgraphs/*
 !subgraphs/access-control
+!subgraphs/argent
 !subgraphs/governor
 !subgraphs/eip721
 !subgraphs/eip1155

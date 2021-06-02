@@ -1,0 +1,35 @@
+{
+  "name": "@amxx/argent",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Hadrien Croubois (@Amxx)",
+  "license": "MIT",
+  "homepage": "https://github.com/amxx/subgraphs.git#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amxx/subgraphs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amxx/subgraphs.git/issues"
+  },
+  "scripts": {
+    "prepublish": "rimraf artifacts build cache generated",
+    "prepare": "yarn prepare:contracts && yarn prepare:schema",
+    "prepare:contracts": "hardhat compile",
+    "prepare:schema": "mkdir -p generated && concat -o generated/schema.graphql src/schema.gql node_modules/@amxx/graphprotocol-utils/generated/schema.graphql",
+    "setup": "src/generator.js",
+    "build": "yarn build:codegen && yarn build:compile",
+    "build:codegen": "graph codegen ${SUBGRAPH:-subgraph.yaml}",
+    "build:compile": "graph build ${SUBGRAPH:-subgraph.yaml}",
+    "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/argent} ${SUBGRAPH:-subgraph.yaml}"
+  },
+  "devDependencies": {
+    "@amxx/graphprotocol-utils": "^0.1.0",
+    "@graphprotocol/graph-cli": "^0.20.0",
+    "@graphprotocol/graph-ts": "^0.20.0",
+    "concat": "^1.0.3",
+    "hardhat": "^2.1.2",
+    "prompts": "^2.4.1",
+    "rimraf": "^3.0.2"
+  }
+}

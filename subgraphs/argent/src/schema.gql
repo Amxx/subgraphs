@@ -1,0 +1,105 @@
+type Account @entity {
+	id:                           ID!
+	asWallet:                     Wallet
+	asModule:                     Module
+}
+
+##############################################################################
+#                                   Wallet                                   #
+##############################################################################
+type Wallet @entity {
+	id:                           ID!
+	owner:                        Account!
+	modules:                      [WalletModule!]! @derivedFrom(field: "wallet")
+	staticcalls:                  [WalletMethod!]! @derivedFrom(field: "wallet")
+	createdEvent:                 [WalletCreated!]! @derivedFrom(field: "wallet")
+	ownerChangeEvent:             [WalletOwnerChange!]! @derivedFrom(field: "wallet")
+	authorizeModuleEvent:         [WalletAuthorizeModule!]! @derivedFrom(field: "wallet")
+	enabledStaticCallEvent:       [WalletEnabledStaticCall!]! @derivedFrom(field: "wallet")
+	invokedEvent:                 [WalletInvoked!]! @derivedFrom(field: "wallet")
+	receivedEvent:                [WalletReceived!]! @derivedFrom(field: "wallet")
+}
+
+type Module @entity {
+	id:                           ID!
+	wallets:                      [WalletModule!]! @derivedFrom(field: "module")
+	staticcalls:                  [WalletMethod!]! @derivedFrom(field: "module")
+	authorizeModuleEvent:         [WalletAuthorizeModule!]! @derivedFrom(field: "module")
+	enabledStaticCallEvent:       [WalletEnabledStaticCall!]! @derivedFrom(field: "module")
+	invokedEvent:                 [WalletInvoked!]! @derivedFrom(field: "module")
+}
+
+type Method @entity {
+	id:                           ID!
+	staticcalls:                  [WalletMethod!]! @derivedFrom(field: "method")
+}
+
+type WalletModule @entity {
+	id:                           ID!
+	wallet:                       Wallet!
+	module:                       Module!
+}
+
+type WalletMethod @entity {
+	id:                           ID!
+	wallet:                       Wallet!
+	module:                       Module!
+	method:                       Method!
+}
+
+##############################################################################
+#                               Wallet events                                #
+##############################################################################
+type WalletCreated implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	wallet:                       Wallet!
+}
+
+type WalletOwnerChange implements Event @entity
+{
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	wallet:                       Wallet!
+	owner:                        Account!
+}
+
+type WalletAuthorizeModule implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	wallet:                       Wallet!
+	module:                       Module!
+	value:                        Boolean!
+}
+
+type WalletEnabledStaticCall implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	wallet:                       Wallet!
+	module:                       Module!
+	method:                       Method!
+}
+
+type WalletInvoked implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	wallet:                       Wallet!
+	module:                       Module!
+	target:                       Account!
+	value:                        BigDecimal!
+	selector:                     Bytes!
+}
+
+type WalletReceived implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	wallet:                       Wallet!
+	value:                        BigDecimal!
+	sender:                       Account!
+}
