@@ -2,6 +2,8 @@ type Account @entity {
 	id:                           ID!
 	asWallet:                     Wallet
 	asModule:                     Module
+	targetOf:                     [WalletInvoked!]! @derivedFrom(field: "target")
+	senderOf:                     [WalletReceived!]! @derivedFrom(field: "sender")
 }
 
 ##############################################################################
