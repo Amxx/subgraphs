@@ -14,14 +14,15 @@
   },
   "scripts": {
     "prepublish": "rimraf artifacts build cache generated",
-    "prepare": "yarn prepare:contracts && yarn prepare:schema",
+    "prepare": "yarn prepare:contracts && yarn prepare:schema && yarn prepare:subgraph",
     "prepare:contracts": "hardhat compile",
     "prepare:schema": "mkdir -p generated && concat -o generated/schema.graphql src/schema.gql node_modules/@amxx/graphprotocol-utils/generated/schema.graphql",
+    "prepare:subgraph": "node scripts/generator.js > generated/subgraph.yaml",
     "setup": "src/generator.js",
     "build": "yarn build:codegen && yarn build:compile",
-    "build:codegen": "graph codegen ${SUBGRAPH:-subgraph.yaml}",
-    "build:compile": "graph build ${SUBGRAPH:-subgraph.yaml}",
-    "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/argent} ${SUBGRAPH:-subgraph.yaml}"
+    "build:codegen": "graph codegen ${SUBGRAPH:-generated/subgraph.yaml}",
+    "build:compile": "graph build ${SUBGRAPH:-generated/subgraph.yaml}",
+    "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/argent} ${SUBGRAPH:-generated/subgraph.yaml}"
   },
   "devDependencies": {
     "@amxx/graphprotocol-utils": "^0.1.0",

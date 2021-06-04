@@ -1,0 +1,32 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+templates:
+  - name: Wallet
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: Wallet
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Wallet
+        - Module
+      abis:
+        - name: Wallet
+          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+      eventHandlers:
+        - event: OwnerChanged(address)
+          handler: handleOwnerChanged
+        - event: AuthorisedModule(indexed address,bool)
+          handler: handleAuthorisedModule
+        - event: EnabledStaticCall(indexed address,indexed bytes4)
+          handler: handleEnabledStaticCall
+        - event: Invoked(indexed address,indexed address,indexed uint256,bytes)
+          handler: handleInvoked
+        - event: Received(indexed uint256,indexed address,bytes)
+          handler: handleReceived
+      file: ../src/Wallet.ts
+dataSources:
