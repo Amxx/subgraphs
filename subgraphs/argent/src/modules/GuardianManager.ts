@@ -35,8 +35,7 @@ export function handleGuardianAdded(event: GuardianAddedEvent): void {
 	let wallet   = fetchWallet(event.params.wallet)
 	let guardian = fetchAccount(event.params.guardian)
 
-	wallet.guardianCount         += 1
-	wallet.guardianAdditionCount -= 1
+	wallet.guardianCount += 1
 	wallet.save()
 
 	let g      = new Guardian(wallet.id.concat('/').concat(guardian.id))
@@ -58,8 +57,7 @@ export function handleGuardianRevoked(event: GuardianRevokedEvent): void {
 	let wallet   = fetchWallet(event.params.wallet)
 	let guardian = fetchAccount(event.params.guardian)
 
-	wallet.guardianCount           -= 1
-	wallet.guardianRevokationCount -= 1
+	wallet.guardianCount -= 1
 	wallet.save()
 
 	store.remove("Guardian", wallet.id.concat('/').concat(guardian.id))
@@ -76,9 +74,6 @@ export function handleGuardianRevoked(event: GuardianRevokedEvent): void {
 export function handleGuardianAdditionRequested(event: GuardianAdditionRequestedEvent): void {
 	let wallet   = fetchWallet(event.params.wallet)
 	let guardian = fetchAccount(event.params.guardian)
-
-	wallet.guardianAdditionCount += 1
-	wallet.save()
 
 	let g          = new GuardianAddition(wallet.id.concat('/').concat(guardian.id))
 	g.wallet       = wallet.id
@@ -99,9 +94,6 @@ export function handleGuardianAdditionCancelled(event: GuardianAdditionCancelled
 	let wallet   = fetchWallet(event.params.wallet)
 	let guardian = fetchAccount(event.params.guardian)
 
-	wallet.guardianAdditionCount -= 1
-	wallet.save()
-
 	store.remove("GuardianAddition", wallet.id.concat('/').concat(guardian.id))
 
 	let ev         = new GuardianAdditionCancelled(events.id(event))
@@ -115,9 +107,6 @@ export function handleGuardianAdditionCancelled(event: GuardianAdditionCancelled
 export function handleGuardianRevokationRequested(event: GuardianRevokationRequestedEvent): void {
 	let wallet   = fetchWallet(event.params.wallet)
 	let guardian = fetchAccount(event.params.guardian)
-
-	wallet.guardianRevokationCount += 1
-	wallet.save()
 
 	let g          = new GuardianRevokation(wallet.id.concat('/').concat(guardian.id))
 	g.wallet       = wallet.id
@@ -137,9 +126,6 @@ export function handleGuardianRevokationRequested(event: GuardianRevokationReque
 export function handleGuardianRevokationCancelled(event: GuardianRevokationCancelledEvent): void {
 	let wallet   = fetchWallet(event.params.wallet)
 	let guardian = fetchAccount(event.params.guardian)
-
-	wallet.guardianRevokationCount -= 1
-	wallet.save()
 
 	store.remove("GuardianRevokation", wallet.id.concat('/').concat(guardian.id))
 

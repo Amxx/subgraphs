@@ -27,8 +27,6 @@ export function handleWalletCreated(event: WalletCreatedEvent): void {
 	wallet.owner                   = owner.id
 	wallet.moduleCount             = 0
 	wallet.guardianCount           = 0
-	wallet.guardianAdditionCount   = 0
-	wallet.guardianRevokationCount = 0
 	wallet.save()
 
 	let ev         = new WalletCreated(events.id(event))
@@ -49,8 +47,6 @@ export function handleWalletCreatedV2(event: WalletCreatedV2Event): void {
 	wallet.owner                   = owner.id
 	wallet.moduleCount             = 0
 	wallet.guardianCount           = 0
-	wallet.guardianAdditionCount   = 0
-	wallet.guardianRevokationCount = 0
 	wallet.save()
 
 	let ev         = new WalletCreated(events.id(event))

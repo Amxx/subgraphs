@@ -15,6 +15,7 @@ export function fetchWallet(address: Address) : Wallet {
 
 	if (wallet == null) {
 		wallet = new Wallet(address.toHex())
+		// TODO: index implementation ?
 
 		let account      = fetchAccount(address)
 		account.asWallet = wallet.id
