@@ -22,6 +22,7 @@ type Account @entity {
 ##############################################################################
 type Wallet @entity {
 	id:                                   ID!
+	locked:                               Boolean!
 	owner:                                Account!
 	moduleCount:                          Int!
 	modules:                              [WalletModule!]! @derivedFrom(field: "wallet")
@@ -37,6 +38,8 @@ type Wallet @entity {
 	enabledStaticCallEvent:               [WalletEnabledStaticCall!]! @derivedFrom(field: "wallet")
 	invokedEvent:                         [WalletInvoked!]! @derivedFrom(field: "wallet")
 	receivedEvent:                        [WalletReceived!]! @derivedFrom(field: "wallet")
+	lockedEvent:                          [Locked!]! @derivedFrom(field: "wallet")
+	unlockedEvent:                        [Unlocked!]! @derivedFrom(field: "wallet")
 	guardianAddedEvent:                   [GuardianAdded!]! @derivedFrom(field: "wallet")
 	guardianAdditionRequestedEvent:       [GuardianAdditionRequested!]! @derivedFrom(field: "wallet")
 	guardianAdditionCancelledEvent:       [GuardianAdditionCancelled!]! @derivedFrom(field: "wallet")
@@ -128,6 +131,24 @@ type WalletReceived implements Event @entity {
 	wallet:                               Wallet!
 	value:                                BigDecimal!
 	sender:                               Account!
+}
+
+##############################################################################
+#                                  Locking                                   #
+##############################################################################
+type Locked implements Event @entity {
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	releaseAfter:                         BigInt!
+}
+
+type Unlocked implements Event @entity {
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
 }
 
 ##############################################################################

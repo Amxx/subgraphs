@@ -25,6 +25,7 @@ export function handleWalletCreated(event: WalletCreatedEvent): void {
 	let owner                      = fetchAccount(event.params.owner)
 	let wallet                     = fetchWallet(event.params.wallet)
 	wallet.owner                   = owner.id
+	wallet.locked                  = false
 	wallet.moduleCount             = 0
 	wallet.guardianCount           = 0
 	wallet.save()
@@ -45,6 +46,7 @@ export function handleWalletCreatedV2(event: WalletCreatedV2Event): void {
 	let owner                      = fetchAccount(event.params.owner)
 	let wallet                     = fetchWallet(event.params.wallet)
 	wallet.owner                   = owner.id
+	wallet.locked                  = false
 	wallet.moduleCount             = 0
 	wallet.guardianCount           = 0
 	wallet.save()

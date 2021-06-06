@@ -1,0 +1,22 @@
+  - kind: ethereum/contract
+    name: {name}
+    network: mainnet
+    source:
+      address: "{address}"
+      abi: LockManager
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Wallet
+      abis:
+        - name: LockManager
+          file: ../artifacts/contracts/ILockManager.sol/ILockManager.json
+      eventHandlers:
+        - event: Locked(indexed address,uint64)
+          handler: handleLocked
+        - event: Unlocked(indexed address)
+          handler: handleUnlocked
+      file: ../src/modules/LockManager.ts
