@@ -4,6 +4,9 @@ type Account @entity {
 	asModule:                     Module
 	targetOf:                     [WalletInvoked!]! @derivedFrom(field: "target")
 	senderOf:                     [WalletReceived!]! @derivedFrom(field: "sender")
+	guardianOf:                   [Guardian!]! @derivedFrom(field: "guardian")
+	guardianAddedEvent:           [GuardianAdded!]! @derivedFrom(field: "guardian")
+	guardianRevokedEvent:         [GuardianRevoked!]! @derivedFrom(field: "guardian")
 }
 
 ##############################################################################
@@ -20,6 +23,9 @@ type Wallet @entity {
 	enabledStaticCallEvent:       [WalletEnabledStaticCall!]! @derivedFrom(field: "wallet")
 	invokedEvent:                 [WalletInvoked!]! @derivedFrom(field: "wallet")
 	receivedEvent:                [WalletReceived!]! @derivedFrom(field: "wallet")
+	guardians:                    [Guardian!]! @derivedFrom(field: "wallet")
+	guardianAddedEvent:           [GuardianAdded!]! @derivedFrom(field: "wallet")
+	guardianRevokedEvent:         [GuardianRevoked!]! @derivedFrom(field: "wallet")
 }
 
 type Module @entity {
@@ -104,4 +110,29 @@ type WalletReceived implements Event @entity {
 	wallet:                       Wallet!
 	value:                        BigDecimal!
 	sender:                       Account!
+}
+
+##############################################################################
+#                         Guardian & Guardian events                         #
+##############################################################################
+type Guardian @entity {
+	id:                           ID!
+	wallet:                       Wallet!
+	guardian:                     Account!
+}
+
+type GuardianAdded implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	wallet:                       Wallet!
+	guardian:                     Account!
+}
+
+type GuardianRevoked implements Event @entity {
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	wallet:                       Wallet!
+	guardian:                     Account!
 }

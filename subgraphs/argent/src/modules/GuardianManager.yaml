@@ -1,0 +1,30 @@
+  - kind: ethereum/contract
+    name: {name}
+    network: mainnet
+    source:
+      address: "{address}"
+      abi: GuardianManager
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Wallet
+      abis:
+        - name: GuardianManager
+          file: ../artifacts/contracts/IGuardianManager.sol/IGuardianManager.json
+      eventHandlers:
+        - event: GuardianAdded(indexed address,indexed address)
+          handler: handleGuardianAdded
+        # - event: GuardianAdditionRequested(indexed address,indexed address,uint256)
+        #   handler: handleGuardianAdditionRequested
+        # - event: GuardianAdditionCancelled(indexed address,indexed address)
+        #   handler: handleGuardianAdditionCancelled
+        - event: GuardianRevoked(indexed address,indexed address)
+          handler: handleGuardianRevoked
+        # - event: GuardianRevokationRequested(indexed address,indexed address,uint256)
+        #   handler: handleGuardianRevokationRequested
+        # - event: GuardianRevokationCancelled(indexed address,indexed address)
+        #   handler: handleGuardianRevokationCancelled
+      file: ../src/modules/GuardianManager.ts
