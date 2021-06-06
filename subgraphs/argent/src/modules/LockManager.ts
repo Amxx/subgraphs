@@ -13,7 +13,6 @@ import {
 	transactions,
 } from '@amxx/graphprotocol-utils'
 
-import { fetchAccount } from '../fetch/account'
 import { fetchWallet  } from '../fetch/wallet'
 
 export function handleLocked(event: LockedEvent): void {
