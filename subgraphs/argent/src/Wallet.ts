@@ -53,13 +53,18 @@ export function handleAuthorisedModule(event: AuthorisedModuleEvent): void {
 	let id     = wallet.id.concat('/').concat(module.id)
 
 	if (event.params.value) {
+		wallet.moduleCount += 1
+
 		let wm    = new WalletModule(id)
 		wm.wallet = wallet.id
 		wm.module = module.id
 		wm.save()
 	} else {
+		wallet.moduleCount -= 1
+
 		store.remove("WalletModule", id)
 	}
+	wallet.save()
 
 	let ev         = new WalletAuthorizeModule(events.id(event))
 	ev.transaction = transactions.log(event).id

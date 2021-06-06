@@ -1,138 +1,209 @@
 type Account @entity {
-	id:                           ID!
-	asWallet:                     Wallet
-	asModule:                     Module
-	targetOf:                     [WalletInvoked!]! @derivedFrom(field: "target")
-	senderOf:                     [WalletReceived!]! @derivedFrom(field: "sender")
-	guardianOf:                   [Guardian!]! @derivedFrom(field: "guardian")
-	guardianAddedEvent:           [GuardianAdded!]! @derivedFrom(field: "guardian")
-	guardianRevokedEvent:         [GuardianRevoked!]! @derivedFrom(field: "guardian")
+	id:                                   ID!
+	asWallet:                             Wallet
+	asModule:                             Module
+
+	targetOf:                             [WalletInvoked!]! @derivedFrom(field: "target")
+	senderOf:                             [WalletReceived!]! @derivedFrom(field: "sender")
+	guardianOf:                           [Guardian!]! @derivedFrom(field: "guardian")
+	guardianAdditionOf:                   [GuardianAddition!]! @derivedFrom(field: "guardian")
+	guardianRevokationOf:                 [GuardianRevokation!]! @derivedFrom(field: "guardian")
+
+	guardianAddedEvent:                   [GuardianAdded!]! @derivedFrom(field: "guardian")
+	guardianAdditionRequestedEvent:       [GuardianAdditionRequested!]! @derivedFrom(field: "guardian")
+	guardianAdditionCancelledEvent:       [GuardianAdditionCancelled!]! @derivedFrom(field: "guardian")
+	guardianRevokedEvent:                 [GuardianRevoked!]! @derivedFrom(field: "guardian")
+	guardianRevokationRequestedEvent:     [GuardianRevokationRequested!]! @derivedFrom(field: "guardian")
+	guardianRevokationCancelledEvent:     [GuardianRevokationCancelled!]! @derivedFrom(field: "guardian")
 }
 
 ##############################################################################
 #                                   Wallet                                   #
 ##############################################################################
 type Wallet @entity {
-	id:                           ID!
-	owner:                        Account!
-	modules:                      [WalletModule!]! @derivedFrom(field: "wallet")
-	staticcalls:                  [WalletMethod!]! @derivedFrom(field: "wallet")
-	createdEvent:                 [WalletCreated!]! @derivedFrom(field: "wallet")
-	ownerChangeEvent:             [WalletOwnerChange!]! @derivedFrom(field: "wallet")
-	authorizeModuleEvent:         [WalletAuthorizeModule!]! @derivedFrom(field: "wallet")
-	enabledStaticCallEvent:       [WalletEnabledStaticCall!]! @derivedFrom(field: "wallet")
-	invokedEvent:                 [WalletInvoked!]! @derivedFrom(field: "wallet")
-	receivedEvent:                [WalletReceived!]! @derivedFrom(field: "wallet")
-	guardians:                    [Guardian!]! @derivedFrom(field: "wallet")
-	guardianAddedEvent:           [GuardianAdded!]! @derivedFrom(field: "wallet")
-	guardianRevokedEvent:         [GuardianRevoked!]! @derivedFrom(field: "wallet")
+	id:                                   ID!
+	owner:                                Account!
+	moduleCount:                          Int!
+	modules:                              [WalletModule!]! @derivedFrom(field: "wallet")
+	staticcalls:                          [WalletMethod!]! @derivedFrom(field: "wallet")
+	guardianCount:                        Int!
+	guardianAdditionCount:                Int!
+	guardianRevokationCount:              Int!
+	guardians:                            [Guardian!]! @derivedFrom(field: "wallet")
+	guardianAdditions:                    [GuardianAddition!]! @derivedFrom(field: "wallet")
+	guardianRevokations:                  [GuardianRevokation!]! @derivedFrom(field: "wallet")
+
+	createdEvent:                         [WalletCreated!]! @derivedFrom(field: "wallet")
+	ownerChangeEvent:                     [WalletOwnerChange!]! @derivedFrom(field: "wallet")
+	authorizeModuleEvent:                 [WalletAuthorizeModule!]! @derivedFrom(field: "wallet")
+	enabledStaticCallEvent:               [WalletEnabledStaticCall!]! @derivedFrom(field: "wallet")
+	invokedEvent:                         [WalletInvoked!]! @derivedFrom(field: "wallet")
+	receivedEvent:                        [WalletReceived!]! @derivedFrom(field: "wallet")
+	guardianAddedEvent:                   [GuardianAdded!]! @derivedFrom(field: "wallet")
+	guardianAdditionRequestedEvent:       [GuardianAdditionRequested!]! @derivedFrom(field: "wallet")
+	guardianAdditionCancelledEvent:       [GuardianAdditionCancelled!]! @derivedFrom(field: "wallet")
+	guardianRevokedEvent:                 [GuardianRevoked!]! @derivedFrom(field: "wallet")
+	guardianRevokationRequestedEvent:     [GuardianRevokationRequested!]! @derivedFrom(field: "wallet")
+	guardianRevokationCancelledEvent:     [GuardianRevokationCancelled!]! @derivedFrom(field: "wallet")
 }
 
 type Module @entity {
-	id:                           ID!
-	wallets:                      [WalletModule!]! @derivedFrom(field: "module")
-	staticcalls:                  [WalletMethod!]! @derivedFrom(field: "module")
-	authorizeModuleEvent:         [WalletAuthorizeModule!]! @derivedFrom(field: "module")
-	enabledStaticCallEvent:       [WalletEnabledStaticCall!]! @derivedFrom(field: "module")
-	invokedEvent:                 [WalletInvoked!]! @derivedFrom(field: "module")
+	id:                                   ID!
+	wallets:                              [WalletModule!]! @derivedFrom(field: "module")
+	staticcalls:                          [WalletMethod!]! @derivedFrom(field: "module")
+
+	authorizeModuleEvent:                 [WalletAuthorizeModule!]! @derivedFrom(field: "module")
+	enabledStaticCallEvent:               [WalletEnabledStaticCall!]! @derivedFrom(field: "module")
+	invokedEvent:                         [WalletInvoked!]! @derivedFrom(field: "module")
 }
 
 type Method @entity {
-	id:                           ID!
-	staticcalls:                  [WalletMethod!]! @derivedFrom(field: "method")
+	id:                                   ID!
+	staticcalls:                          [WalletMethod!]! @derivedFrom(field: "method")
 }
 
 type WalletModule @entity {
-	id:                           ID!
-	wallet:                       Wallet!
-	module:                       Module!
+	id:                                   ID!
+	wallet:                               Wallet!
+	module:                               Module!
 }
 
 type WalletMethod @entity {
-	id:                           ID!
-	wallet:                       Wallet!
-	module:                       Module!
-	method:                       Method!
+	id:                                   ID!
+	wallet:                               Wallet!
+	module:                               Module!
+	method:                               Method!
 }
 
 ##############################################################################
 #                               Wallet events                                #
 ##############################################################################
 type WalletCreated implements Event @entity {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
-	wallet:                       Wallet!
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
 }
 
 type WalletOwnerChange implements Event @entity
 {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
-	wallet:                       Wallet!
-	owner:                        Account!
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	owner:                                Account!
 }
 
 type WalletAuthorizeModule implements Event @entity {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
-	wallet:                       Wallet!
-	module:                       Module!
-	value:                        Boolean!
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	module:                               Module!
+	value:                                Boolean!
 }
 
 type WalletEnabledStaticCall implements Event @entity {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
-	wallet:                       Wallet!
-	module:                       Module!
-	method:                       Method!
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	module:                               Module!
+	method:                               Method!
 }
 
 type WalletInvoked implements Event @entity {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
-	wallet:                       Wallet!
-	module:                       Module!
-	target:                       Account!
-	value:                        BigDecimal!
-	selector:                     Bytes!
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	module:                               Module!
+	target:                               Account!
+	value:                                BigDecimal!
+	selector:                             Bytes!
 }
 
 type WalletReceived implements Event @entity {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
-	wallet:                       Wallet!
-	value:                        BigDecimal!
-	sender:                       Account!
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	value:                                BigDecimal!
+	sender:                               Account!
 }
 
 ##############################################################################
-#                         Guardian & Guardian events                         #
+#                                  Guardian                                  #
 ##############################################################################
 type Guardian @entity {
-	id:                           ID!
-	wallet:                       Wallet!
-	guardian:                     Account!
+	id:                                   ID!
+	wallet:                               Wallet!
+	guardian:                             Account!
 }
 
+type GuardianAddition @entity {
+	id:                                   ID!
+	wallet:                               Wallet!
+	guardian:                             Account!
+	executeAfter:                         BigInt!
+}
+
+type GuardianRevokation @entity {
+	id:                                   ID!
+	wallet:                               Wallet!
+	guardian:                             Account!
+	executeAfter:                         BigInt!
+}
+
+##############################################################################
+#                              Guardian events                               #
+##############################################################################
 type GuardianAdded implements Event @entity {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
-	wallet:                       Wallet!
-	guardian:                     Account!
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	guardian:                             Account!
+}
+
+type GuardianAdditionRequested implements Event @entity {
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	guardian:                             Account!
+	executeAfter:                         BigInt!
+}
+
+type GuardianAdditionCancelled implements Event @entity {
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	guardian:                             Account!
 }
 
 type GuardianRevoked implements Event @entity {
-	id:                           ID!
-	transaction:                  Transaction!
-	timestamp:                    BigInt!
-	wallet:                       Wallet!
-	guardian:                     Account!
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	guardian:                             Account!
+}
+
+type GuardianRevokationRequested implements Event @entity {
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	guardian:                             Account!
+	executeAfter:                         BigInt!
+}
+
+type GuardianRevokationCancelled implements Event @entity {
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	wallet:                               Wallet!
+	guardian:                             Account!
 }

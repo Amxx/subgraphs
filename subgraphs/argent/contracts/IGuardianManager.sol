@@ -5,12 +5,12 @@ import "./IBaseModule.sol";
 import "./IRelayerModule.sol";
 
 interface IGuardianManager is IBaseModule, IRelayerModule {
-    event GuardianAdditionRequested(address indexed wallet, address indexed guardian, uint256 executeAfter);
-    event GuardianRevokationRequested(address indexed wallet, address indexed guardian, uint256 executeAfter);
-    event GuardianAdditionCancelled(address indexed wallet, address indexed guardian);
-    event GuardianRevokationCancelled(address indexed wallet, address indexed guardian);
     event GuardianAdded(address indexed wallet, address indexed guardian);
+    event GuardianAdditionRequested(address indexed wallet, address indexed guardian, uint256 executeAfter);
+    event GuardianAdditionCancelled(address indexed wallet, address indexed guardian);
     event GuardianRevoked(address indexed wallet, address indexed guardian);
+    event GuardianRevokationRequested(address indexed wallet, address indexed guardian, uint256 executeAfter);
+    event GuardianRevokationCancelled(address indexed wallet, address indexed guardian);
 
     function NAME() external view returns (string memory);
     function guardianStorage() external view returns (address);
