@@ -28,6 +28,8 @@ type Wallet @entity {
 	modules:                              [WalletModule!]! @derivedFrom(field: "wallet")
 	staticcalls:                          [WalletMethod!]! @derivedFrom(field: "wallet")
 	guardianCount:                        Int!
+	guardianAdditionCount:                Int!
+	guardianRevokationCount:              Int!
 	guardians:                            [Guardian!]! @derivedFrom(field: "wallet")
 	guardianAdditions:                    [GuardianAddition!]! @derivedFrom(field: "wallet")
 	guardianRevokations:                  [GuardianRevokation!]! @derivedFrom(field: "wallet")
