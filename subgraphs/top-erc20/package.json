@@ -1,5 +1,5 @@
 {
-  "name": "@amxx/argent",
+  "name": "@amxx/subgraphs-top-erc20",
   "version": "1.0.0",
   "description": "",
   "author": "Hadrien Croubois (@Amxx)",
@@ -14,22 +14,21 @@
   },
   "scripts": {
     "prepublish": "rimraf artifacts build cache generated",
-    "prepare": "mkdir -p generated && yarn prepare:contracts && yarn prepare:schema && yarn prepare:subgraph",
-    "prepare:contracts": "hardhat compile",
-    "prepare:schema": "concat -o generated/schema.graphql src/schema.gql node_modules/@amxx/graphprotocol-utils/generated/schema.graphql",
+    "prepare": "mkdir -p generated && yarn prepare:schema && yarn prepare:subgraph",
+    "prepare:schema": "mkdir -p generated && concat -o generated/schema.graphql src/schema.gql node_modules/@amxx/graphprotocol-utils/generated/schema.graphql",
     "prepare:subgraph": "node scripts/generator.js > generated/subgraph.yaml",
     "build": "yarn build:codegen && yarn build:compile",
     "build:codegen": "graph codegen ${SUBGRAPH:-generated/subgraph.yaml}",
     "build:compile": "graph build ${SUBGRAPH:-generated/subgraph.yaml}",
-    "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/argent} ${SUBGRAPH:-generated/subgraph.yaml}"
+    "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/top-erc20} ${SUBGRAPH:-generated/subgraph.yaml}"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.0.0"
   },
   "devDependencies": {
     "@amxx/graphprotocol-utils": "^0.1.0",
     "@graphprotocol/graph-cli": "^0.20.0",
     "@graphprotocol/graph-ts": "^0.20.0",
-    "concat": "^1.0.3",
-    "hardhat": "^2.1.2",
-    "prompts": "^2.4.1",
-    "rimraf": "^3.0.2"
+    "concat": "^1.0.3"
   }
 }

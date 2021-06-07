@@ -6,6 +6,7 @@ subgraphs/*
 !subgraphs/eip1155
 !subgraphs/nonstandard-nfts
 !subgraphs/poap
+!subgraphs/top-erc20
 
 node_modules
 artifacts

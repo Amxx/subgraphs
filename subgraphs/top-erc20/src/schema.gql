@@ -1,0 +1,52 @@
+type Account @entity {
+	id:                                   ID!
+	asERC20:                              ERC20Token
+
+	ERC20balances:                        [ERC20Balance!]! @derivedFrom(field: "account")
+	ERC20transferFromEvent:               [ERC20Transfer!]! @derivedFrom(field: "from")
+	ERC20transferToEvent:                 [ERC20Transfer!]! @derivedFrom(field: "to")
+	ERC20approvalOwnerEvent:              [ERC20Approval!]! @derivedFrom(field: "owner")
+	ERC20approvalSpenderEvent:            [ERC20Approval!]! @derivedFrom(field: "spender")
+}
+
+type ERC20Token @entity {
+	id:                                   ID!
+	name:                                 String
+	symbol:                               String
+	decimals:                             Int!
+	balances:                             [ERC20Balance!]! @derivedFrom(field: "token")
+	transfers:                            [ERC20Transfer!]! @derivedFrom(field: "token")
+	approvals:                            [ERC20Approval!]! @derivedFrom(field: "token")
+}
+
+type ERC20Balance @entity {
+	id:                                   ID!
+	token:                                ERC20Token!
+	account:                              Account!
+	value:                                DecimalValue!
+	valueExact:                           BigInt!
+	transferFromEvent:                    [ERC20Transfer!]! @derivedFrom(field: "fromBalance")
+	transferToEvent:                      [ERC20Transfer!]! @derivedFrom(field: "toBalance")
+}
+
+type ERC20Transfer implements Event @entity {
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	token:                                ERC20Token!
+	from:                                 Account!
+	fromBalance:                          ERC20Balance
+	to:                                   Account!
+	toBalance:                            ERC20Balance
+	value:                                BigDecimal!
+}
+
+type ERC20Approval implements Event @entity {
+	id:                                   ID!
+	transaction:                          Transaction!
+	timestamp:                            BigInt!
+	token:                                ERC20Token!
+	owner:                                Account!
+	spender:                              Account!
+	value:                                BigDecimal!
+}
