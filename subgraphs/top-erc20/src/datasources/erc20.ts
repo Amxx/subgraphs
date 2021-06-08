@@ -36,6 +36,7 @@ export function handleTransfer(event: TransferEvent): void {
 	ev.from        = from.id
 	ev.to          = to.id
 	ev.value       = decimals.toDecimals(event.params.value, token.decimals)
+	ev.valueExact  = event.params.value
 
 	if (from.id != constants.ADDRESS_ZERO) {
 		let balance        = fetchERC20Balance(token, from)
