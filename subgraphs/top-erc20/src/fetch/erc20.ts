@@ -6,12 +6,11 @@ import {
 	Account,
 	ERC20Token,
 	ERC20Balance,
+	ERC20Approval,
 } from '../../generated/schema'
 
 import {
 	IERC20,
-	Transfer as TransferEvent,
-	Approval as ApprovalEvent,
 } from '../../generated/DAI/IERC20'
 
 import {
@@ -52,11 +51,26 @@ export function fetchERC20Balance(token: ERC20Token, account: Account): ERC20Bal
 	if (balance == null) {
 		balance                 = new ERC20Balance(id)
 		let value               = new decimals.Value(id.concat('/balance'), token.decimals)
-		let voting              = new decimals.Value(id.concat('/voting'), token.decimals)
 		balance.token           = token.id
 		balance.account         = account.id
 		balance.value           = value.id
 		balance.valueExact      = value.exact
 	}
 	return balance as ERC20Balance
+}
+
+export function fetchERC20Approval(token: ERC20Token, owner: Account, spender: Account): ERC20Approval {
+	let id       = token.id.concat('/').concat(owner.id).concat('/').concat(spender.id)
+	let approval = ERC20Approval.load(id)
+
+	if (approval == null) {
+		approval                = new ERC20Approval(id)
+		let value               = new decimals.Value(id.concat('/approval'), token.decimals)
+		approval.token          = token.id
+		approval.owner          = owner.id
+		approval.spender        = spender.id
+		approval.value          = value.id
+		approval.valueExact     = value.exact
+	}
+	return approval as ERC20Approval
 }
