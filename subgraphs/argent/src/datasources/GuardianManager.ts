@@ -15,6 +15,7 @@ import {
 } from "../../generated/schema"
 
 import {
+	GuardianManager,
 	GuardianAdded               as GuardianAddedEvent,
 	GuardianAdditionRequested   as GuardianAdditionRequestedEvent,
 	GuardianAdditionCancelled   as GuardianAdditionCancelledEvent,
@@ -36,15 +37,13 @@ export function handleGuardianAdded(event: GuardianAddedEvent): void {
 	let guardian = fetchAccount(event.params.guardian)
 	let id       = wallet.id.concat('/').concat(guardian.id)
 
-	if (Guardian.load(id) == null) {
-		wallet.guardianCount += 1
-		wallet.save()
+	wallet.guardianCount = GuardianManager.bind(event.address).guardianCount(event.params.wallet).toI32()
+	wallet.save();
 
-		let g      = new Guardian(id)
-		g.wallet   = wallet.id
-		g.guardian = guardian.id
-		g.save()
-	}
+	let g      = new Guardian(id)
+	g.wallet   = wallet.id
+	g.guardian = guardian.id
+	g.save()
 
 	store.remove("GuardianAddition", id)
 
@@ -61,13 +60,10 @@ export function handleGuardianRevoked(event: GuardianRevokedEvent): void {
 	let guardian = fetchAccount(event.params.guardian)
 	let id       = wallet.id.concat('/').concat(guardian.id)
 
-	if (Guardian.load(id) != null) {
-		wallet.guardianCount -= 1
-		wallet.save()
+	wallet.guardianCount = GuardianManager.bind(event.address).guardianCount(event.params.wallet).toI32()
+	wallet.save()
 
-		store.remove("Guardian", id)
-	}
-
+	store.remove("Guardian", id)
 	store.remove("GuardianRevokation", id)
 
 	let ev         = new GuardianRevoked(events.id(event))

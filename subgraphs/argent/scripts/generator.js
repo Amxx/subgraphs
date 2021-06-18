@@ -156,7 +156,6 @@ class Subgraph {
   }
 
   toString() {
-    assert(this.config.receipt.datasources.filter(({ disabled }) => !disabled).every(({ address }) => address), 'Error writting subgraph: datasource is missing address');
     const header    = readFile(path.resolve(__dirname, '../src/header.yaml'));
     const templates = Object.fromEntries(
       this.config.modules().map(module => {
@@ -170,7 +169,7 @@ class Subgraph {
     return [].concat(
       header
         .replace(/\{(\w+)\}/g, (_, varname) => ({ schema: this.schema })[varname]),
-      this.config.receipt.datasources.filter(({ disabled }) => !disabled)
+      this.config.receipt.datasources.filter(({ address, disabled }) => address && !disabled)
         .flatMap(datasource => [].concat(datasource.module).map(module => Object.assign({}, datasource, { module })))
         .map((datasource, i, array) => Object.assign(
           {
