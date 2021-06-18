@@ -9,17 +9,17 @@
   "name": "Locked",
   "parent": "Event",
   "fields": [
-    { "name": "transaction",            "type": "Transaction!"                                  },
-    { "name": "timestamp",              "type": "BigInt!"                                       },
-    { "name": "wallet",                 "type": "Wallet!"                                       },
-    { "name": "releaseAfter",           "type": "BigInt!"                                       }
+    { "name": "transaction",   "type": "Transaction!"                   },
+    { "name": "timestamp",     "type": "BigInt!"                        },
+    { "name": "wallet",        "type": "Wallet!"                        },
+    { "name": "releaseAfter",  "type": "BigInt!"                        }
   ]
 },{
   "name": "Unlocked",
   "parent": "Event",
   "fields": [
-    { "name": "transaction",            "type": "Transaction!"                                  },
-    { "name": "timestamp",              "type": "BigInt!"                                       },
-    { "name": "wallet",                 "type": "Wallet!"                                       }
+    { "name": "transaction",   "type": "Transaction!"                   },
+    { "name": "timestamp",     "type": "BigInt!"                        },
+    { "name": "wallet",        "type": "Wallet!"                        }
   ]
 }]

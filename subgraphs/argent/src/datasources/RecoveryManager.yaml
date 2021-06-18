@@ -1,0 +1,28 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: mainnet
+    source:
+      address: "{address}"
+      abi: RecoveryManager
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Wallet
+      abis:
+        - name: Wallet
+          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+        - name: RecoveryManager
+          file: ../artifacts/contracts/IRecoveryManager.sol/IRecoveryManager.json
+      eventHandlers:
+        - event: OwnershipTransfered(indexed address,indexed address)
+          handler: handleOwnershipTransfered
+        - event: RecoveryCanceled(indexed address,indexed address)
+          handler: handleRecoveryCanceled
+        - event: RecoveryExecuted(indexed address,indexed address,uint64)
+          handler: handleRecoveryExecuted
+        - event: RecoveryFinalized(indexed address,indexed address)
+          handler: handleRecoveryFinalized
+      file: ../src/datasources/RecoveryManager.ts

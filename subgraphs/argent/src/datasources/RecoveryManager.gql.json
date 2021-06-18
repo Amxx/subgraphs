@@ -1,0 +1,52 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "pendingRecovery",        "type": "Recovery!",          "derived": "newOwner" },
+    { "name": "recoveryExecutedEvent",  "type": "RecoveryExecuted!",  "derived": "newOwner" },
+    { "name": "recoveryFinalizedEvent", "type": "RecoveryFinalized!", "derived": "newOwner" },
+    { "name": "recoveryCanceledEvent",  "type": "RecoveryCanceled!",  "derived": "newOwner" }
+  ]
+},{
+  "name": "Wallet",
+  "fields": [
+    { "name": "pendingRecovery",        "type": "Recovery!",          "derived": "wallet"   },
+    { "name": "recoveryExecutedEvent",  "type": "RecoveryExecuted!",  "derived": "wallet"   },
+    { "name": "recoveryFinalizedEvent", "type": "RecoveryFinalized!", "derived": "wallet"   },
+    { "name": "recoveryCanceledEvent",  "type": "RecoveryCanceled!",  "derived": "wallet"   }
+  ]
+},{
+  "name": "Recovery",
+  "fields": [
+    { "name": "wallet",                 "type": "Wallet!"                                   },
+    { "name": "newOwner",               "type": "Account!"                                  },
+    { "name": "executeAfter",           "type": "BigInt!"                                   }
+  ]
+},{
+  "name": "RecoveryExecuted",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                              },
+    { "name": "timestamp",              "type": "BigInt!"                                   },
+    { "name": "wallet",                 "type": "Wallet!"                                   },
+    { "name": "newOwner",               "type": "Account!"                                  },
+    { "name": "executeAfter",           "type": "BigInt!"                                   }
+  ]
+},{
+  "name": "RecoveryFinalized",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                              },
+    { "name": "timestamp",              "type": "BigInt!"                                   },
+    { "name": "wallet",                 "type": "Wallet!"                                   },
+    { "name": "newOwner",               "type": "Account!"                                  }
+  ]
+},{
+  "name": "RecoveryCanceled",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                              },
+    { "name": "timestamp",              "type": "BigInt!"                                   },
+    { "name": "wallet",                 "type": "Wallet!"                                   },
+    { "name": "newOwner",               "type": "Account!"                                  }
+  ]
+}]
