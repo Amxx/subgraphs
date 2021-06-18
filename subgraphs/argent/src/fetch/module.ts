@@ -14,7 +14,8 @@ export function fetchModule(address: Address) : Module {
 	let module = Module.load(address.toHex())
 
 	if (module == null) {
-		module = new Module(address.toHex())
+		module           = new Module(address.toHex())
+		module.asAccount = module.id
 		module.save()
 
 		let account      = fetchAccount(address)

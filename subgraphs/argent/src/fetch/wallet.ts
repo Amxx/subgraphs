@@ -25,6 +25,7 @@ export function fetchWallet(address: Address) : Wallet {
 		WalletTemplate.create(address)
 
 		wallet               = new Wallet(address.toHex())
+		wallet.asAccount     = wallet.id
 		wallet.owner         = fetchAccount(WalletContract.bind(address).owner()).id
 		wallet.locked        = false
 		wallet.moduleCount   = 0

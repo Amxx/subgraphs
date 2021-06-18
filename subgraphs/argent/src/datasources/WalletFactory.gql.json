@@ -9,6 +9,7 @@
 },{
   "name": "Wallet",
   "fields": [
+    { "name": "asAccount",              "type": "Account!"                                      },
     { "name": "owner",                  "type": "Account!"                                      },
     { "name": "moduleCount",            "type": "Int!"                                          },
     { "name": "modules",                "type": "WalletModule!",            "derived": "wallet" },
@@ -23,6 +24,7 @@
 },{
   "name": "Module",
   "fields": [
+    { "name": "asAccount",              "type": "Account!"                                      },
     { "name": "wallets",                "type": "WalletModule!",            "derived": "module" },
     { "name": "staticcalls",            "type": "WalletMethod!",            "derived": "module" },
     { "name": "authorizeModuleEvent",   "type": "WalletAuthorizeModule!",   "derived": "module" },
