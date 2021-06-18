@@ -8,10 +8,6 @@ import {
 } from "../../generated/WalletFactory/WalletFactory"
 
 import {
-	Wallet as WalletTemplate
-} from '../../generated/templates'
-
-import {
 	events,
 	transactions,
 } from '@amxx/graphprotocol-utils'
@@ -20,16 +16,9 @@ import { fetchAccount } from '../fetch/account'
 import { fetchWallet  } from '../fetch/wallet'
 
 export function handleWalletCreated(event: WalletCreatedEvent): void {
-	WalletTemplate.create(event.params.wallet)
-
-	let owner                      = fetchAccount(event.params.owner)
-	let wallet                     = fetchWallet(event.params.wallet)
-	wallet.owner                   = owner.id
-	wallet.locked                  = false
-	wallet.moduleCount             = 0
-	wallet.guardianCount           = 0
-	wallet.guardianAdditionCount   = 0
-	wallet.guardianRevokationCount = 0
+	let owner    = fetchAccount(event.params.owner)
+	let wallet   = fetchWallet(event.params.wallet)
+	wallet.owner = owner.id
 	wallet.save()
 
 	let ev         = new WalletCreated(events.id(event))
@@ -40,19 +29,13 @@ export function handleWalletCreated(event: WalletCreatedEvent): void {
 }
 
 export function handleWalletCreatedV2(event: WalletCreatedV2Event): void {
-	WalletTemplate.create(event.params.wallet)
 	// event.params.guardian
 	// event.params.refundToken
 	// event.params.refundAmount
 
-	let owner                      = fetchAccount(event.params.owner)
-	let wallet                     = fetchWallet(event.params.wallet)
-	wallet.owner                   = owner.id
-	wallet.locked                  = false
-	wallet.moduleCount             = 0
-	wallet.guardianCount           = 0
-	wallet.guardianAdditionCount   = 0
-	wallet.guardianRevokationCount = 0
+	let owner    = fetchAccount(event.params.owner)
+	let wallet   = fetchWallet(event.params.wallet)
+	wallet.owner = owner.id
 	wallet.save()
 
 	let ev         = new WalletCreated(events.id(event))

@@ -38,18 +38,15 @@ export function handleGuardianAdded(event: GuardianAddedEvent): void {
 
 	if (Guardian.load(id) == null) {
 		wallet.guardianCount += 1
+		wallet.save()
+
 		let g      = new Guardian(id)
 		g.wallet   = wallet.id
 		g.guardian = guardian.id
 		g.save()
 	}
 
-	if (GuardianAddition.load(id) != null) {
-		wallet.guardianAdditionCount -= 1
-		store.remove("GuardianAddition", id)
-	}
-
-	wallet.save()
+	store.remove("GuardianAddition", id)
 
 	let ev         = new GuardianAdded(events.id(event))
 	ev.transaction = transactions.log(event).id
@@ -66,15 +63,12 @@ export function handleGuardianRevoked(event: GuardianRevokedEvent): void {
 
 	if (Guardian.load(id) != null) {
 		wallet.guardianCount -= 1
+		wallet.save()
+
 		store.remove("Guardian", id)
 	}
 
-	if (GuardianRevokation.load(id) != null) {
-		wallet.guardianRevokationCount -= 1
-		store.remove("GuardianRevokation", id)
-	}
-
-	wallet.save()
+	store.remove("GuardianRevokation", id)
 
 	let ev         = new GuardianRevoked(events.id(event))
 	ev.transaction = transactions.log(event).id
@@ -89,16 +83,11 @@ export function handleGuardianAdditionRequested(event: GuardianAdditionRequested
 	let guardian = fetchAccount(event.params.guardian)
 	let id       = wallet.id.concat('/').concat(guardian.id)
 
-	if (GuardianAddition.load(id) == null) {
-		wallet.guardianAdditionCount += 1
-		let g          = new GuardianAddition(id)
-		g.wallet       = wallet.id
-		g.guardian     = guardian.id
-		g.executeAfter = event.params.executeAfter
-		g.save()
-	}
-
-	wallet.save()
+	let g          = new GuardianAddition(id)
+	g.wallet       = wallet.id
+	g.guardian     = guardian.id
+	g.executeAfter = event.params.executeAfter
+	g.save()
 
 	let ev          = new GuardianAdditionRequested(events.id(event))
 	ev.transaction  = transactions.log(event).id
@@ -114,11 +103,7 @@ export function handleGuardianAdditionCancelled(event: GuardianAdditionCancelled
 	let guardian = fetchAccount(event.params.guardian)
 	let id       = wallet.id.concat('/').concat(guardian.id)
 
-	if (GuardianAddition.load(id) != null) {
-		wallet.guardianAdditionCount -= 1
-		store.remove("GuardianAddition", id)
-	}
-	wallet.save()
+	store.remove("GuardianAddition", id)
 
 	let ev         = new GuardianAdditionCancelled(events.id(event))
 	ev.transaction = transactions.log(event).id
@@ -133,16 +118,11 @@ export function handleGuardianRevokationRequested(event: GuardianRevokationReque
 	let guardian = fetchAccount(event.params.guardian)
 	let id       = wallet.id.concat('/').concat(guardian.id)
 
-	if (GuardianRevokation.load(id) == null) {
-		wallet.guardianRevokationCount += 1
-		let g          = new GuardianRevokation(id)
-		g.wallet       = wallet.id
-		g.guardian     = guardian.id
-		g.executeAfter = event.params.executeAfter
-		g.save()
-	}
-
-	wallet.save()
+	let g          = new GuardianRevokation(id)
+	g.wallet       = wallet.id
+	g.guardian     = guardian.id
+	g.executeAfter = event.params.executeAfter
+	g.save()
 
 	let ev          = new GuardianRevokationRequested(events.id(event))
 	ev.transaction  = transactions.log(event).id
@@ -158,12 +138,7 @@ export function handleGuardianRevokationCancelled(event: GuardianRevokationCance
 	let guardian = fetchAccount(event.params.guardian)
 	let id       = wallet.id.concat('/').concat(guardian.id)
 
-	if (GuardianRevokation.load(id) != null) {
-		wallet.guardianRevokationCount -= 1
-		store.remove("GuardianRevokation", id)
-	}
-
-	wallet.save()
+	store.remove("GuardianRevokation", id)
 
 	let ev         = new GuardianRevokationCancelled(events.id(event))
 	ev.transaction = transactions.log(event).id

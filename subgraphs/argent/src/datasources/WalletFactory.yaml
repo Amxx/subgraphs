@@ -1,5 +1,5 @@
   - kind: ethereum/contract
-    name: {name}
+    name: {id}
     network: mainnet
     source:
       address: "{address}"
@@ -12,6 +12,8 @@
       entities:
         - Wallet
       abis:
+        - name: Wallet
+          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
         - name: WalletFactory
           file: ../artifacts/contracts/IWalletFactory.sol/IWalletFactory.json
       eventHandlers:
@@ -19,4 +21,4 @@
           handler: handleWalletCreated
         - event: WalletCreated(indexed address,indexed address,indexed address,address,uint256)
           handler: handleWalletCreatedV2
-      file: ../src/modules/WalletFactory.ts
+      file: ../src/datasources/WalletFactory.ts

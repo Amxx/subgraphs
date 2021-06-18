@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: {schema}
 templates:
   - name: Wallet
     kind: ethereum/contract

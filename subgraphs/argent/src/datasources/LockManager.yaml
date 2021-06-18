@@ -1,5 +1,5 @@
   - kind: ethereum/contract
-    name: {name}
+    name: {id}
     network: mainnet
     source:
       address: "{address}"
@@ -12,6 +12,8 @@
       entities:
         - Wallet
       abis:
+        - name: Wallet
+          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
         - name: LockManager
           file: ../artifacts/contracts/ILockManager.sol/ILockManager.json
       eventHandlers:
@@ -19,4 +21,4 @@
           handler: handleLocked
         - event: Unlocked(indexed address)
           handler: handleUnlocked
-      file: ../src/modules/LockManager.ts
+      file: ../src/datasources/LockManager.ts

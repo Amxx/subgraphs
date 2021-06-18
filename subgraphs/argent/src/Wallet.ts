@@ -1,7 +1,7 @@
 import {
 	Bytes,
 	store,
-} from "@graphprotocol/graph-ts"
+} from '@graphprotocol/graph-ts'
 
 import {
 	Method,
@@ -12,15 +12,16 @@ import {
 	WalletEnabledStaticCall,
 	WalletInvoked,
 	WalletReceived,
-} from "../generated/schema"
+} from '../generated/schema'
 
 import {
+	Wallet,
 	OwnerChanged      as OwnerChangedEvent,
 	AuthorisedModule  as AuthorisedModuleEvent,
 	EnabledStaticCall as EnabledStaticCallEvent,
 	Invoked           as InvokedEvent,
 	Received          as ReceivedEvent,
-} from "../generated/templates/Wallet/Wallet"
+} from '../generated/templates/Wallet/Wallet'
 
 import {
 	constants,
@@ -52,19 +53,31 @@ export function handleAuthorisedModule(event: AuthorisedModuleEvent): void {
 	let module = fetchModule(event.params.module)
 	let id     = wallet.id.concat('/').concat(module.id)
 
-	if (event.params.value) {
-		wallet.moduleCount += 1
+	wallet.moduleCount = Wallet.bind(event.address).modules().toI32()
+	wallet.save()
 
+	if (Wallet.bind(event.address).authorised(event.params.module)) {
 		let wm    = new WalletModule(id)
 		wm.wallet = wallet.id
 		wm.module = module.id
 		wm.save()
 	} else {
-		wallet.moduleCount -= 1
-
-		store.remove("WalletModule", id)
+		store.remove('WalletModule', id)
 	}
-	wallet.save()
+
+	// if (event.params.value) {
+	// 	wallet.moduleCount += 1
+	//
+	// 	let wm    = new WalletModule(id)
+	// 	wm.wallet = wallet.id
+	// 	wm.module = module.id
+	// 	wm.save()
+	// } else {
+	// 	wallet.moduleCount -= 1
+	//
+	// 	store.remove('WalletModule', id)
+	// }
+	// wallet.save()
 
 	let ev         = new WalletAuthorizeModule(events.id(event))
 	ev.transaction = transactions.log(event).id
@@ -89,7 +102,7 @@ export function handleEnabledStaticCall(event: EnabledStaticCallEvent): void {
 		sc.method = method.id
 		sc.save()
 	} else {
-		store.remove("WalletMethod", id)
+		store.remove('WalletMethod', id)
 	}
 
 	let ev         = new WalletEnabledStaticCall(events.id(event))

@@ -1,5 +1,5 @@
   - kind: ethereum/contract
-    name: {name}
+    name: {id}
     network: mainnet
     source:
       address: "{address}"
@@ -12,6 +12,8 @@
       entities:
         - Wallet
       abis:
+        - name: Wallet
+          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
         - name: GuardianManager
           file: ../artifacts/contracts/IGuardianManager.sol/IGuardianManager.json
       eventHandlers:
@@ -27,4 +29,4 @@
           handler: handleGuardianRevokationRequested
         - event: GuardianRevokationCancelled(indexed address,indexed address)
           handler: handleGuardianRevokationCancelled
-      file: ../src/modules/GuardianManager.ts
+      file: ../src/datasources/GuardianManager.ts
