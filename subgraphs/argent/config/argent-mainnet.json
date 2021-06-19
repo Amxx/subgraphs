@@ -5,7 +5,8 @@
     "address": "0x851cc731ce1613ae4fd8ec7f61f4b350f9ce1020",
     "startBlock": 7173577,
     "name": "WalletFactory",
-    "module": [ "WalletFactory" ]
+    "module": [ "WalletFactory" ],
+    "templates": [ "Wallet" ]
   },{
     "address": "0x4dd68a6c27359e5640fa6dcaf13631398c5613f1",
     "startBlock": 7173657,
@@ -203,7 +204,8 @@
     "address": "0x1d09a6d1c45d1a9eb8cb8a8354bcd78e225f06d3",
     "startBlock": 11881026,
     "name": "WalletFactory",
-    "module": [ "WalletFactory" ]
+    "module": [ "WalletFactory" ],
+    "templates": [ "Wallet" ]
   },{
     "address": "0x9d58779365b067d5d3fcc6e92d237acd06f1e6a1",
     "startBlock": 12296274,

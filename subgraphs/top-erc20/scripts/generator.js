@@ -15,21 +15,14 @@ const path = require('path');
   ]
     .map(file => JSON.parse(fs.readFileSync(path.resolve(__dirname, file), { encoding: 'utf8' })))
     .flatMap(({ tokens }) => tokens)
-    .filter(({ chainId }) => chainId === 1) // only chain id
-    .sort((a, b) => a.symbol.localeCompare(b.symbol))
     .map(obj => Object.assign(obj, { address: obj.address.toLowerCase(), startBlock: 0 })) // make sure case matched
+    .filter(({ chainId }) => chainId === 1) // only chain id
     .filter(({ address }, i, array) => array.findIndex(token => token.address === address) === i) // remove duplicate
+    .sort((a, b) => a.address.localeCompare(b.address))
 
-  const header = fs.readFileSync(path.resolve(__dirname, '../src/header.yaml'), { encoding: 'utf8' })
-  const erc20  = fs.readFileSync(path.resolve(__dirname, '../src/datasources/erc20.yaml'), { encoding: 'utf8' })
-
-  const subgraph = [
-    header,
-    ...tokens.map(token => erc20.replace(/\{(\w+)\}/g, (_, varname) => token[varname]))
-  ].join('')
-
-  console.error(`Subgraph generation: ${tokens.length} tokens found (erc20)`)
-  tokens.forEach(({ symbol, address }) => console.error(`- ${symbol.padEnd(6)} ${address}`))
-  console.log(subgraph)
+  console.log(JSON.stringify({
+    output: "../generated/top-erc20",
+    datasources: tokens.map(({ address }) => ({ address, module: "erc20"}))
+  }))
 
 })().catch(console.error)

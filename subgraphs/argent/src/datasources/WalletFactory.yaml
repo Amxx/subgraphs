@@ -1,6 +1,6 @@
   - kind: ethereum/contract
     name: {id}
-    network: mainnet
+    network: {chain}
     source:
       address: "{address}"
       abi: WalletFactory

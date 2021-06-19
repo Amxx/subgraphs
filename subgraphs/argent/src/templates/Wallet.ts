@@ -12,7 +12,7 @@ import {
 	WalletEnabledStaticCall,
 	WalletInvoked,
 	WalletReceived,
-} from '../generated/schema'
+} from '../../generated/schema'
 
 import {
 	Wallet,
@@ -21,7 +21,7 @@ import {
 	EnabledStaticCall as EnabledStaticCallEvent,
 	Invoked           as InvokedEvent,
 	Received          as ReceivedEvent,
-} from '../generated/templates/Wallet/Wallet'
+} from '../../generated/templates/Wallet/Wallet'
 
 import {
 	constants,
@@ -30,9 +30,9 @@ import {
 	transactions,
 } from '@amxx/graphprotocol-utils'
 
-import { fetchAccount } from './fetch/account'
-import { fetchWallet  } from './fetch/wallet'
-import { fetchModule  } from './fetch/module'
+import { fetchAccount } from '../fetch/account'
+import { fetchWallet  } from '../fetch/wallet'
+import { fetchModule  } from '../fetch/module'
 
 export function handleOwnerChanged(event: OwnerChangedEvent): void {
 	let owner  = fetchAccount(event.params.owner)
