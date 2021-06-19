@@ -11,6 +11,7 @@ interface IWalletFactory is IOwned, IManaged, IENSConsumer {
     event ENSManagerChanged(address addr);
     event ENSResolverChanged(address addr);
     event WalletCreated(address indexed wallet, address indexed owner);
+    event WalletCreated(address indexed wallet, address indexed owner, address indexed guardian);
     event WalletCreated(address indexed wallet, address indexed owner, address indexed guardian, address refundToken, uint256 refundAmount);
     event RefundAddressChanged(address addr);
 

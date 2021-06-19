@@ -19,6 +19,8 @@
       eventHandlers:
         - event: WalletCreated(indexed address,indexed address)
           handler: handleWalletCreated
-        - event: WalletCreated(indexed address,indexed address,indexed address,address,uint256)
+        - event: WalletCreated(indexed address,indexed address,indexed address)
           handler: handleWalletCreatedV2
+        - event: WalletCreated(indexed address,indexed address,indexed address,address,uint256)
+          handler: handleWalletCreatedV3
       file: ../src/datasources/WalletFactory.ts

@@ -95,6 +95,12 @@
     "module": [],
     "_comment": ""
   },{
+    "address": "0x40c84310ef15b0c0e5c69d25138e0e16e8000fe9",
+    "startBlock": 9773172,
+    "name": "WalletFactory",
+    "module": [ "WalletFactory" ],
+    "templates": [ "Wallet" ]
+  },{
     "address": "0x103675510a219bd84ce91d1bcb82ca194d665a09",
     "startBlock": 10020276,
     "name": "TransferManager",
