@@ -1,44 +1,57 @@
 [{
   "name": "Account",
   "fields": [
-    { "name": "asToken",           "type": "Token"                           },
-    { "name": "transferRecipient", "type": "Transfer!", "derived": "to"      },
-    { "name": "approvedSpender",   "type": "Approved!", "derived": "spender" }
+    { "name": "asToken",           "type": "Token"                               },
+    { "name": "transferRecipient", "type": "Transfer!",     "derived": "to"      },
+    { "name": "approvedSpender",   "type": "Approved!",     "derived": "spender" },
+    { "name": "contractCall",      "type": "ContractCall!", "derived": "to"      }
   ]
 },{
   "name": "Wallet",
   "fields": [
-    { "name": "transfer",          "type": "Transfer!", "derived": "wallet"  },
-    { "name": "approved",          "type": "Approved!", "derived": "wallet"  }
+    { "name": "transfer",          "type": "Transfer!",     "derived": "wallet"  },
+    { "name": "approved",          "type": "Approved!",     "derived": "wallet"  },
+    { "name": "contractCall",      "type": "ContractCall!", "derived": "wallet"  }
   ]
 },{
   "name": "Token",
   "fields": [
-    { "name": "asAccount",         "type": "Account!"                        },
-    { "name": "transfer",          "type": "Transfer!", "derived": "token"   },
-    { "name": "approved",          "type": "Approved!", "derived": "token"   }
+    { "name": "asAccount",         "type": "Account!"                            },
+    { "name": "transfer",          "type": "Transfer!",     "derived": "token"   },
+    { "name": "approved",          "type": "Approved!",     "derived": "token"   }
   ]
 },{
   "name": "Transfer",
   "parent": "Event",
   "fields": [
-    { "name": "transaction",       "type": "Transaction!"                    },
-    { "name": "timestamp",         "type": "BigInt!"                         },
-    { "name": "wallet",            "type": "Wallet!"                         },
-    { "name": "token",             "type": "Token!"                          },
-    { "name": "amount",            "type": "BigInt!"                         },
-    { "name": "to",                "type": "Account!"                        },
-    { "name": "data",              "type": "Bytes!"                          }
+    { "name": "transaction",       "type": "Transaction!"                        },
+    { "name": "timestamp",         "type": "BigInt!"                             },
+    { "name": "wallet",            "type": "Wallet!"                             },
+    { "name": "token",             "type": "Token!"                              },
+    { "name": "amount",            "type": "BigInt!"                             },
+    { "name": "to",                "type": "Account!"                            },
+    { "name": "data",              "type": "Bytes!"                              }
   ]
 },{
   "name": "Approved",
   "parent": "Event",
   "fields": [
-    { "name": "transaction",       "type": "Transaction!"                    },
-    { "name": "timestamp",         "type": "BigInt!"                         },
-    { "name": "wallet",            "type": "Wallet!"                         },
-    { "name": "token",             "type": "Token!"                          },
-    { "name": "amount",            "type": "BigInt!"                         },
-    { "name": "spender",           "type": "Account!"                        }
+    { "name": "transaction",       "type": "Transaction!"                        },
+    { "name": "timestamp",         "type": "BigInt!"                             },
+    { "name": "wallet",            "type": "Wallet!"                             },
+    { "name": "token",             "type": "Token!"                              },
+    { "name": "amount",            "type": "BigInt!"                             },
+    { "name": "spender",           "type": "Account!"                            }
+  ]
+},{
+  "name": "ContractCall",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",       "type": "Transaction!"                        },
+    { "name": "timestamp",         "type": "BigInt!"                             },
+    { "name": "wallet",            "type": "Wallet!"                             },
+    { "name": "to",                "type": "Account!"                            },
+    { "name": "amount",            "type": "BigDecimal!"                         },
+    { "name": "selector",          "type": "Bytes!"                              }
   ]
 }]

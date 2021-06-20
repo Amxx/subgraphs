@@ -1,6 +1,11 @@
 import {
+	Bytes,
+} from '@graphprotocol/graph-ts'
+
+import {
 	Transfer,
 	Approved,
+	ContractCall,
 } from "../../generated/schema"
 
 import {
@@ -11,6 +16,8 @@ import {
 } from "../../generated/BaseTransfer/BaseTransfer"
 
 import {
+	constants,
+	decimals,
 	events,
 	transactions,
 } from '@amxx/graphprotocol-utils'
@@ -43,15 +50,20 @@ export function handleApproved(event: ApprovedEvent): void {
 }
 
 export function handleCalledContract(event: CalledContractEvent): void {
-	// event.params.wallet
-	// event.params.to
-	// event.params.amount
-	// event.params.data
+	let ev          = new ContractCall(events.id(event))
+	ev.transaction  = transactions.log(event).id
+	ev.timestamp    = event.block.timestamp
+	ev.wallet       = fetchWallet(event.params.wallet).id
+	ev.to           = fetchAccount(event.params.to).id
+	ev.amount       = decimals.toDecimals(event.params.amount)
+	ev.selector     = event.params.data.subarray(0,4) as Bytes // Only store the first 4 bytes
+	ev.save()
 }
 
 export function handleApprovedAndCalledContract(event: ApprovedAndCalledContractEvent): void {
-	let wallet = fetchWallet(event.params.wallet)
-	let token  = fetchToken(event.params.token)
+	let wallet   = fetchWallet(event.params.wallet)
+	let token    = fetchToken(event.params.token)
+	let contract = fetchAccount(event.params.to)
 
 	{
 		let ev          = new Approved(events.id(event).concat('/1'))
@@ -70,9 +82,18 @@ export function handleApprovedAndCalledContract(event: ApprovedAndCalledContract
 		ev.wallet       = wallet.id
 		ev.token        = token.id
 		ev.amount       = event.params.amountSpent
-		ev.to           = fetchAccount(event.params.to).id
+		ev.to           = contract.id
 		ev.data         = event.params.data
 		ev.save()
 	}
-	// TODO: calledcontract ?
+	{
+		let ev          = new ContractCall(events.id(event).concat('/3'))
+		ev.transaction  = transactions.log(event).id
+		ev.timestamp    = event.block.timestamp
+		ev.wallet       = fetchWallet(event.params.wallet).id
+		ev.to           = contract.id
+		ev.amount       = constants.BIGDECIMAL_ZERO
+		ev.selector     = event.params.data.subarray(0,4) as Bytes // Only store the first 4 bytes
+		ev.save()
+	}
 }
