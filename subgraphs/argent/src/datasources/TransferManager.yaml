@@ -1,0 +1,40 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: TransferManager
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Wallet
+      abis:
+        - name: Wallet
+          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+        - name: TransferManager
+          file: ../artifacts/contracts/ITransferManager.sol/ITransferManager.json
+      eventHandlers:
+        - event: AddedToWhitelist(indexed address,indexed address,uint64)
+          handler: handleAddedToWhitelist
+        - event: Approved(indexed address,indexed address,uint256,address)
+          handler: handleApproved
+        - event: ApprovedAndCalledContract(indexed address,indexed address,address,indexed address,uint256,uint256,bytes)
+          handler: handleApprovedAndCalledContract
+        - event: CalledContract(indexed address,indexed address,uint256,bytes)
+          handler: handleCalledContract
+        - event: LimitChanged(indexed address,indexed uint256,indexed uint64)
+          handler: handleLimitChanged
+        - event: PendingTransferCanceled(indexed address,indexed bytes32)
+          handler: handlePendingTransferCanceled
+        - event: PendingTransferCreated(indexed address,indexed bytes32,indexed uint256,address,address,uint256,bytes)
+          handler: handlePendingTransferCreated
+        - event: PendingTransferExecuted(indexed address,indexed bytes32)
+          handler: handlePendingTransferExecuted
+        - event: RemovedFromWhitelist(indexed address,indexed address)
+          handler: handleRemovedFromWhitelist
+        - event: Transfer(indexed address,indexed address,indexed uint256,address,bytes)
+          handler: handleTransfer
+      file: ../src/datasources/TransferManager.ts

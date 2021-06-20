@@ -2,6 +2,7 @@
   "name": "Account",
   "fields": [
     { "name": "asToken",           "type": "Token"                               },
+    { "name": "whitelist",         "type": "Whitelist!",    "derived": "target"  },
     { "name": "transferRecipient", "type": "Transfer!",     "derived": "to"      },
     { "name": "approvedSpender",   "type": "Approved!",     "derived": "spender" },
     { "name": "contractCall",      "type": "ContractCall!", "derived": "to"      }
@@ -9,9 +10,12 @@
 },{
   "name": "Wallet",
   "fields": [
+    { "name": "limit",             "type": "BigDecimal"                          },
+    { "name": "whitelist",         "type": "Whitelist!",    "derived": "wallet"  },
     { "name": "transfer",          "type": "Transfer!",     "derived": "wallet"  },
     { "name": "approved",          "type": "Approved!",     "derived": "wallet"  },
-    { "name": "contractCall",      "type": "ContractCall!", "derived": "wallet"  }
+    { "name": "contractCall",      "type": "ContractCall!", "derived": "wallet"  },
+    { "name": "limitChanged",      "type": "LimitChanged!", "derived": "wallet"  }
   ]
 },{
   "name": "Token",
@@ -19,6 +23,12 @@
     { "name": "asAccount",         "type": "Account!"                            },
     { "name": "transfer",          "type": "Transfer!",     "derived": "token"   },
     { "name": "approved",          "type": "Approved!",     "derived": "token"   }
+  ]
+},{
+  "name": "Whitelist",
+  "fields": [
+    { "name": "wallet",            "type": "Wallet!"                             },
+    { "name": "target",            "type": "Account!"                            }
   ]
 },{
   "name": "Transfer",
@@ -53,5 +63,34 @@
     { "name": "to",                "type": "Account!"                            },
     { "name": "amount",            "type": "BigDecimal!"                         },
     { "name": "selector",          "type": "Bytes!"                              }
+  ]
+},{
+  "name": "LimitChanged",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",       "type": "Transaction!"                        },
+    { "name": "timestamp",         "type": "BigInt!"                             },
+    { "name": "wallet",            "type": "Wallet!"                             },
+    { "name": "newLimit",          "type": "BigDecimal"                          },
+    { "name": "startAfter",        "type": "BigInt!"                             }
+  ]
+},{
+  "name": "AddedToWhitelist",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",       "type": "Transaction!"                        },
+    { "name": "timestamp",         "type": "BigInt!"                             },
+    { "name": "wallet",            "type": "Wallet!"                             },
+    { "name": "target",            "type": "Account!"                            },
+    { "name": "whitelistAfter",    "type": "BigInt!"                             }
+  ]
+},{
+  "name": "RemovedFromWhitelist",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",       "type": "Transaction!"                        },
+    { "name": "timestamp",         "type": "BigInt!"                             },
+    { "name": "wallet",            "type": "Wallet!"                             },
+    { "name": "target",            "type": "Account!"                            }
   ]
 }]

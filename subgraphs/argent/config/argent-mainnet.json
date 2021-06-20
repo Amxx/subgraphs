@@ -31,13 +31,12 @@
     "address": "0x0045684552109f8551cc5c8aa7b1f52085adff47",
     "startBlock": 7173667,
     "name": "ApprovedTransfer",
-    "module": [ "BaseTransfer" ]
+    "module": [ "TransferManager" ]
   },{
     "address": "0xdf6767a7715381867738cf211290f61697ecd938",
     "startBlock": 7173670,
     "name": "TokenTransfer",
-    "module": [ "BaseTransfer" ],
-    "_comment": "missing features: AddedToWhitelist, RemovedFromWhitelist, PendingTransferCreated, PendingTransferExecuted, PendingTransferCanceled"
+    "module": [ "TransferManager" ]
   },{
     "address": "0xd5e1dff5f039b2c42978d98ed60c0ac5c8f6a266",
     "startBlock": 7173672,
@@ -77,14 +76,12 @@
     "address": "0x2b6d87f12b106e1d3fa7137494751566329d1045",
     "startBlock": 9015852,
     "name": "TransferManager",
-    "module": [],
-    "_comment": ""
+    "module": [ "TransferManager" ]
   },{
     "address": "0xcd23f51912ea8fff38815f628277731c25c7fb02",
     "startBlock": 9015854,
     "name": "ApprovedTransfer",
-    "module": [ "BaseTransfer" ],
-    "_comment": "missing"
+    "module": [ "TransferManager" ]
   },{
     "address": "0x7557f4199aa99e5396330bac3b7bdaa262cb1913",
     "startBlock": 9015856,
@@ -101,14 +98,12 @@
     "address": "0x103675510a219bd84ce91d1bcb82ca194d665a09",
     "startBlock": 10020276,
     "name": "TransferManager",
-    "module": [],
-    "_comment": ""
+    "module": [ "TransferManager" ]
   },{
     "address": "0x67933cccf3f6b40148271f5e7b5408fd1d5b2837",
     "startBlock": 10020271,
     "name": "ApprovedTransfer",
-    "module": [ "BaseTransfer" ],
-    "_comment": "missing"
+    "module": [ "TransferManager" ]
   },{
     "address": "0xfcfab7cdc0613fea78982ebd52559b7362db7976",
     "startBlock": 10020274,
