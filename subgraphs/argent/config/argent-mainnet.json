@@ -11,7 +11,6 @@
     "address": "0x4dd68a6c27359e5640fa6dcaf13631398c5613f1",
     "startBlock": 7173657,
     "name": "ModuleManager",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0xff5a7299ff6f0fbaad9b38906b77d08c0fbdc9a7",
@@ -32,14 +31,13 @@
     "address": "0x0045684552109f8551cc5c8aa7b1f52085adff47",
     "startBlock": 7173667,
     "name": "ApprovedTransfer",
-    "module": [],
-    "_comment": ""
+    "module": [ "BaseTransfer" ]
   },{
     "address": "0xdf6767a7715381867738cf211290f61697ecd938",
     "startBlock": 7173670,
     "name": "TokenTransfer",
-    "module": [],
-    "_comment": ""
+    "module": [ "BaseTransfer" ],
+    "_comment": "missing features: AddedToWhitelist, RemovedFromWhitelist, PendingTransferCreated, PendingTransferExecuted, PendingTransferCanceled"
   },{
     "address": "0xd5e1dff5f039b2c42978d98ed60c0ac5c8f6a266",
     "startBlock": 7173672,
@@ -74,7 +72,6 @@
     "address": "0x5388b0f8106bde37dc6982b4ba5771d2e8d9dc42",
     "startBlock": 8308084,
     "name": "UniswapManager",
-    "module": [],
     "_comment": "N/A?"
   },{
     "address": "0x2b6d87f12b106e1d3fa7137494751566329d1045",
@@ -86,8 +83,8 @@
     "address": "0xcd23f51912ea8fff38815f628277731c25c7fb02",
     "startBlock": 9015854,
     "name": "ApprovedTransfer",
-    "module": [],
-    "_comment": ""
+    "module": [ "BaseTransfer" ],
+    "_comment": "missing"
   },{
     "address": "0x7557f4199aa99e5396330bac3b7bdaa262cb1913",
     "startBlock": 9015856,
@@ -110,8 +107,8 @@
     "address": "0x67933cccf3f6b40148271f5e7b5408fd1d5b2837",
     "startBlock": 10020271,
     "name": "ApprovedTransfer",
-    "module": [],
-    "_comment": ""
+    "module": [ "BaseTransfer" ],
+    "_comment": "missing"
   },{
     "address": "0xfcfab7cdc0613fea78982ebd52559b7362db7976",
     "startBlock": 10020274,
@@ -127,7 +124,6 @@
     "address": "0xa24783c07cdd995c56c1d33ce485e6ac39e0c018",
     "startBlock": 10020373,
     "name": "SimpleUpgrader",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0xdc350d09f71c48c5d22fbe2741e4d6a03970e192",
@@ -138,73 +134,61 @@
     "address": "0x4a8c4b77221ca1e82a61ce91ca603e4c9cb7181f",
     "startBlock": 10284439,
     "name": "SimpleUpgrader",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0xe305ed426ad28a583e3e5f9ce10027729edf039e",
     "startBlock": 10284454,
     "name": "SimpleUpgrader",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0xfa2abb20bc59d5b57cec3ff4348743ceeef5369f",
     "startBlock": 10975994,
     "name": "UpgraderToVersionManager",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0x3a938f6dff602874ea67ab87fcddb892b3bf897a",
     "startBlock": 10976010,
     "name": "UpgraderToVersionManager",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0x4b3fbe6d554c540c2672eb7a501018a1a39f7f53",
     "startBlock": 10975880,
     "name": "VersionManager",
-    "module": [],
     "_comment": "N/A?"
   },{
     "address": "0xe4dfc679f21e47609238c7f92d9416d5b726005f",
     "startBlock": 10976030,
     "name": "UpgraderToVersionManager",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0x645ba45dbe3c6942c812a46f9ee8115c89b524ec",
     "startBlock": 11269508,
     "name": "VersionManager",
-    "module": [],
     "_comment": "N/A?"
   },{
     "address": "0x1b05623800526da9c03de7583917344d5d30e139",
     "startBlock": 11269557,
     "name": "UpgraderToVersionManager",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0xe7f618212cf739d5f209453a2a91bfc198b065e0",
     "startBlock": 11269570,
     "name": "UpgraderToVersionManager",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0x908842ed4b885318711dcdb16d0503d6a000251e",
     "startBlock": 11269593,
     "name": "UpgraderToVersionManager",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0xbcdf8dba8760fd1a94b12a8233385e9c98d1e399",
     "startBlock": 11269624,
     "name": "UpgraderToVersionManager",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0x071af39cbc79148d389b80c75aa0cf004230f0d5",
     "startBlock": 11646687,
     "name": "SimpleUpgrader",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0x1d09a6d1c45d1a9eb8cb8a8354bcd78e225f06d3",
@@ -222,31 +206,26 @@
     "address": "0x8c887cab3b980d826f1e5a996545f51390dc912f",
     "startBlock": 12296369,
     "name": "SimpleUpgrader",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0xc3f2d7ece2a31c9ebdd153bf4b1a05539dbd008e",
     "startBlock": 12296417,
     "name": "SimpleUpgrader",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0xf3b4ea7305771a91e3f18dca2d93aac540896939",
     "startBlock": 12296446,
     "name": "SimpleUpgrader",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0x97f0d449afd6780a3f5bf91e4e5411711cb5ce12",
     "startBlock": 12296489,
     "name": "SimpleUpgrader",
-    "module": [],
     "_comment": "N/A"
   },{
     "address": "0x52670024d72217b21a9db51cc9a531c82c77f5dc",
     "startBlock": 12296523,
     "name": "SimpleUpgrader",
-    "module": [],
     "_comment": "N/A"
   }]
 }

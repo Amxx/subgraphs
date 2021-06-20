@@ -214,7 +214,7 @@ class Config {
   }
 
   modules() {
-    return this.receipt.datasources.flatMap(({ module }) => module).unique();
+    return this.receipt.datasources.filter(({ module }) => (module || []).length).flatMap(({ module }) => module).unique();
   }
 
   datasources() {
