@@ -1,0 +1,28 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: BaseTransfer
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Wallet
+      abis:
+        - name: Wallet
+          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+        - name: BaseTransfer
+          file: ../artifacts/contracts/IBaseTransfer.sol/IBaseTransfer.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256,address,bytes)
+          handler: handleTransfer
+        - event: Approved(indexed address,indexed address,uint256,address)
+          handler: handleApproved
+        - event: CalledContract(indexed address,indexed address,uint256,bytes)
+          handler: handleCalledContract
+        - event: ApprovedAndCalledContract(indexed address,indexed address,address,indexed address,uint256,uint256,bytes)
+          handler: handleApprovedAndCalledContract
+      file: ../src/datasources/BaseTransfer.ts
