@@ -43,6 +43,10 @@ export function handleApproved(event: ApprovedEvent): void {
 }
 
 export function handleCalledContract(event: CalledContractEvent): void {
+	// event.params.wallet
+	// event.params.to
+	// event.params.amount
+	// event.params.data
 }
 
 export function handleApprovedAndCalledContract(event: ApprovedAndCalledContractEvent): void {
@@ -70,4 +74,5 @@ export function handleApprovedAndCalledContract(event: ApprovedAndCalledContract
 		ev.data         = event.params.data
 		ev.save()
 	}
+	// TODO: calledcontract ?
 }

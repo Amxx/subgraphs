@@ -1,1 +1,111 @@
-[]
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "asWallet",               "type": "Wallet"                                        },
+    { "name": "asModule",               "type": "Module"                                        },
+    { "name": "targetOf",               "type": "WalletInvoked!",           "derived": "target" },
+    { "name": "senderOf",               "type": "WalletReceived!",          "derived": "sender" }
+  ]
+},{
+  "name": "Wallet",
+  "fields": [
+    { "name": "asAccount",              "type": "Account!"                                      },
+    { "name": "owner",                  "type": "Account!"                                      },
+    { "name": "moduleCount",            "type": "Int!"                                          },
+    { "name": "modules",                "type": "WalletModule!",            "derived": "wallet" },
+    { "name": "staticcalls",            "type": "WalletMethod!",            "derived": "wallet" },
+    { "name": "createdEvent",           "type": "WalletCreated!",           "derived": "wallet" },
+    { "name": "ownerChangeEvent",       "type": "WalletOwnerChange!",       "derived": "wallet" },
+    { "name": "authorizeModuleEvent",   "type": "WalletAuthorizeModule!",   "derived": "wallet" },
+    { "name": "enabledStaticCallEvent", "type": "WalletEnabledStaticCall!", "derived": "wallet" },
+    { "name": "invokedEvent",           "type": "WalletInvoked!",           "derived": "wallet" },
+    { "name": "receivedEvent",          "type": "WalletReceived!",          "derived": "wallet" }
+  ]
+},{
+  "name": "Module",
+  "fields": [
+    { "name": "asAccount",              "type": "Account!"                                      },
+    { "name": "wallets",                "type": "WalletModule!",            "derived": "module" },
+    { "name": "staticcalls",            "type": "WalletMethod!",            "derived": "module" },
+    { "name": "authorizeModuleEvent",   "type": "WalletAuthorizeModule!",   "derived": "module" },
+    { "name": "enabledStaticCallEvent", "type": "WalletEnabledStaticCall!", "derived": "module" },
+    { "name": "invokedEvent",           "type": "WalletInvoked!",           "derived": "module" }
+  ]
+},{
+  "name": "Method",
+  "fields": [
+    { "name": "staticcalls",            "type": "WalletMethod!",            "derived": "method" }
+  ]
+},{
+  "name": "WalletModule",
+  "fields": [
+    { "name": "wallet",                 "type": "Wallet!"                                       },
+    { "name": "module",                 "type": "Module!"                                       }
+  ]
+},{
+  "name": "WalletMethod",
+  "fields": [
+    { "name": "wallet",                 "type": "Wallet!"                                       },
+    { "name": "module",                 "type": "Module!"                                       },
+    { "name": "method",                 "type": "Method!"                                       }
+  ]
+},{
+  "name": "WalletCreated",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                                  },
+    { "name": "timestamp",              "type": "BigInt!"                                       },
+    { "name": "wallet",                 "type": "Wallet!"                                       }
+  ]
+},{
+  "name": "WalletOwnerChange",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                                  },
+    { "name": "timestamp",              "type": "BigInt!"                                       },
+    { "name": "wallet",                 "type": "Wallet!"                                       },
+    { "name": "owner",                  "type": "Account!"                                      }
+  ]
+},{
+  "name": "WalletAuthorizeModule",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                                  },
+    { "name": "timestamp",              "type": "BigInt!"                                       },
+    { "name": "wallet",                 "type": "Wallet!"                                       },
+    { "name": "module",                 "type": "Module!"                                       },
+    { "name": "value",                  "type": "Boolean!"                                      }
+  ]
+},{
+  "name": "WalletEnabledStaticCall",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                                  },
+    { "name": "timestamp",              "type": "BigInt!"                                       },
+    { "name": "wallet",                 "type": "Wallet!"                                       },
+    { "name": "module",                 "type": "Module!"                                       },
+    { "name": "method",                 "type": "Method!"                                       }
+  ]
+},{
+  "name": "WalletInvoked",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                                  },
+    { "name": "timestamp",              "type": "BigInt!"                                       },
+    { "name": "wallet",                 "type": "Wallet!"                                       },
+    { "name": "module",                 "type": "Module!"                                       },
+    { "name": "target",                 "type": "Account!"                                      },
+    { "name": "value",                  "type": "BigDecimal!"                                   },
+    { "name": "selector",               "type": "Bytes!"                                        }
+  ]
+},{
+  "name": "WalletReceived",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                                  },
+    { "name": "timestamp",              "type": "BigInt!"                                       },
+    { "name": "wallet",                 "type": "Wallet!"                                       },
+    { "name": "value",                  "type": "BigDecimal!"                                   },
+    { "name": "sender",                 "type": "Account!"                                      }
+  ]
+}]
