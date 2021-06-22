@@ -71,7 +71,7 @@
     "address": "0x5388b0f8106bde37dc6982b4ba5771d2e8d9dc42",
     "startBlock": 8308084,
     "name": "UniswapManager",
-    "_comment": "N/A?"
+    "_comment": ""
   },{
     "address": "0x2b6d87f12b106e1d3fa7137494751566329d1045",
     "startBlock": 9015852,
@@ -195,8 +195,8 @@
     "address": "0x9d58779365b067d5d3fcc6e92d237acd06f1e6a1",
     "startBlock": 12296274,
     "name": "ArgentModule",
-    "module": [ "GuardianManager", "LockManager", "RecoveryManager" ],
-    "_comment": "more features (transaction manager)"
+    "module": [ "GuardianManager", "LockManager", "RecoveryManager", "TransferManager" ],
+    "_comment": "missing: SessionCreated, SessionCleared"
   },{
     "address": "0x8c887cab3b980d826f1e5a996545f51390dc912f",
     "startBlock": 12296369,
