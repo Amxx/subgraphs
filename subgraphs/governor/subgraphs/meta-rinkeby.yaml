@@ -9,7 +9,7 @@ dataSources:
     network: rinkeby
     source:
       abi: IGovernor
-      startBlock: 0
+      startBlock: 5200528
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -61,7 +61,7 @@ dataSources:
     network: rinkeby
     source:
       abi: ITimelock
-      startBlock: 0
+      startBlock: 5200528
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

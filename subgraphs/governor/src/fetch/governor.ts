@@ -15,12 +15,18 @@ import {
 } from './account'
 
 function governorType(address: Address): string | null {
+	// check existance of governance settings
+	if (IGovernor.bind(address).try_votingDelay().reverted) {
+		return null;
+	}
+
+	// try to identify governor type
 	let call = IGovernor.bind(address).try_BALLOT_TYPEHASH()
-	if (call.reverted) { return null }
+	if (call.reverted) { return 'OTHER' }
 	let value = call.value.toHex()
 	if (value == "0x8e25870c07e0b0b3884c78da52790939a455c275406c44ae8b434b692fb916ee") { return 'ALPHA' } // keccak256("Ballot(uint256 proposalId,bool support)");
 	if (value == "0x150214d74d59b7d1e90c73fc22ef3d991dd0a76b046543d4d80ab92d2a50328f") { return 'BRAVO' } // keccak256("Ballot(uint256 proposalId,uint8 support)");
-	return null
+	return 'OTHER'
 }
 
 export function fetchGovernor(address: Address) : Governor | null {
