@@ -1,5 +1,5 @@
 {
-  "output": "../generated/argent-mainnet",
+  "output": "./generated/argent-mainnet.",
   "chain": "mainnet",
   "datasources": [{
     "address": "0x851cc731ce1613ae4fd8ec7f61f4b350f9ce1020",

@@ -1,0 +1,3 @@
+[submodule "graphprotocol-utils"]
+	path = packages/graphprotocol-utils
+	url = git@github.com:Amxx/graphprotocol-utils.git

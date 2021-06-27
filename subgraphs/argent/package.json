@@ -16,19 +16,19 @@
     "prepublish": "rimraf artifacts build cache generated",
     "prepare": "mkdir -p generated && yarn prepare:contracts && yarn prepare:subgraph",
     "prepare:contracts": "hardhat compile",
-    "prepare:subgraph": "node scripts/generator.js --path config/argent-mainnet.json --export-schema --export-subgraph",
+    "prepare:subgraph": "generator --path config/argent-mainnet.json --datasource-dir ./src/datasources --template-dir ./src/templates --export-schema --export-subgraph",
     "build": "yarn build:codegen && yarn build:compile",
     "build:codegen": "graph codegen ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}",
     "build:compile": "graph build ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}",
     "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/argent} ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}"
   },
   "devDependencies": {
-    "@amxx/graphprotocol-utils": "^0.1.0",
-    "@graphprotocol/graph-cli": "^0.20.0",
+    "@amxx/graphprotocol-utils": "1.0.0-alpha.1",
+    "@graphprotocol/graph-cli": "^0.20.1",
     "@graphprotocol/graph-ts": "^0.20.0",
     "concat": "^1.0.3",
-    "hardhat": "^2.1.2",
+    "hardhat": "^2.4.1",
     "rimraf": "^3.0.2",
-    "yargs": "^13.3.2"
+    "yargs": "^17.0.1"
   }
 }
