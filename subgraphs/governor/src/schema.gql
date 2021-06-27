@@ -34,7 +34,7 @@ type Account @entity {
 enum GovernorType {
 	ALPHA
 	BRAVO
-	OTHER
+	UNKNOWN
 }
 
 type Governor @entity {
