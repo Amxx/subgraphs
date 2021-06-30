@@ -16,14 +16,14 @@
     "prepublish": "rimraf artifacts build cache generated",
     "prepare": "mkdir -p generated && yarn prepare:contracts && yarn prepare:subgraph",
     "prepare:contracts": "hardhat compile",
-    "prepare:subgraph": "graph-compiler --config config/argent-mainnet.json --export-schema --export-subgraph",
+    "prepare:subgraph": "graph-compiler --config config/argent-mainnet.json --include src/datasources --export-schema --export-subgraph",
     "build": "yarn build:codegen && yarn build:compile",
     "build:codegen": "graph codegen ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}",
     "build:compile": "graph build ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}",
     "deploy": "yarn build && graph deploy --debug --node ${GRAPHNODE:-https://api.thegraph.com/deploy/} --ipfs ${IPFSNODE:-https://api.thegraph.com/ipfs/} ${NAME:-amxx/argent} ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}"
   },
   "devDependencies": {
-    "@amxx/graphprotocol-utils": "1.0.0-alpha.4",
+    "@amxx/graphprotocol-utils": "1.0.0-alpha.7",
     "@graphprotocol/graph-cli": "^0.20.1",
     "@graphprotocol/graph-ts": "^0.20.0",
     "concat": "^1.0.3",
