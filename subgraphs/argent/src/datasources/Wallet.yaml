@@ -2,7 +2,9 @@
     name: {id}
     network: {chain}
     source:
+      address: "{address}"
       abi: Wallet
+      startBlock: {startBlock}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -12,7 +14,7 @@
         - Module
       abis:
         - name: Wallet
-          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+          file: {root}/artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
       eventHandlers:
         - event: OwnerChanged(address)
           handler: handleOwnerChanged
@@ -24,4 +26,3 @@
           handler: handleInvoked
         - event: Received(indexed uint256,indexed address,bytes)
           handler: handleReceived
-      file: ../src/templates/Wallet.ts

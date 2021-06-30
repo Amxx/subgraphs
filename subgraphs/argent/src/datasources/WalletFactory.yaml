@@ -13,9 +13,9 @@
         - Wallet
       abis:
         - name: Wallet
-          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+          file: {root}/artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
         - name: WalletFactory
-          file: ../artifacts/contracts/IWalletFactory.sol/IWalletFactory.json
+          file: {root}/artifacts/contracts/IWalletFactory.sol/IWalletFactory.json
       eventHandlers:
         - event: WalletCreated(indexed address,indexed address)
           handler: handleWalletCreated
@@ -23,4 +23,3 @@
           handler: handleWalletCreatedV2
         - event: WalletCreated(indexed address,indexed address,indexed address,address,uint256)
           handler: handleWalletCreatedV3
-      file: ../src/datasources/WalletFactory.ts

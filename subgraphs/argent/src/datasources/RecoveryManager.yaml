@@ -13,9 +13,9 @@
         - Wallet
       abis:
         - name: Wallet
-          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+          file: {root}/artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
         - name: RecoveryManager
-          file: ../artifacts/contracts/IRecoveryManager.sol/IRecoveryManager.json
+          file: {root}/artifacts/contracts/IRecoveryManager.sol/IRecoveryManager.json
       eventHandlers:
         - event: OwnershipTransfered(indexed address,indexed address)
           handler: handleOwnershipTransfered
@@ -25,4 +25,3 @@
           handler: handleRecoveryExecuted
         - event: RecoveryFinalized(indexed address,indexed address)
           handler: handleRecoveryFinalized
-      file: ../src/datasources/RecoveryManager.ts

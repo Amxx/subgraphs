@@ -13,12 +13,11 @@
         - Wallet
       abis:
         - name: Wallet
-          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+          file: {root}/artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
         - name: LockManager
-          file: ../artifacts/contracts/ILockManager.sol/ILockManager.json
+          file: {root}/artifacts/contracts/ILockManager.sol/ILockManager.json
       eventHandlers:
         - event: Locked(indexed address,uint64)
           handler: handleLocked
         - event: Unlocked(indexed address)
           handler: handleUnlocked
-      file: ../src/datasources/LockManager.ts

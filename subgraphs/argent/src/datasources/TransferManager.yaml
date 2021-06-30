@@ -13,9 +13,9 @@
         - Wallet
       abis:
         - name: Wallet
-          file: ../artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+          file: {root}/artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
         - name: TransferManager
-          file: ../artifacts/contracts/ITransferManager.sol/ITransferManager.json
+          file: {root}/artifacts/contracts/ITransferManager.sol/ITransferManager.json
       eventHandlers:
         - event: AddedToWhitelist(indexed address,indexed address,uint64)
           handler: handleAddedToWhitelist
@@ -37,4 +37,3 @@
           handler: handleRemovedFromWhitelist
         - event: Transfer(indexed address,indexed address,indexed uint256,address,bytes)
           handler: handleTransfer
-      file: ../src/datasources/TransferManager.ts
