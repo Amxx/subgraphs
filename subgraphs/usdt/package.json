@@ -1,0 +1,28 @@
+{
+  "name": "@amxx/subgraphs-usdt",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Hadrien Croubois (@Amxx)",
+  "license": "MIT",
+  "homepage": "https://github.com/amxx/subgraphs.git#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amxx/subgraphs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amxx/subgraphs.git/issues"
+  },
+  "scripts": {
+    "prepublish": "rimraf artifacts build cache generated",
+    "prepare": "",
+    "build:codegen": "graph codegen subgraph.yaml",
+    "build:compile": "graph build subgraph.yaml",
+    "build": "yarn build:codegen && yarn build:compile",
+    "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/usdt"
+  },
+  "devDependencies": {
+    "@amxx/graphprotocol-utils": "^1.0.0-alpha.7",
+    "@graphprotocol/graph-cli": "^0.20.0",
+    "@graphprotocol/graph-ts": "^0.20.0"
+  }
+}

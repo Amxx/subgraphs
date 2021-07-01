@@ -1,0 +1,57 @@
+specVersion: 0.0.2
+description: usdt
+repository: https://github.com/amxx/subgraphs
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: TetherToken
+    network: mainnet
+    source:
+      abi: TetherToken
+      address: "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+      startBlock: 4634748
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Token
+      abis:
+        - name: TetherToken
+          file: ./abi/TetherToken.json
+      eventHandlers:
+        # BLACKLIST
+        - event: AddedBlackList(address)
+          handler: handleAddedBlackList
+        # ERC20
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        # ADMIN
+        - event: Deprecate(address)
+          handler: handleDeprecate
+        # BLACKLIST + ERC20 BURN
+        - event: DestroyedBlackFunds(address,uint256)
+          handler: handleDestroyedBlackFunds
+        # ERC20 MINT
+        - event: Issue(uint256)
+          handler: handleIssue
+        # PARAMS
+        - event: Params(uint256,uint256)
+          handler: handleParams
+        # PAUSE
+        - event: Pause()
+          handler: handlePause
+        # ERC20 BURN from owner
+        - event: Redeem(uint256)
+          handler: handleRedeem
+        # BLACKLIST
+        - event: RemovedBlackList(address)
+          handler: handleRemovedBlackList
+        # ERC20
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        # PAUSE
+        - event: Unpause()
+          handler: handleUnpause
+      file: ./src/index.ts

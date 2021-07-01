@@ -1,0 +1,103 @@
+type Account @entity {
+	id: ID!
+	asTetherToken: TetherToken
+	isBlacklisted: Boolean
+	balances: [Balance!]! @derivedFrom(field: "account")
+	approvalsOwner: [Approval!]! @derivedFrom(field: "owner")
+	approvalsSpender: [Approval!]! @derivedFrom(field: "spender")
+	transferFromEvent: [Transfer!]! @derivedFrom(field: "from")
+	transferToEvent: [Transfer!]! @derivedFrom(field: "to")
+}
+type TetherToken @entity {
+	id: ID!
+	asAccount: Account!
+	name: String
+	symbol: String
+	decimals: Int!
+	isPaused: Boolean!
+	rate: BigDecimal!
+	maximumFee: BigDecimal!
+	upgradedAddress: Account
+	totalSupply: Balance!
+	balances: [Balance!]! @derivedFrom(field: "contract")
+	approvals: [Approval!]! @derivedFrom(field: "contract")
+	transfers: [Transfer!]! @derivedFrom(field: "contract")
+}
+type Balance @entity {
+	id: ID!
+	contract: TetherToken!
+	account: Account
+	value: DecimalValue!
+	valueExact: BigInt!
+	transferFromEvent: [Transfer!]! @derivedFrom(field: "fromBalance")
+	transferToEvent: [Transfer!]! @derivedFrom(field: "toBalance")
+}
+type Approval @entity {
+	id: ID!
+	contract: TetherToken!
+	owner: Account!
+	spender: Account!
+	value: DecimalValue!
+	valueExact: BigInt!
+}
+type Transfer implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	contract: TetherToken!
+	from: Account
+	fromBalance: Balance
+	to: Account
+	toBalance: Balance
+	value: BigDecimal!
+	valueExact: BigInt!
+}
+type Paused implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	contract: Account!
+	isPaused: Boolean!
+}
+type AddedBlackList implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	user: Account!
+}
+type RemovedBlackList implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	user: Account!
+}
+type UpdatedParams implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	rate: BigDecimal!
+	maximumFee: BigDecimal!
+}
+type Deprecate implements Event @entity {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+	upgradedAddress: Account!
+}
+type DecimalValue @entity {
+	id: ID!
+	value: BigDecimal!
+	exact: BigInt!
+	decimals: Int!
+}
+interface Event {
+	id: ID!
+	transaction: Transaction!
+	timestamp: BigInt!
+}
+type Transaction @entity {
+	id: ID!
+	timestamp: BigInt!
+	blockNumber: BigInt!
+	events: [Event!]! @derivedFrom(field: "transaction")
+}
