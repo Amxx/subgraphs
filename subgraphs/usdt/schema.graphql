@@ -7,6 +7,8 @@ type Account @entity {
 	approvalsSpender: [Approval!]! @derivedFrom(field: "spender")
 	transferFromEvent: [Transfer!]! @derivedFrom(field: "from")
 	transferToEvent: [Transfer!]! @derivedFrom(field: "to")
+	addedblacklists: [AddedBlackList!]! @derivedFrom(field: "user")
+	removedblacklists: [RemovedBlackList!]! @derivedFrom(field: "user")
 }
 type TetherToken @entity {
 	id: ID!
@@ -22,6 +24,11 @@ type TetherToken @entity {
 	balances: [Balance!]! @derivedFrom(field: "contract")
 	approvals: [Approval!]! @derivedFrom(field: "contract")
 	transfers: [Transfer!]! @derivedFrom(field: "contract")
+	paused: [Paused!]! @derivedFrom(field: "contract")
+	addedblacklists: [AddedBlackList!]! @derivedFrom(field: "contract")
+	removedblacklists: [RemovedBlackList!]! @derivedFrom(field: "contract")
+	updatedparams: [UpdatedParams!]! @derivedFrom(field: "contract")
+	deprecate: [Deprecate!]! @derivedFrom(field: "contract")
 }
 type Balance @entity {
 	id: ID!
@@ -56,25 +63,28 @@ type Paused implements Event @entity {
 	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
-	contract: Account!
+	contract: TetherToken!
 	isPaused: Boolean!
 }
 type AddedBlackList implements Event @entity {
 	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
+	contract: TetherToken!
 	user: Account!
 }
 type RemovedBlackList implements Event @entity {
 	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
+	contract: TetherToken!
 	user: Account!
 }
 type UpdatedParams implements Event @entity {
 	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
+	contract: TetherToken!
 	rate: BigDecimal!
 	maximumFee: BigDecimal!
 }
@@ -82,6 +92,7 @@ type Deprecate implements Event @entity {
 	id: ID!
 	transaction: Transaction!
 	timestamp: BigInt!
+	contract: TetherToken!
 	upgradedAddress: Account!
 }
 type DecimalValue @entity {
