@@ -158,25 +158,29 @@ export function handleUnpause(event: UnpauseEvent): void {
 }
 
 export function handleAddedBlackList(event: AddedBlackListEvent): void {
-	let user = fetchAccount(event.params._user)
+	let contract = fetchTetherToken(event.address)
+	let user     = fetchAccount(event.params._user)
 	user.isBlacklisted = true
 	user.save()
 
 	let ev         = new AddedBlackList(events.id(event))
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
+	ev.contract    = contract.id
 	ev.user        = user.id
 	ev.save()
 }
 
 export function handleRemovedBlackList(event: RemovedBlackListEvent): void {
-	let user = fetchAccount(event.params._user)
+	let contract = fetchTetherToken(event.address)
+	let user     = fetchAccount(event.params._user)
 	user.isBlacklisted = false
 	user.save()
 
 	let ev         = new RemovedBlackList(events.id(event))
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
+	ev.contract    = contract.id
 	ev.user        = user.id
 	ev.save()
 }
@@ -217,6 +221,7 @@ export function handleParams(event: ParamsEvent): void {
 	let ev         = new UpdatedParams(events.id(event))
 	ev.transaction = transactions.log(event).id
 	ev.timestamp   = event.block.timestamp
+	ev.contract    = contract.id
 	ev.rate        = contract.rate
 	ev.maximumFee  = contract.maximumFee
 	ev.save()
@@ -231,6 +236,7 @@ export function handleDeprecate(event: DeprecateEvent): void {
 	let ev             = new Deprecate(events.id(event))
 	ev.transaction     = transactions.log(event).id
 	ev.timestamp       = event.block.timestamp
+	ev.contract        = contract.id
 	ev.upgradedAddress = upgradedAddress.id
 	ev.save()
 }
