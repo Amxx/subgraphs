@@ -34,7 +34,7 @@ type Balance @entity {
 	id: ID!
 	contract: TetherToken!
 	account: Account
-	value: DecimalValue!
+	value: BigDecimal!
 	valueExact: BigInt!
 	transferFromEvent: [Transfer!]! @derivedFrom(field: "fromBalance")
 	transferToEvent: [Transfer!]! @derivedFrom(field: "toBalance")
@@ -44,7 +44,7 @@ type Approval @entity {
 	contract: TetherToken!
 	owner: Account!
 	spender: Account!
-	value: DecimalValue!
+	value: BigDecimal!
 	valueExact: BigInt!
 }
 type Transfer implements Event @entity {
@@ -94,12 +94,6 @@ type Deprecate implements Event @entity {
 	timestamp: BigInt!
 	contract: TetherToken!
 	upgradedAddress: Account!
-}
-type DecimalValue @entity {
-	id: ID!
-	value: BigDecimal!
-	exact: BigInt!
-	decimals: Int!
 }
 interface Event {
 	id: ID!

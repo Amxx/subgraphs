@@ -41,15 +41,13 @@ export function handleTransfer(event: TransferEvent): void {
 	let to       = fetchAccount(event.params.to)
 
 	let fromBalance        = fetchBalance(contract, from)
-	let fromBalanceValue   = new decimals.Value(fromBalance.value)
-	fromBalanceValue.decrement(event.params.value)
-	fromBalance.valueExact = fromBalanceValue.exact
+	fromBalance.valueExact = fromBalance.valueExact.minus(event.params.value)
+	fromBalance.value      = decimals.toDecimals(fromBalance.valueExact, contract.decimals)
 	fromBalance.save()
 
 	let toBalance          = fetchBalance(contract, to)
-	let toBalanceValue     = new decimals.Value(toBalance.value)
-	toBalanceValue.increment(event.params.value)
-	toBalance.valueExact   = toBalanceValue.exact
+	toBalance.valueExact   = toBalance.valueExact.plus(event.params.value)
+	toBalance.value        = decimals.toDecimals(toBalance.valueExact, contract.decimals)
 	toBalance.save()
 
 	let ev         = new Transfer(events.id(event))
@@ -69,16 +67,14 @@ export function handleIssue(event: IssueEvent): void {
 	let contract = fetchTetherToken(event.address)
 	let owner    = fetchAccount(TetherTokenInterface.bind(event.address).owner())
 
-	let totalSupply        = fetchBalance(contract, null)
-	let totalSupplyValue   = new decimals.Value(totalSupply.value)
-	totalSupplyValue.increment(event.params.amount)
-	totalSupply.valueExact = totalSupplyValue.exact
+	let totalSupply         = fetchBalance(contract, null)
+	totalSupply.valueExact  = totalSupply.valueExact.plus(event.params.amount)
+	totalSupply.value       = decimals.toDecimals(totalSupply.valueExact, contract.decimals)
 	totalSupply.save()
 
-	let ownerBalance          = fetchBalance(contract, owner)
-	let ownerBalanceValue     = new decimals.Value(ownerBalance.value)
-	ownerBalanceValue.increment(event.params.amount)
-	ownerBalance.valueExact   = ownerBalanceValue.exact
+	let ownerBalance        = fetchBalance(contract, owner)
+	ownerBalance.valueExact = ownerBalance.valueExact.plus(event.params.amount)
+	ownerBalance.value      = decimals.toDecimals(ownerBalance.valueExact, contract.decimals)
 	ownerBalance.save()
 
 	let ev         = new Transfer(events.id(event))
@@ -96,16 +92,14 @@ export function handleRedeem(event: RedeemEvent): void {
 	let contract = fetchTetherToken(event.address)
 	let owner    = fetchAccount(TetherTokenInterface.bind(event.address).owner())
 
-	let totalSupply        = fetchBalance(contract, null)
-	let totalSupplyValue   = new decimals.Value(totalSupply.value)
-	totalSupplyValue.decrement(event.params.amount)
-	totalSupply.valueExact = totalSupplyValue.exact
+	let totalSupply         = fetchBalance(contract, null)
+	totalSupply.valueExact  = totalSupply.valueExact.minus(event.params.amount)
+	totalSupply.value       = decimals.toDecimals(totalSupply.valueExact, contract.decimals)
 	totalSupply.save()
 
-	let ownerBalance          = fetchBalance(contract, owner)
-	let ownerBalanceValue     = new decimals.Value(ownerBalance.value)
-	ownerBalanceValue.decrement(event.params.amount)
-	ownerBalance.valueExact   = ownerBalanceValue.exact
+	let ownerBalance        = fetchBalance(contract, owner)
+	ownerBalance.valueExact = ownerBalance.valueExact.minus(event.params.amount)
+	ownerBalance.value      = decimals.toDecimals(ownerBalance.valueExact, contract.decimals)
 	ownerBalance.save()
 
 	let ev         = new Transfer(events.id(event))
@@ -125,9 +119,8 @@ export function handleApproval(event: ApprovalEvent): void {
 	let owner           = fetchAccount(event.params.owner)
 	let spender         = fetchAccount(event.params.spender)
 	let approval        = fetchApproval(contract, owner, spender)
-	let value           = new decimals.Value(approval.value)
-	value.set(event.params.value)
-	approval.valueExact = value.exact
+	approval.valueExact = event.params.value
+	approval.value      = decimals.toDecimals(approval.valueExact, contract.decimals)
 	approval.save()
 }
 
@@ -189,16 +182,14 @@ export function handleDestroyedBlackFunds(event: DestroyedBlackFundsEvent): void
 	let contract = fetchTetherToken(event.address)
 	let owner    = fetchAccount(event.params._blackListedUser)
 
-	let totalSupply        = fetchBalance(contract, null)
-	let totalSupplyValue   = new decimals.Value(totalSupply.value)
-	totalSupplyValue.decrement(event.params._balance)
-	totalSupply.valueExact = totalSupplyValue.exact
+	let totalSupply         = fetchBalance(contract, null)
+	totalSupply.valueExact  = totalSupply.valueExact.minus(event.params._balance)
+	totalSupply.value       = decimals.toDecimals(totalSupply.valueExact, contract.decimals)
 	totalSupply.save()
 
-	let ownerBalance          = fetchBalance(contract, owner)
-	let ownerBalanceValue     = new decimals.Value(ownerBalance.value)
-	ownerBalanceValue.decrement(event.params._balance)
-	ownerBalance.valueExact   = ownerBalanceValue.exact
+	let ownerBalance        = fetchBalance(contract, owner)
+	ownerBalance.valueExact = ownerBalance.valueExact.minus(event.params._balance)
+	ownerBalance.value      = decimals.toDecimals(ownerBalance.valueExact, contract.decimals)
 	ownerBalance.save()
 
 	let ev         = new Transfer(events.id(event))

@@ -14,6 +14,7 @@ import {
 } from '../../generated/TetherToken/TetherToken'
 
 import {
+	constants,
 	decimals,
 } from '@amxx/graphprotocol-utils'
 
@@ -52,11 +53,10 @@ export function fetchBalance(contract: TetherToken, account: Account | null): Ba
 
 	if (balance == null) {
 		balance                 = new Balance(id)
-		let value               = new decimals.Value(id.concat('/balance'), contract.decimals)
 		balance.contract        = contract.id
 		balance.account         = account ? account.id : null
-		balance.value           = value.id
-		balance.valueExact      = value.exact
+		balance.value           = constants.BIGDECIMAL_ZERO
+		balance.valueExact      = constants.BIGINT_ZERO
 		balance.save()
 	}
 	return balance as Balance
@@ -68,12 +68,11 @@ export function fetchApproval(contract: TetherToken, owner: Account, spender: Ac
 
 	if (approval == null) {
 		approval                = new Approval(id)
-		let value               = new decimals.Value(id.concat('/approval'), contract.decimals)
 		approval.contract       = contract.id
 		approval.owner          = owner.id
 		approval.spender        = spender.id
-		approval.value          = value.id
-		approval.valueExact     = value.exact
+		approval.value          = constants.BIGDECIMAL_ZERO
+		approval.valueExact     = constants.BIGINT_ZERO
 	}
 	return approval as Approval
 }
