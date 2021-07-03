@@ -1,0 +1,21 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: NftTransfer
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Wallet
+      abis:
+        - name: Wallet
+          file: {root}/artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+        - name: NftTransfer
+          file: {root}/artifacts/contracts/INftTransfer.sol/INftTransfer.json
+      eventHandlers:
+        - event: NonFungibleTransfer(indexed address,indexed address,indexed uint256,address,bytes)
+          handler: handleNonFungibleTransfer

@@ -1,27 +1,27 @@
 import {
-	Address,
+  Address,
 } from '@graphprotocol/graph-ts'
 
 import {
-	Module,
+  Module,
 } from '../../generated/schema'
 
 import {
-	fetchAccount
+  fetchAccount
 } from './account'
 
 export function fetchModule(address: Address) : Module {
-	let module = Module.load(address.toHex())
+  let module = Module.load(address.toHex())
 
-	if (module == null) {
-		module           = new Module(address.toHex())
-		module.asAccount = module.id
-		module.save()
+  if (module == null) {
+    module           = new Module(address.toHex())
+    module.asAccount = module.id
+    module.save()
 
-		let account      = fetchAccount(address)
-		account.asModule = module.id
-		account.save()
-	}
+    let account      = fetchAccount(address)
+    account.asModule = module.id
+    account.save()
+  }
 
-	return module as Module
+  return module as Module
 }

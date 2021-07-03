@@ -1,0 +1,30 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "asNftContract",     "type": "NftContract"                                 },
+    { "name": "nftReceived",       "type": "NonFungibleTransfer!", "derived": "to"       }
+  ]
+},{
+  "name": "Wallet",
+  "fields": [
+    { "name": "nftTransfers",      "type": "NonFungibleTransfer!", "derived": "wallet"   }
+  ]
+},{
+  "name": "NftContract",
+  "fields": [
+    { "name": "asAccount",         "type": "Account!"                                    },
+    { "name": "transfers",         "type": "NonFungibleTransfer!", "derived": "contract" }
+  ]
+},{
+  "name": "NonFungibleTransfer",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",       "type": "Transaction!"                                },
+    { "name": "timestamp",         "type": "BigInt!"                                     },
+    { "name": "wallet",            "type": "Wallet!"                                     },
+    { "name": "contract",          "type": "NftContract!"                                },
+    { "name": "tokenId",           "type": "BigInt!"                                     },
+    { "name": "to",                "type": "Account!"                                    },
+    { "name": "data",              "type": "Bytes!"                                      }
+  ]
+}]

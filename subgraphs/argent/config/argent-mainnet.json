@@ -41,20 +41,17 @@
     "address": "0xd5e1dff5f039b2c42978d98ed60c0ac5c8f6a266",
     "startBlock": 7173672,
     "name": "DappManager",
-    "module": [],
-    "_comment": ""
+    "module": [ "TransferManager", "DappManager" ]
   },{
     "address": "0xed0da07aab7257df53efc4dfc076745744138ed9",
     "startBlock": 7173673,
     "name": "TokenExchanger",
-    "module": [],
-    "_comment": ""
+    "module": [ "TokenExchanger" ]
   },{
     "address": "0x1848e646bba45174f4044443719db6e5e6cf5d66",
     "startBlock": 7899863,
     "name": "NftTransfer",
-    "module": [],
-    "_comment": ""
+    "module": [ "NftTransfer" ]
   },{
     "address": "0x963f86da34cf2ce619d4b8e5ce96577943f95b6b",
     "startBlock": 8225466,

@@ -1,0 +1,27 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: DappManager
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Wallet
+      abis:
+        - name: Wallet
+          file: {root}/artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+        - name: DappManager
+          file: {root}/artifacts/contracts/IDappManager.sol/IDappManager.json
+      eventHandlers:
+        - event: ContractCallAuthorizationCanceled(indexed address,indexed address,indexed address,bytes4[])
+          handler: handleContractCallAuthorizationCanceled
+        - event: ContractCallAuthorizationRequested(indexed address,indexed address,indexed address,bytes4[])
+          handler: handleContractCallAuthorizationRequested
+        - event: ContractCallAuthorized(indexed address,indexed address,indexed address,bytes4[])
+          handler: handleContractCallAuthorized
+        - event: ContractCallDeauthorized(indexed address,indexed address,indexed address,bytes4[])
+          handler: handleContractCallDeauthorized

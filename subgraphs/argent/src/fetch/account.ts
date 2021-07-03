@@ -1,13 +1,13 @@
 import {
-	Address,
+  Address,
 } from '@graphprotocol/graph-ts'
 
 import {
-	Account,
+  Account,
 } from '../../generated/schema'
 
 export function fetchAccount(address: Address) : Account {
-	let account = new Account(address.toHex())
-	account.save()
-	return account
+  let account = new Account(address.toHex())
+  account.save()
+  return account
 }
