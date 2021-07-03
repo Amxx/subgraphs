@@ -11,6 +11,7 @@
   "fields": [
     { "name": "asAccount",              "type": "Account!"                                      },
     { "name": "owner",                  "type": "Account!"                                      },
+    { "name": "moduleCount",            "type": "Int!"                                       },
     { "name": "modules",                "type": "WalletModule!",            "derived": "wallet" },
     { "name": "staticcalls",            "type": "WalletMethod!",            "derived": "wallet" },
     { "name": "createdEvent",           "type": "WalletCreated!",           "derived": "wallet" },

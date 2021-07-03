@@ -28,6 +28,7 @@ export function fetchWallet(address: Address) : Wallet {
     wallet.asAccount     = wallet.id
     wallet.owner         = fetchAccount(WalletContract.bind(address).owner()).id
     wallet.locked        = false
+    wallet.moduleCount   = 0
     wallet.guardianCount = 0
     wallet.save()
 

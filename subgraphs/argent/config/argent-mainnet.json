@@ -68,7 +68,7 @@
     "address": "0x5388b0f8106bde37dc6982b4ba5771d2e8d9dc42",
     "startBlock": 8308084,
     "name": "UniswapManager",
-    "_comment": ""
+    "module": [ "Invest" ]
   },{
     "address": "0x2b6d87f12b106e1d3fa7137494751566329d1045",
     "startBlock": 9015852,
