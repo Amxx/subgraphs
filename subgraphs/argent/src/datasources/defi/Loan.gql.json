@@ -20,10 +20,10 @@
   "fields": [
     { "name": "wallet",              "type": "Wallet!"                                   },
     { "name": "closed",              "type": "Boolean"                                   },
-    { "name": "collateralAdded",     "type": "CollateralAdded!",   "derivedFrom": "loan" },
-    { "name": "collateralRemoved",   "type": "CollateralRemoved!", "derivedFrom": "loan" },
-    { "name": "debtAdded",           "type": "DebtAdded!",         "derivedFrom": "loan" },
-    { "name": "debtRemoved",         "type": "DebtRemoved!",       "derivedFrom": "loan" }
+    { "name": "collateralAdded",     "type": "CollateralAdded!",   "derived": "loan"     },
+    { "name": "collateralRemoved",   "type": "CollateralRemoved!", "derived": "loan"     },
+    { "name": "debtAdded",           "type": "DebtAdded!",         "derived": "loan"     },
+    { "name": "debtRemoved",         "type": "DebtRemoved!",       "derived": "loan"     }
   ]
 },{
   "name": "CollateralAdded",
