@@ -29,7 +29,7 @@ export function handleOwnershipTransfered(event: OwnershipTransferedEvent): void
 
 export function handleRecoveryExecuted(event: RecoveryExecutedEvent): void {
   let wallet   = fetchWallet(event.params.wallet)
-  let newOwner = fetchAccount(event.params._recovery)
+  let newOwner = fetchAccount(event.params.recovery)
   let id       = wallet.id.concat('/').concat(newOwner.id)
 
   let recovery          = new Recovery(id)
@@ -49,7 +49,7 @@ export function handleRecoveryExecuted(event: RecoveryExecutedEvent): void {
 
 export function handleRecoveryFinalized(event: RecoveryFinalizedEvent): void {
   let wallet   = fetchWallet(event.params.wallet)
-  let newOwner = fetchAccount(event.params._recovery)
+  let newOwner = fetchAccount(event.params.recovery)
   let id       = wallet.id.concat('/').concat(newOwner.id)
 
   store.remove("Recovery", id)
@@ -64,7 +64,7 @@ export function handleRecoveryFinalized(event: RecoveryFinalizedEvent): void {
 
 export function handleRecoveryCanceled(event: RecoveryCanceledEvent): void {
   let wallet   = fetchWallet(event.params.wallet)
-  let newOwner = fetchAccount(event.params._recovery)
+  let newOwner = fetchAccount(event.params.recovery)
   let id       = wallet.id.concat('/').concat(newOwner.id)
 
   store.remove("Recovery", id)

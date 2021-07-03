@@ -1,0 +1,68 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "asToken",             "type": "Token"                                     },
+    { "name": "asWallet",            "type": "Wallet"                                    }
+  ]
+},{
+  "name": "Wallet",
+  "fields": [
+    { "name": "asAccount",           "type": "Account!"                                  },
+    { "name": "loans",               "type": "Loan!",              "derived": "wallet"   }
+  ]
+},{
+  "name": "Token",
+  "fields": [
+    { "name": "asAccount",           "type": "Account!"                                  }
+  ]
+},{
+  "name": "Loan",
+  "fields": [
+    { "name": "wallet",              "type": "Wallet!"                                   },
+    { "name": "closed",              "type": "Boolean"                                   },
+    { "name": "collateralAdded",     "type": "CollateralAdded!",   "derivedFrom": "loan" },
+    { "name": "collateralRemoved",   "type": "CollateralRemoved!", "derivedFrom": "loan" },
+    { "name": "debtAdded",           "type": "DebtAdded!",         "derivedFrom": "loan" },
+    { "name": "debtRemoved",         "type": "DebtRemoved!",       "derivedFrom": "loan" }
+  ]
+},{
+  "name": "CollateralAdded",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",         "type": "Transaction!"                               },
+    { "name": "timestamp",           "type": "BigInt!"                                    },
+    { "name": "loan",                "type": "Loan!"                                      },
+    { "name": "token",               "type": "Token!"                                     },
+    { "name": "amount",              "type": "BigInt!"                                    }
+  ]
+},{
+  "name": "CollateralRemoved",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",         "type": "Transaction!"                               },
+    { "name": "timestamp",           "type": "BigInt!"                                    },
+    { "name": "loan",                "type": "Loan!"                                      },
+    { "name": "token",               "type": "Token!"                                     },
+    { "name": "amount",              "type": "BigInt!"                                    }
+  ]
+},{
+  "name": "DebtAdded",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",         "type": "Transaction!"                               },
+    { "name": "timestamp",           "type": "BigInt!"                                    },
+    { "name": "loan",                "type": "Loan!"                                      },
+    { "name": "token",               "type": "Token!"                                     },
+    { "name": "amount",              "type": "BigInt!"                                    }
+  ]
+},{
+  "name": "DebtRemoved",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",         "type": "Transaction!"                               },
+    { "name": "timestamp",           "type": "BigInt!"                                    },
+    { "name": "loan",                "type": "Loan!"                                      },
+    { "name": "token",               "type": "Token!"                                     },
+    { "name": "amount",              "type": "BigInt!"                                    }
+  ]
+}]

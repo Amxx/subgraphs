@@ -15,7 +15,7 @@
         - name: Wallet
           file: {root}/artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
         - name: Invest
-          file: {root}/artifacts/contracts/Invest.sol/Invest.json
+          file: {root}/artifacts/contracts/defi/Invest.sol/Invest.json
       eventHandlers:
         - event: InvestmentAdded(indexed address,address,uint256,uint256)
           handler: handleInvestmentAdded

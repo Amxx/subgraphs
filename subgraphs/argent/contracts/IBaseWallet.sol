@@ -14,9 +14,9 @@ interface IBaseWallet {
     function enabled(bytes4) external view returns (address);
     function modules() external view returns (uint256);
 
-    function init(address _owner, address[] calldata _modules) external;
-    function authoriseModule(address _module, bool _value) external;
-    function enableStaticCall(address _module, bytes4 _method) external;
-    function setOwner(address _newOwner) external;
-    function invoke(address _target, uint _value, bytes calldata _data) external;
+    function init(address owner, address[] calldata modules) external;
+    function authoriseModule(address module, bool value) external;
+    function enableStaticCall(address module, bytes4 method) external;
+    function setOwner(address newOwner) external;
+    function invoke(address target, uint value, bytes calldata data) external;
 }

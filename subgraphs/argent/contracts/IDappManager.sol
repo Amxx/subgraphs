@@ -7,10 +7,10 @@ import "./ILimitManager.sol";
 
 interface IDappManager is IBaseModule, IRelayerModule, ILimitManager {
     event Transfer(address indexed wallet, address indexed token, uint256 indexed amount, address to, bytes data);
-    event ContractCallAuthorizationRequested(address indexed _wallet, address indexed _dapp, address indexed _contract, bytes4[] _signatures);
-    event ContractCallAuthorizationCanceled(address indexed _wallet, address indexed _dapp, address indexed _contract, bytes4[] _signatures);
-    event ContractCallAuthorized(address indexed _wallet, address indexed _dapp, address indexed _contract, bytes4[] _signatures);
-    event ContractCallDeauthorized(address indexed _wallet, address indexed _dapp, address indexed _contract, bytes4[] _signatures);
+    event ContractCallAuthorizationRequested(address indexed wallet, address indexed dapp, address indexed _contract, bytes4[] signatures);
+    event ContractCallAuthorizationCanceled(address indexed wallet, address indexed dapp, address indexed _contract, bytes4[] signatures);
+    event ContractCallAuthorized(address indexed wallet, address indexed dapp, address indexed _contract, bytes4[] signatures);
+    event ContractCallDeauthorized(address indexed wallet, address indexed dapp, address indexed _contract, bytes4[] signatures);
 
     function guardianStorage() external view returns (address);
     function dappStorage() external view returns (address);

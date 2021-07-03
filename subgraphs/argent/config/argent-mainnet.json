@@ -56,19 +56,17 @@
     "address": "0x963f86da34cf2ce619d4b8e5ce96577943f95b6b",
     "startBlock": 8225466,
     "name": "MakerManager",
-    "module": [],
-    "_comment": ""
+    "module": [ "defi/Loan" ]
   },{
     "address": "0xa5d7d68d7975e89feb240f42fed1d77bb71b1caf",
     "startBlock": 8308082,
     "name": "CompoundManager",
-    "module": [],
-    "_comment": ""
+    "module": [ "defi/Loan", "defi/Invest" ]
   },{
     "address": "0x5388b0f8106bde37dc6982b4ba5771d2e8d9dc42",
     "startBlock": 8308084,
     "name": "UniswapManager",
-    "module": [ "Invest" ]
+    "module": [ "defi/Invest" ]
   },{
     "address": "0x2b6d87f12b106e1d3fa7137494751566329d1045",
     "startBlock": 9015852,
@@ -83,8 +81,7 @@
     "address": "0x7557f4199aa99e5396330bac3b7bdaa262cb1913",
     "startBlock": 9015856,
     "name": "MakerV2Manager",
-    "module": [],
-    "_comment": ""
+    "module": [ "defi/Invest", "TokenExchanger" ]
   },{
     "address": "0x40c84310ef15b0c0e5c69d25138e0e16e8000fe9",
     "startBlock": 9773172,
@@ -110,8 +107,8 @@
     "address": "0x8a7da5fe29f33f5c053d46cb79086cdcc24ac610",
     "startBlock": 10020275,
     "name": "MakerV2Manager",
-    "module": [],
-    "_comment": ""
+    "module": [ "defi/Loan", "defi/Invest" ],
+    "_comment": "todo: CdpMigrated"
   },{
     "address": "0xa24783c07cdd995c56c1d33ce485e6ac39e0c018",
     "startBlock": 10020373,
@@ -193,7 +190,7 @@
     "startBlock": 12296274,
     "name": "ArgentModule",
     "module": [ "GuardianManager", "LockManager", "RecoveryManager", "TransferManager" ],
-    "_comment": "missing: SessionCreated, SessionCleared"
+    "_comment": "todo: SessionCreated, SessionCleared"
   },{
     "address": "0x8c887cab3b980d826f1e5a996545f51390dc912f",
     "startBlock": 12296369,

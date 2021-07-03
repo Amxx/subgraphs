@@ -35,8 +35,8 @@ import { fetchWallet  } from '../fetch/wallet'
 import { fetchModule  } from '../fetch/module'
 
 export function handleOwnerChanged(event: OwnerChangedEvent): void {
-  let owner  = fetchAccount(event.params.owner)
   let wallet = fetchWallet(event.address)
+  let owner  = fetchAccount(event.params.owner)
   wallet.owner = owner.id
   wallet.save()
 

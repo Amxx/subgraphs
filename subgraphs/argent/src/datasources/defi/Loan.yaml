@@ -1,0 +1,31 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: Loan
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Wallet
+      abis:
+        - name: Wallet
+          file: {root}/artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+        - name: Loan
+          file: {root}/artifacts/contracts/defi/Loan.sol/Loan.json
+      eventHandlers:
+        - event: CollateralAdded(indexed address,indexed bytes32,address,uint256)
+          handler: handleCollateralAdded
+        - event: CollateralRemoved(indexed address,indexed bytes32,address,uint256)
+          handler: handleCollateralRemoved
+        - event: DebtAdded(indexed address,indexed bytes32,address,uint256)
+          handler: handleDebtAdded
+        - event: DebtRemoved(indexed address,indexed bytes32,address,uint256)
+          handler: handleDebtRemoved
+        - event: LoanClosed(indexed address,indexed bytes32)
+          handler: handleLoanClosed
+        - event: LoanOpened(indexed address,indexed bytes32,address,uint256,address,uint256)
+          handler: handleLoanOpened

@@ -19,3 +19,5 @@
       eventHandlers:
         - event: TokenExchanged(indexed address,address,uint256,address,uint256)
           handler: handleTokenExchanged
+        - event: TokenConverted(indexed address,address,uint256,address,uint256)
+          handler: handleTokenConverted

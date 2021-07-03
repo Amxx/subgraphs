@@ -1,0 +1,54 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "asToken",                "type": "Token"                                       },
+    { "name": "asWallet",               "type": "Wallet"                                      },
+    { "name": "asModule",               "type": "Module"                                      }
+  ]
+},{
+  "name": "Module",
+  "fields": [
+    { "name": "asAccount",              "type": "Account!"                                    },
+    { "name": "investments",            "type": "Investment!",        "derived": "module"     }
+  ]
+},{
+  "name": "Wallet",
+  "fields": [
+    { "name": "asAccount",              "type": "Account!"                                    },
+    { "name": "investments",            "type": "Investment!",        "derived": "wallet"     }
+  ]
+},{
+  "name": "Token",
+  "fields": [
+    { "name": "asAccount",              "type": "Account!"                                    },
+    { "name": "investments",            "type": "Investment!",        "derived": "token"      }
+  ]
+},{
+  "name": "Investment",
+  "fields": [
+    { "name": "wallet",                 "type": "Wallet!"                                     },
+    { "name": "module",                 "type": "Module!"                                     },
+    { "name": "token",                  "type": "Token!"                                      },
+    { "name": "added",                  "type": "InvestmentAdded!",   "derived": "investment" },
+    { "name": "removed",                "type": "InvestmentRemoved!", "derived": "investment" }
+  ]
+},{
+  "name": "InvestmentAdded",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                                },
+    { "name": "timestamp",              "type": "BigInt!"                                     },
+    { "name": "investment",             "type": "Investment!"                                 },
+    { "name": "invested",               "type": "BigInt!"                                     },
+    { "name": "period",                 "type": "BigInt!"                                     }
+  ]
+},{
+  "name": "InvestmentRemoved",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                                },
+    { "name": "timestamp",              "type": "BigInt!"                                     },
+    { "name": "investment",             "type": "Investment!"                                 },
+    { "name": "fraction",               "type": "BigInt!"                                     }
+  ]
+}]

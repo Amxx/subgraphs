@@ -5,10 +5,10 @@ import "./IBaseModule.sol";
 import "./IRelayerModule.sol";
 
 interface IRecoveryManager is IBaseModule, IRelayerModule {
-    event RecoveryExecuted(address indexed wallet, address indexed _recovery, uint64 executeAfter);
-    event RecoveryFinalized(address indexed wallet, address indexed _recovery);
-    event RecoveryCanceled(address indexed wallet, address indexed _recovery);
-    event OwnershipTransfered(address indexed wallet, address indexed _newOwner);
+    event RecoveryExecuted(address indexed wallet, address indexed recovery, uint64 executeAfter);
+    event RecoveryFinalized(address indexed wallet, address indexed recovery);
+    event RecoveryCanceled(address indexed wallet, address indexed recovery);
+    event OwnershipTransfered(address indexed wallet, address indexed newOwner);
 
     function recoveryPeriod() external view returns (uint256);
     function lockPeriod() external view returns (uint256);
