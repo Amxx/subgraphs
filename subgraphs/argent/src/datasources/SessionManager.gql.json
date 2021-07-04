@@ -1,0 +1,31 @@
+[{
+  "name": "Account",
+  "fields": [
+    { "name": "keyForSessions",         "type": "Wallet!", "derived": "sessionKey"          }
+  ]
+},{
+  "name": "Wallet",
+  "fields": [
+    { "name": "sessionKey",             "type": "Account"                                   },
+    { "name": "sessionExpires",         "type": "BigInt"                                    }
+  ]
+},{
+  "name": "SessionCreated",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                              },
+    { "name": "timestamp",              "type": "BigInt!"                                   },
+    { "name": "wallet",                 "type": "Wallet!"                                   },
+    { "name": "sessionKey",             "type": "Account!"                                  },
+    { "name": "expires",                "type": "BigInt!"                                   }
+  ]
+},{
+  "name": "SessionCleared",
+  "parent": "Event",
+  "fields": [
+    { "name": "transaction",            "type": "Transaction!"                              },
+    { "name": "timestamp",              "type": "BigInt!"                                   },
+    { "name": "wallet",                 "type": "Wallet!"                                   },
+    { "name": "sessionKey",             "type": "Account!"                                  }
+  ]
+}]

@@ -1,0 +1,23 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: SessionManager
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Wallet
+      abis:
+        - name: Wallet
+          file: {root}/artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+        - name: SessionManager
+          file: {root}/artifacts/contracts/ISessionManager.sol/ISessionManager.json
+      eventHandlers:
+        - event: SessionCleared(indexed address,address)
+          handler: handleSessionCleared
+        - event: SessionCreated(indexed address,address,uint64)
+          handler: handleSessionCreated

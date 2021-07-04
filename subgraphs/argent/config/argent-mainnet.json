@@ -189,8 +189,7 @@
     "address": "0x9d58779365b067d5d3fcc6e92d237acd06f1e6a1",
     "startBlock": 12296274,
     "name": "ArgentModule",
-    "module": [ "GuardianManager", "LockManager", "RecoveryManager", "TransferManager" ],
-    "_comment": "todo: SessionCreated, SessionCleared"
+    "module": [ "GuardianManager", "LockManager", "RecoveryManager", "TransferManager", "SessionManager" ]
   },{
     "address": "0x8c887cab3b980d826f1e5a996545f51390dc912f",
     "startBlock": 12296369,
