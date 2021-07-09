@@ -14,7 +14,7 @@
   },
   "scripts": {
     "prepare": "scripts/prepare.sh",
-    "deploy": "scripts/deploy.sh"
+    "build": "scripts/build.sh generated/*.subgraph.yaml"
   },
   "dependencies": {
     "@amxx/graphprotocol-utils": "^1.0.0-alpha.7",

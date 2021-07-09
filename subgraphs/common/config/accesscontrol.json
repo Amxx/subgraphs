@@ -1,0 +1,7 @@
+{
+  "output": "generated/accesscontrol.",
+  "chain": "mainnet",
+  "datasources": [
+    { "address": "undefined", "startBlock": 9857098, "module": "accesscontrol" }
+  ]
+}

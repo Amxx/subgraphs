@@ -1,0 +1,7 @@
+{
+  "output": "generated/timelock.",
+  "chain": "mainnet",
+  "datasources": [
+    { "address": "undefined", "module": "timelock" }
+  ]
+}
