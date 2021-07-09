@@ -1,0 +1,27 @@
+{
+  "name": "@amxx/subgraphs-common",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Hadrien Croubois (@Amxx)",
+  "license": "MIT",
+  "homepage": "https://github.com/amxx/subgraphs.git#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amxx/subgraphs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amxx/subgraphs.git/issues"
+  },
+  "scripts": {
+    "prepare": "scripts/prepare.sh",
+    "deploy": "scripts/deploy.sh"
+  },
+  "dependencies": {
+    "@amxx/graphprotocol-utils": "^1.0.0-alpha.7",
+    "@openzeppelin/subgraphs": "file:../../../../OZ/openzeppelin-subgraphs/openzeppelin-subgraphs-1.0.0.tgz"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.21.0",
+    "@graphprotocol/graph-ts": "^0.20.0"
+  }
+}

@@ -1,13 +1,15 @@
 subgraphs/*
-!subgraphs/access-control
 !subgraphs/argent
+!subgraphs/common
 !subgraphs/governor
-!subgraphs/eip721
-!subgraphs/eip1155
 !subgraphs/nonstandard-nfts
 !subgraphs/poap
 !subgraphs/usdt
 !subgraphs/top-erc20
+!subgraphs/old
+!subgraphs/old/access-control
+!subgraphs/old/eip721
+!subgraphs/old/eip1155
 
 node_modules
 artifacts
