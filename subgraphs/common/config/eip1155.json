@@ -2,6 +2,6 @@
   "output": "generated/eip1155.",
   "chain": "mainnet",
   "datasources": [
-    { "address": "undefined", "startBlock": 6930510, "module": "erc1155" }
+    { "startBlock": 6930510, "module": "erc1155" }
   ]
 }

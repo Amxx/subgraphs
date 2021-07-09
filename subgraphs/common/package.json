@@ -17,7 +17,7 @@
     "build": "scripts/build.sh generated/*.subgraph.yaml"
   },
   "dependencies": {
-    "@amxx/graphprotocol-utils": "^1.0.0-alpha.7",
+    "@amxx/graphprotocol-utils": "^1.0.0-alpha.8",
     "@openzeppelin/subgraphs": "file:../../../../OZ/openzeppelin-subgraphs/openzeppelin-subgraphs-1.0.0.tgz"
   },
   "devDependencies": {
