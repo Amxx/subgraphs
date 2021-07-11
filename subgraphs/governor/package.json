@@ -30,10 +30,10 @@
   },
   "devDependencies": {
     "@amxx/graphprotocol-utils": "^0.1.0",
-    "@graphprotocol/graph-cli": "^0.20.0",
-    "@graphprotocol/graph-ts": "^0.20.0",
+    "@graphprotocol/graph-cli": "^0.21.0",
+    "@graphprotocol/graph-ts": "^0.20.1",
     "concat": "^1.0.3",
-    "hardhat": "^2.1.2",
+    "hardhat": "^2.4.3",
     "prompts": "^2.4.1",
     "rimraf": "^3.0.2"
   }

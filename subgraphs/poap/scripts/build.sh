@@ -1,7 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-for subgraph in `ls subgraph.*.yaml`;
+shopt -s nullglob
+
+for subgraph in $@;
 do
-	graph codegen $subgraph
-	graph build   $subgraph
+  npx graph codegen $subgraph || exit $?
+  npx graph build   $subgraph || exit $?
+  # npx graph deploy --studio $(basename $subgraph .subgraph.yaml) $subgraph || exit $?
 done;

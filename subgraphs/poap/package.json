@@ -13,19 +13,15 @@
     "url": "https://github.com/amxx/subgraphs.git/issues"
   },
   "scripts": {
-    "build:schema": "concat -o schema.graphql src/schema.gql node_modules/@amxx/graphprotocol-utils/schema.graphql",
-    "build:codegen": "graph codegen subgraph.mainnet.yaml",
-    "build:compile": "graph build subgraph.mainnet.yaml",
-    "build:all": "yarn build:schema && yarn build:codegen && yarn build:compile",
-    "deploy:mainnet": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/poap subgraph.mainnet.yaml",
-    "deploy:xdai": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/poap-xdai subgraph.xdai.yaml",
-    "deploy:all": "yarn deploy:mainnet && yarn deploy:xdai"
+    "prepare": "scripts/prepare.sh",
+    "build": "scripts/build.sh generated/*.subgraph.yaml"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@amxx/graphprotocol-utils": "^1.0.0-alpha.8",
+    "@openzeppelin/subgraphs": "file:../../../../OZ/openzeppelin-subgraphs/openzeppelin-subgraphs-1.0.0.tgz"
+  },
   "devDependencies": {
-    "@amxx/graphprotocol-utils": "0.0.6-2",
-    "@graphprotocol/graph-cli": "^0.19.0",
-    "@graphprotocol/graph-ts": "^0.19.0",
-    "concat": "^1.0.3"
+    "@graphprotocol/graph-cli": "^0.21.0",
+    "@graphprotocol/graph-ts": "^0.20.1"
   }
 }

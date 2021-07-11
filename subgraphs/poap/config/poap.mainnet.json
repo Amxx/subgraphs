@@ -1,0 +1,7 @@
+{
+  "output": "generated/poap.mainnet.",
+  "chain": "mainnet",
+  "datasources": [
+    { "address": "0x22C1f6050E56d2876009903609a2cC3fEf83B415", "startBlock": 7844214, "module": [ "erc721", "pausable", "poap" ] }
+  ]
+}

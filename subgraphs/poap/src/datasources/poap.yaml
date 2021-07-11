@@ -1,0 +1,29 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: poap
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - ERC721Contract
+      abis:
+        - name: IERC721
+          file: {root}/node_modules/@openzeppelin/contracts/build/contracts/IERC721Metadata.json
+        - name: poap
+          file: {root}/abis/Poap.json
+      eventHandlers:
+        - event: AdminAdded(indexed address)
+          handler: handleAdminAdded
+        - event: AdminRemoved(indexed address)
+          handler: handleAdminRemoved
+        - event: EventMinterAdded(indexed uint256,indexed address)
+          handler: handleEventMinterAdded
+        - event: EventMinterRemoved(indexed uint256,indexed address)
+          handler: handleEventMinterRemoved
+        - event: EventToken(uint256,uint256)
+          handler: handleEventToken
