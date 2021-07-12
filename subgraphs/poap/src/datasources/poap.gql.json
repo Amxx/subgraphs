@@ -1,71 +1,74 @@
 [{
   "name": "Account",
   "fields": [
-    { "name": "poapAdmin",            "type": "PoapAdmin!",       "derived": "admin"       },
-    { "name": "poapEventMinter",      "type": "PoapEventMinter!", "derived": "eventMinter" }
+    { "name": "poapAdmin",                   "type": "PoapAdmin!",              "derived": "admin"           },
+    { "name": "poapEventMinter",             "type": "PoapEventMinter!",        "derived": "eventMinter"     }
   ]
 },{
   "name": "ERC721Contract",
   "fields": [
-    { "name": "poapAdmin",            "type": "PoapAdmin!",       "derived": "contract"    },
-    { "name": "poapEventMinter",      "type": "PoapEventMinter!", "derived": "contract"    }
+    { "name": "poapAdmin",                   "type": "PoapAdmin!",              "derived": "contract"        },
+    { "name": "poapEventMinter",             "type": "PoapEventMinter!",        "derived": "contract"        }
   ]
 },{
   "name": "ERC721Token",
   "fields": [
-    { "name": "event",                "type": "PoapEvent"                           }
+    { "name": "event",                       "type": "PoapEvent"                                             }
   ]
 },{
   "name": "PoapEvent",
   "fields": [
-    { "name": "tokens",               "type": "ERC721Token!",   "derived": "event"  }
+    { "name": "tokens",                      "type": "ERC721Token!",            "derived": "event"           }
   ]
 },{
   "name": "PoapAdmin",
   "fields": [
-    { "name": "contract",             "type": "ERC721Contract!"                     },
-    { "name": "admin",                "type": "Account!"                            }
+    { "name": "contract",                    "type": "ERC721Contract!"                                       },
+    { "name": "admin",                       "type": "Account!"                                              },
+    { "name": "enabled",                     "type": "Boolean!"                                              },
+    { "name": "addedEvent",                  "type": "PoapAdminAdded!",         "derived": "poapAdmin"       },
+    { "name": "removedEvent",                "type": "PoapAdminRemoved!",       "derived": "poapAdmin"       }
+
   ]
 },{
   "name": "PoapAdminAdded",
   "parent": "Event",
   "fields": [
-    { "name": "transaction",          "type": "Transaction!"                        },
-    { "name": "timestamp",            "type": "BigInt!"                             },
-    { "name": "contract",             "type": "ERC721Contract!"                     },
-    { "name": "admin",                "type": "Account!"                            }
+    { "name": "transaction",                 "type": "Transaction!"                                          },
+    { "name": "timestamp",                   "type": "BigInt!"                                               },
+    { "name": "poapAdmin",                   "type": "PoapAdmin!"                                            }
   ]
 },{
   "name": "PoapAdminRemoved",
   "parent": "Event",
   "fields": [
-    { "name": "transaction",          "type": "Transaction!"                        },
-    { "name": "timestamp",            "type": "BigInt!"                             },
-    { "name": "contract",             "type": "ERC721Contract!"                     },
-    { "name": "admin",                "type": "Account!"                            }
+    { "name": "transaction",                 "type": "Transaction!"                                          },
+    { "name": "timestamp",                   "type": "BigInt!"                                               },
+    { "name": "poapAdmin",                   "type": "PoapAdmin!"                                            }
   ]
 },{
   "name": "PoapEventMinter",
   "fields": [
-    { "name": "contract",             "type": "ERC721Contract!"                     },
-    { "name": "eventMinter",          "type": "Account!"                            }
+    { "name": "contract",                    "type": "ERC721Contract!"                                       },
+    { "name": "eventMinter",                 "type": "Account!"                                              },
+    { "name": "enabled",                     "type": "Boolean!"                                              },
+    { "name": "addedEvent",                  "type": "PoapEventMinterAdded!",   "derived": "poapEventMinter" },
+    { "name": "removedEvent",                "type": "PoapEventMinterRemoved!", "derived": "poapEventMinter" }
   ]
 },{
   "name": "PoapEventMinterAdded",
   "parent": "Event",
   "fields": [
-    { "name": "transaction",          "type": "Transaction!"                        },
-    { "name": "timestamp",            "type": "BigInt!"                             },
-    { "name": "contract",             "type": "ERC721Contract!"                     },
-    { "name": "eventMinter",          "type": "Account!"                            }
+    { "name": "transaction",                 "type": "Transaction!"                                          },
+    { "name": "timestamp",                   "type": "BigInt!"                                               },
+    { "name": "poapEventMinter",             "type": "PoapEventMinter!"                                      }
   ]
 },{
   "name": "PoapEventMinterRemoved",
   "parent": "Event",
   "fields": [
-    { "name": "transaction",          "type": "Transaction!"                        },
-    { "name": "timestamp",            "type": "BigInt!"                             },
-    { "name": "contract",             "type": "ERC721Contract!"                     },
-    { "name": "eventMinter",          "type": "Account!"                            }
+    { "name": "transaction",                 "type": "Transaction!"                                          },
+    { "name": "timestamp",                   "type": "BigInt!"                                               },
+    { "name": "poapEventMinter",             "type": "PoapEventMinter!"                                      }
   ]
 }]

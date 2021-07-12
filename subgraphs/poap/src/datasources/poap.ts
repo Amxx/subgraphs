@@ -73,13 +73,13 @@ export function handleAdminAdded(event: AdminAddedEvent): void {
   let poapadmin      = new PoapAdmin(id)
   poapadmin.contract = contract.id
   poapadmin.admin    = admin.id
+  poapadmin.enabled  = true
   poapadmin.save()
 
   let ev         = new PoapAdminAdded(events.id(event))
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
-  ev.contract    = contract.id
-  ev.admin       = admin.id
+  ev.poapAdmin   = poapadmin.id
   ev.save()
 }
 
@@ -88,13 +88,16 @@ export function handleAdminRemoved(event: AdminRemovedEvent): void {
   let admin     = fetchAccount(event.params.account)
   let id        = contract.id.concat('/').concat(admin.id)
 
-  store.remove('PoapAdmin', id)
+  let poapadmin      = new PoapAdmin(id)
+  poapadmin.contract = contract.id
+  poapadmin.admin    = admin.id
+  poapadmin.enabled  = false
+  poapadmin.save()
 
   let ev         = new PoapAdminRemoved(events.id(event))
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
-  ev.contract    = contract.id
-  ev.admin       = admin.id
+  ev.poapAdmin   = poapadmin.id
   ev.save()
 }
 
@@ -103,16 +106,16 @@ export function handleEventMinterAdded(event: EventMinterAddedEvent): void {
   let minter    = fetchAccount(event.params.account)
   let id        = contract.id.concat('/').concat(minter.id)
 
-  let poapadmin         = new PoapEventMinter(id)
-  poapadmin.contract    = contract.id
-  poapadmin.eventMinter = minter.id
-  poapadmin.save()
+  let poapeventminter         = new PoapEventMinter(id)
+  poapeventminter.contract    = contract.id
+  poapeventminter.eventMinter = minter.id
+  poapeventminter.enabled     = true
+  poapeventminter.save()
 
-  let ev         = new PoapEventMinterAdded(events.id(event))
-  ev.transaction = transactions.log(event).id
-  ev.timestamp   = event.block.timestamp
-  ev.contract    = contract.id
-  ev.eventMinter = minter.id
+  let ev             = new PoapEventMinterAdded(events.id(event))
+  ev.transaction     = transactions.log(event).id
+  ev.timestamp       = event.block.timestamp
+  ev.poapEventMinter = poapeventminter.id
   ev.save()
 }
 
@@ -121,12 +124,15 @@ export function handleEventMinterRemoved(event: EventMinterRemovedEvent): void {
   let minter    = fetchAccount(event.params.account)
   let id        = contract.id.concat('/').concat(minter.id)
 
-  store.remove('PoapEventMinter', id)
+  let poapeventminter         = new PoapEventMinter(id)
+  poapeventminter.contract    = contract.id
+  poapeventminter.eventMinter = minter.id
+  poapeventminter.enabled     = false
+  poapeventminter.save()
 
-  let ev         = new PoapEventMinterRemoved(events.id(event))
-  ev.transaction = transactions.log(event).id
-  ev.timestamp   = event.block.timestamp
-  ev.contract    = contract.id
-  ev.eventMinter = minter.id
+  let ev             = new PoapEventMinterRemoved(events.id(event))
+  ev.transaction     = transactions.log(event).id
+  ev.timestamp       = event.block.timestamp
+  ev.poapEventMinter = poapeventminter.id
   ev.save()
 }
