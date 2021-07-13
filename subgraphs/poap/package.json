@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@amxx/graphprotocol-utils": "^1.0.0-alpha.8",
-    "@openzeppelin/subgraphs": "file:../../../../OZ/openzeppelin-subgraphs/openzeppelin-subgraphs-1.0.0.tgz"
+    "@openzeppelin/subgraphs": "^0.1.0"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.21.0",
