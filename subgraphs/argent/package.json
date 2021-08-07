@@ -23,11 +23,10 @@
     "deploy": "yarn build && graph deploy --studio ${NAME:-argent} ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}"
   },
   "devDependencies": {
-    "@amxx/graphprotocol-utils": "1.0.0-alpha.7",
+    "@amxx/graphprotocol-utils": "1.0.0-alpha.12",
     "@graphprotocol/graph-cli": "^0.21.0",
     "@graphprotocol/graph-ts": "^0.20.1",
-    "concat": "^1.0.3",
-    "hardhat": "^2.4.3",
+    "hardhat": "^2.5.0",
     "rimraf": "^3.0.2",
     "yargs": "^17.0.1"
   }
