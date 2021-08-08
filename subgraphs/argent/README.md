@@ -12,7 +12,23 @@ You can find this subgraph on the [subgraph explorer](https://thegraph.com/studi
 
 ## Re-build and deploy
 
-TODO
+In order to redeploy this subgraph, you will have to create a subgraph instance on the [subgraph studio](https://thegraph.com/studio/). Follow the documentation [here](https://thegraph.com/docs/developer/deploy-subgraph-studio#create-your-subgraph-in-subgraph-studio).
+
+Once your subgraph is declared, you can download the source, compile the subgraph, and deploy it your studio using the following commands.
+
+```
+$ git clone https://github.com/Amxx/subgraphs/
+
+$ cd subgraph/subraph/argent
+
+$ npm i
+
+$ npx graph auth  --studio <YOUR_AUTH_APIKEY>
+
+$ env NAME=<SUBGRAPH_SLUG> npm run deploy
+```
+
+***Note:** If you modify the config, remember to run `npm run prepare` to recompile the subgraph before running the build & deploy commands.*
 
 ## Disclaimer
 
