@@ -1,0 +1,8 @@
+{
+  "output": "generated/accesscontrol.fantom.",
+  "chain": "fantom",
+  "datasources": [
+    { "startBlock": 0, "module": "ownable"       },
+    { "startBlock": 0, "module": "accesscontrol" }
+  ]
+}
