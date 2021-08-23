@@ -2,6 +2,7 @@
   "output": "generated/accesscontrol.",
   "chain": "mainnet",
   "datasources": [
+    { "startBlock": 0,       "module": "ownable"       },
     { "startBlock": 9857098, "module": "accesscontrol" }
   ]
 }
