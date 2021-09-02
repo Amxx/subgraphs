@@ -19,7 +19,9 @@
     { "name": "authorizeModuleEvent",   "type": "WalletAuthorizeModule!",   "derived": "wallet" },
     { "name": "enabledStaticCallEvent", "type": "WalletEnabledStaticCall!", "derived": "wallet" },
     { "name": "invokedEvent",           "type": "WalletInvoked!",           "derived": "wallet" },
-    { "name": "receivedEvent",          "type": "WalletReceived!",          "derived": "wallet" }
+    { "name": "receivedEvent",          "type": "WalletReceived!",          "derived": "wallet" },
+    { "name": "locked",                 "type": "Boolean!"                                      },
+    { "name": "guardianCount",          "type": "Int!"                                          }
   ]
 },{
   "name": "Module",

@@ -49,8 +49,8 @@ export function handleWalletCreatedV3(event: WalletCreatedV3Event): void {
   // event.params.refundToken
   // event.params.refundAmount
 
-  let owner    = fetchAccount(event.params.owner)
-  let wallet   = fetchWallet(event.params.wallet)
+  let owner    = fetchAccount(event.params._owner)
+  let wallet   = fetchWallet(event.params._wallet)
   wallet.owner = owner.id
   wallet.save()
 

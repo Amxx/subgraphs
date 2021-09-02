@@ -7,6 +7,10 @@ import {
 } from '../../generated/schema'
 
 import {
+  Module as ModuleTemplate
+} from '../../generated/templates'
+
+import {
   fetchAccount
 } from './account'
 
@@ -14,6 +18,8 @@ export function fetchModule(address: Address) : Module {
   let module = Module.load(address.toHex())
 
   if (module == null) {
+    ModuleTemplate.create(address)
+
     module           = new Module(address.toHex())
     module.asAccount = module.id
     module.save()

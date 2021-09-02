@@ -14,7 +14,7 @@
         - Module
       abis:
         - name: Wallet
-          file: {root}/artifacts/contracts/IBaseWallet.sol/IBaseWallet.json
+          file: {root}/artifacts/BaseWallet.json
       eventHandlers:
         - event: OwnerChanged(address)
           handler: handleOwnerChanged

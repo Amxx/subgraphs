@@ -1,5 +1,5 @@
 {
-  "name": "@amxx/argent",
+  "name": "@amxx/argent-2",
   "version": "1.0.0",
   "description": "",
   "author": "Hadrien Croubois (@Amxx)",
@@ -14,19 +14,18 @@
   },
   "scripts": {
     "prepublish": "rimraf artifacts build cache generated",
-    "prepare": "mkdir -p generated && yarn prepare:contracts && yarn prepare:subgraph",
-    "prepare:contracts": "hardhat compile",
+    "prepare": "mkdir -p generated artifacts && npm run prepare:artifacts && npm run prepare:subgraph",
+    "prepare:artifacts": "node scripts/prepare.js",
     "prepare:subgraph": "graph-compiler --config config/argent-mainnet.json --include src/datasources --export-schema --export-subgraph",
-    "build": "yarn build:codegen && yarn build:compile",
+    "build": "npm run build:codegen && npm run build:compile",
     "build:codegen": "graph codegen ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}",
     "build:compile": "graph build ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}",
-    "deploy": "yarn build && graph deploy --studio ${NAME:-argent} ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}"
+    "deploy": "npm run build && graph deploy --studio ${NAME:-argent} ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}"
   },
   "devDependencies": {
     "@amxx/graphprotocol-utils": "1.0.0-alpha.12",
-    "@graphprotocol/graph-cli": "^0.21.0",
-    "@graphprotocol/graph-ts": "^0.20.1",
-    "hardhat": "^2.5.0",
+    "@graphprotocol/graph-cli": "0.21.0",
+    "@graphprotocol/graph-ts": "0.20.1",
     "rimraf": "^3.0.2",
     "yargs": "^17.0.1"
   }
