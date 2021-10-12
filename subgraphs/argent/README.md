@@ -1,5 +1,9 @@
 # Argent Subgraph
 
+## Live deployment
+
+This subgraph is available on the [Graph Explorer](https://thegraph.com/explorer/subgraph?id=0x7859821024e633c5dc8a4fcf86fc52e7720ce525-2&view=Overview) as well as on the [hosted service](https://thegraph.com/hosted-service/subgraph/amxx/argent).
+
 ## Introduction
 
 Argent is a smart-contract based, non-custodial, mobile ethereum wallet with many built in features. It provides native integration with many defi applications as well as wallet connect compatibility. It is particularly know for its social revocery mechanism.
@@ -23,7 +27,7 @@ $ cd subgraph/subraph/argent
 
 $ npm i
 
-$ npx graph auth  --studio <YOUR_AUTH_APIKEY>
+$ npx graph auth --studio <YOUR_AUTH_APIKEY>
 
 $ env NAME=<SUBGRAPH_SLUG> npm run deploy
 ```
@@ -40,7 +44,7 @@ Additionnaly, the discovery of argent wallets relies on events emitted by the co
 
 ## Indexer's doc
 
-This subgraph does NOT rely on any `functionHandlers`. Consequently, it doesn't requier an archive node with trace-api enabled.
+This subgraph does NOT rely on any `functionHandlers`. Consequently, it doesn't require an the trace-api.
 
 ## Users' doc
 
