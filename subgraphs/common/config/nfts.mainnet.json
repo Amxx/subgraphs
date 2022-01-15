@@ -1,0 +1,8 @@
+{
+  "output": "generated/nfts.mainnet.",
+  "chain": "mainnet",
+  "datasources": [
+    { "startBlock": 5806610, "module": "erc721"  },
+    { "startBlock": 6930510, "module": "erc1155" }
+  ]
+}
