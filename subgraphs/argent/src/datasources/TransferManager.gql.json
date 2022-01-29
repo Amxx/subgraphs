@@ -34,6 +34,7 @@
   "name": "Transfer",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",           "type": "Account!"                            },
     { "name": "transaction",       "type": "Transaction!"                        },
     { "name": "timestamp",         "type": "BigInt!"                             },
     { "name": "wallet",            "type": "Wallet!"                             },
@@ -46,6 +47,7 @@
   "name": "Approved",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",           "type": "Account!"                            },
     { "name": "transaction",       "type": "Transaction!"                        },
     { "name": "timestamp",         "type": "BigInt!"                             },
     { "name": "wallet",            "type": "Wallet!"                             },
@@ -57,6 +59,7 @@
   "name": "ContractCall",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",           "type": "Account!"                            },
     { "name": "transaction",       "type": "Transaction!"                        },
     { "name": "timestamp",         "type": "BigInt!"                             },
     { "name": "wallet",            "type": "Wallet!"                             },
@@ -68,6 +71,7 @@
   "name": "LimitChanged",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",           "type": "Account!"                            },
     { "name": "transaction",       "type": "Transaction!"                        },
     { "name": "timestamp",         "type": "BigInt!"                             },
     { "name": "wallet",            "type": "Wallet!"                             },
@@ -78,6 +82,7 @@
   "name": "AddedToWhitelist",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",           "type": "Account!"                            },
     { "name": "transaction",       "type": "Transaction!"                        },
     { "name": "timestamp",         "type": "BigInt!"                             },
     { "name": "wallet",            "type": "Wallet!"                             },
@@ -88,6 +93,7 @@
   "name": "RemovedFromWhitelist",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",           "type": "Account!"                            },
     { "name": "transaction",       "type": "Transaction!"                        },
     { "name": "timestamp",         "type": "BigInt!"                             },
     { "name": "wallet",            "type": "Wallet!"                             },

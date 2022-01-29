@@ -13,6 +13,7 @@ import {
   transactions,
 } from '@amxx/graphprotocol-utils'
 
+import { fetchAccount } from '../fetch/account'
 import { fetchWallet  } from '../fetch/wallet'
 
 export function handleLocked(event: LockedEvent): void {
@@ -21,6 +22,7 @@ export function handleLocked(event: LockedEvent): void {
   wallet.save()
 
   let ev          = new Locked(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction  = transactions.log(event).id
   ev.timestamp    = event.block.timestamp
   ev.wallet       = wallet.id
@@ -34,6 +36,7 @@ export function handleUnlocked(event: UnlockedEvent): void {
   wallet.save()
 
   let ev          = new Unlocked(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction  = transactions.log(event).id
   ev.timestamp    = event.block.timestamp
   ev.wallet       = wallet.id

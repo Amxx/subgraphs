@@ -19,6 +19,7 @@
   "name": "NonFungibleTransfer",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",           "type": "Account!"                                    },
     { "name": "transaction",       "type": "Transaction!"                                },
     { "name": "timestamp",         "type": "BigInt!"                                     },
     { "name": "wallet",            "type": "Wallet!"                                     },

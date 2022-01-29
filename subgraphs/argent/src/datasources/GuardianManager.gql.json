@@ -49,6 +49,7 @@
   "name": "GuardianAdded",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                          "type": "Account!"                                            },
     { "name": "transaction",                      "type": "Transaction!"                                        },
     { "name": "timestamp",                        "type": "BigInt!"                                             },
     { "name": "wallet",                           "type": "Wallet!"                                             },
@@ -58,6 +59,7 @@
   "name": "GuardianAdditionRequested",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                          "type": "Account!"                                            },
     { "name": "transaction",                      "type": "Transaction!"                                        },
     { "name": "timestamp",                        "type": "BigInt!"                                             },
     { "name": "wallet",                           "type": "Wallet!"                                             },
@@ -68,6 +70,7 @@
   "name": "GuardianAdditionCancelled",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                          "type": "Account!"                                            },
     { "name": "transaction",                      "type": "Transaction!"                                        },
     { "name": "timestamp",                        "type": "BigInt!"                                             },
     { "name": "wallet",                           "type": "Wallet!"                                             },
@@ -77,6 +80,7 @@
   "name": "GuardianRevoked",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                          "type": "Account!"                                            },
     { "name": "transaction",                      "type": "Transaction!"                                        },
     { "name": "timestamp",                        "type": "BigInt!"                                             },
     { "name": "wallet",                           "type": "Wallet!"                                             },
@@ -86,6 +90,7 @@
   "name": "GuardianRevokationRequested",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                          "type": "Account!"                                            },
     { "name": "transaction",                      "type": "Transaction!"                                        },
     { "name": "timestamp",                        "type": "BigInt!"                                             },
     { "name": "wallet",                           "type": "Wallet!"                                             },
@@ -96,6 +101,7 @@
   "name": "GuardianRevokationCancelled",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                          "type": "Account!"                                            },
     { "name": "transaction",                      "type": "Transaction!"                                        },
     { "name": "timestamp",                        "type": "BigInt!"                                             },
     { "name": "wallet",                           "type": "Wallet!"                                             },

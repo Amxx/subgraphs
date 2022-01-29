@@ -23,6 +23,7 @@ export function handleWalletCreated(event: WalletCreatedEvent): void {
   wallet.save()
 
   let ev         = new WalletCreated(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id
@@ -38,6 +39,7 @@ export function handleWalletCreatedV2(event: WalletCreatedV2Event): void {
   wallet.save()
 
   let ev         = new WalletCreated(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id
@@ -55,6 +57,7 @@ export function handleWalletCreatedV3(event: WalletCreatedV3Event): void {
   wallet.save()
 
   let ev         = new WalletCreated(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id

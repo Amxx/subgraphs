@@ -25,6 +25,7 @@ export function handleSessionCreated(event: SessionCreatedEvent): void {
   wallet.save()
 
   let ev         = new SessionCreated(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id
@@ -41,6 +42,7 @@ export function handleSessionCleared(event: SessionClearedEvent): void {
   wallet.save()
 
   let ev         = new SessionCleared(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id

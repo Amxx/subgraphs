@@ -20,14 +20,15 @@
     "build": "yarn build:codegen && yarn build:compile",
     "build:codegen": "graph codegen ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}",
     "build:compile": "graph build ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}",
-    "deploy": "yarn build && graph deploy --studio ${NAME:-argent} ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}"
+    "deploy:studio": "yarn build && graph deploy --studio ${NAME:-argent} ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}",
+    "deploy:hosted": "yarn build && graph deploy --product hosted-service ${NAME:-amxx/argent} ${SUBGRAPH:-generated/argent-mainnet.subgraph.yaml}"
   },
   "devDependencies": {
-    "@amxx/graphprotocol-utils": "1.0.0-alpha.12",
-    "@graphprotocol/graph-cli": "^0.21.0",
-    "@graphprotocol/graph-ts": "^0.20.1",
-    "hardhat": "^2.5.0",
+    "@amxx/graphprotocol-utils": "1.1.0-alpha.1",
+    "@graphprotocol/graph-cli": "^0.26.0",
+    "@graphprotocol/graph-ts": "^0.24.1",
+    "hardhat": "^2.8.3",
     "rimraf": "^3.0.2",
-    "yargs": "^17.0.1"
+    "yargs": "^17.3.1"
   }
 }

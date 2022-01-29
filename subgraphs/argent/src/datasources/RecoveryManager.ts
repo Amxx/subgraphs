@@ -39,6 +39,7 @@ export function handleRecoveryExecuted(event: RecoveryExecutedEvent): void {
   recovery.save()
 
   let ev          = new RecoveryExecuted(events.id(event))
+  ev.emitter      = fetchAccount(event.address).id
   ev.transaction  = transactions.log(event).id
   ev.timestamp    = event.block.timestamp
   ev.wallet       = wallet.id
@@ -55,6 +56,7 @@ export function handleRecoveryFinalized(event: RecoveryFinalizedEvent): void {
   store.remove("Recovery", id)
 
   let ev         = new RecoveryFinalized(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id
@@ -70,6 +72,7 @@ export function handleRecoveryCanceled(event: RecoveryCanceledEvent): void {
   store.remove("Recovery", id)
 
   let ev         = new RecoveryCanceled(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id

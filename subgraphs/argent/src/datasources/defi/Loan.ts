@@ -19,15 +19,17 @@ import {
   transactions,
 } from '@amxx/graphprotocol-utils'
 
-import { fetchWallet } from '../../fetch/wallet'
-import { fetchToken  } from '../../fetch/token'
-import { fetchLoan   } from '../../fetch/defi/loan'
+import { fetchAccount } from '../../fetch/account'
+import { fetchWallet  } from '../../fetch/wallet'
+import { fetchToken   } from '../../fetch/token'
+import { fetchLoan    } from '../../fetch/defi/loan'
 
 export function handleCollateralAdded(event: CollateralAddedEvent): void {
   let wallet = fetchWallet(event.params.wallet)
   let loan   = fetchLoan(wallet, event.params.loanId)
 
   let ev         = new CollateralAdded(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.loan        = loan.id
@@ -41,6 +43,7 @@ export function handleCollateralRemoved(event: CollateralRemovedEvent): void {
   let loan   = fetchLoan(wallet, event.params.loanId)
 
   let ev         = new CollateralRemoved(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.loan        = loan.id
@@ -54,6 +57,7 @@ export function handleDebtAdded(event: DebtAddedEvent): void {
   let loan   = fetchLoan(wallet, event.params.loanId)
 
   let ev         = new DebtAdded(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.loan        = loan.id
@@ -67,6 +71,7 @@ export function handleDebtRemoved(event: DebtRemovedEvent): void {
   let loan   = fetchLoan(wallet, event.params.loanId)
 
   let ev         = new DebtRemoved(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.loan        = loan.id
@@ -88,6 +93,7 @@ export function handleLoanOpened(event: LoanOpenedEvent): void {
 
   {
     let ev         = new CollateralAdded(events.id(event).concat('/0'))
+    ev.emitter     = fetchAccount(event.address).id
     ev.transaction = transactions.log(event).id
     ev.timestamp   = event.block.timestamp
     ev.loan        = loan.id
@@ -98,6 +104,7 @@ export function handleLoanOpened(event: LoanOpenedEvent): void {
 
   {
     let ev         = new DebtAdded(events.id(event).concat('/1'))
+    ev.emitter     = fetchAccount(event.address).id
     ev.transaction = transactions.log(event).id
     ev.timestamp   = event.block.timestamp
     ev.loan        = loan.id

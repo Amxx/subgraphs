@@ -25,6 +25,7 @@
   "name": "RecoveryExecuted",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                "type": "Account!"                                  },
     { "name": "transaction",            "type": "Transaction!"                              },
     { "name": "timestamp",              "type": "BigInt!"                                   },
     { "name": "wallet",                 "type": "Wallet!"                                   },
@@ -35,6 +36,7 @@
   "name": "RecoveryFinalized",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                "type": "Account!"                                  },
     { "name": "transaction",            "type": "Transaction!"                              },
     { "name": "timestamp",              "type": "BigInt!"                                   },
     { "name": "wallet",                 "type": "Wallet!"                                   },
@@ -44,6 +46,7 @@
   "name": "RecoveryCanceled",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                "type": "Account!"                                  },
     { "name": "transaction",            "type": "Transaction!"                              },
     { "name": "timestamp",              "type": "BigInt!"                                   },
     { "name": "wallet",                 "type": "Wallet!"                                   },
