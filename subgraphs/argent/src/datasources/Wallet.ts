@@ -41,6 +41,7 @@ export function handleOwnerChanged(event: OwnerChangedEvent): void {
   wallet.save()
 
   let ev         = new WalletOwnerChange(events.id(event))
+  ev.emitter     = wallet.id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id
@@ -66,6 +67,7 @@ export function handleAuthorisedModule(event: AuthorisedModuleEvent): void {
   }
 
   let ev         = new WalletAuthorizeModule(events.id(event))
+  ev.emitter     = wallet.id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id
@@ -92,6 +94,7 @@ export function handleEnabledStaticCall(event: EnabledStaticCallEvent): void {
   }
 
   let ev         = new WalletEnabledStaticCall(events.id(event))
+  ev.emitter     = wallet.id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id
@@ -106,13 +109,14 @@ export function handleInvoked(event: InvokedEvent): void {
   let target = fetchAccount(event.params.target)
 
   let ev         = new WalletInvoked(events.id(event))
+  ev.emitter     = wallet.id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id
   ev.module      = module.id
   ev.target      = target.id
   ev.value       = decimals.toDecimals(event.params.value)
-  ev.selector    = event.params.data.subarray(0,4) as Bytes // Only store the first 4 bytes
+  ev.selector    = Bytes.fromUint8Array(event.params.data.subarray(0,4)) // Only store the first 4 bytes
   ev.save()
 }
 
@@ -121,6 +125,7 @@ export function handleReceived(event: ReceivedEvent): void {
   let sender = fetchAccount(event.params.sender)
 
   let ev         = new WalletReceived(events.id(event))
+  ev.emitter     = wallet.id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id

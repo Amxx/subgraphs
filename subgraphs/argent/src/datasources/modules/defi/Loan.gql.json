@@ -29,6 +29,7 @@
   "name": "CollateralAdded",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",             "type": "Account!"                                   },
     { "name": "transaction",         "type": "Transaction!"                               },
     { "name": "timestamp",           "type": "BigInt!"                                    },
     { "name": "loan",                "type": "Loan!"                                      },
@@ -39,6 +40,7 @@
   "name": "CollateralRemoved",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",             "type": "Account!"                                   },
     { "name": "transaction",         "type": "Transaction!"                               },
     { "name": "timestamp",           "type": "BigInt!"                                    },
     { "name": "loan",                "type": "Loan!"                                      },
@@ -49,6 +51,7 @@
   "name": "DebtAdded",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",             "type": "Account!"                                   },
     { "name": "transaction",         "type": "Transaction!"                               },
     { "name": "timestamp",           "type": "BigInt!"                                    },
     { "name": "loan",                "type": "Loan!"                                      },
@@ -59,6 +62,7 @@
   "name": "DebtRemoved",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",             "type": "Account!"                                   },
     { "name": "transaction",         "type": "Transaction!"                               },
     { "name": "timestamp",           "type": "BigInt!"                                    },
     { "name": "loan",                "type": "Loan!"                                      },

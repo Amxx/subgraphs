@@ -48,6 +48,7 @@ export function handleGuardianAdded(event: GuardianAddedEvent): void {
   store.remove("GuardianAddition", id)
 
   let ev         = new GuardianAdded(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id
@@ -67,6 +68,7 @@ export function handleGuardianRevoked(event: GuardianRevokedEvent): void {
   store.remove("GuardianRevokation", id)
 
   let ev         = new GuardianRevoked(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id
@@ -86,6 +88,7 @@ export function handleGuardianAdditionRequested(event: GuardianAdditionRequested
   g.save()
 
   let ev          = new GuardianAdditionRequested(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction  = transactions.log(event).id
   ev.timestamp    = event.block.timestamp
   ev.wallet       = wallet.id
@@ -102,6 +105,7 @@ export function handleGuardianAdditionCancelled(event: GuardianAdditionCancelled
   store.remove("GuardianAddition", id)
 
   let ev         = new GuardianAdditionCancelled(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id
@@ -121,6 +125,7 @@ export function handleGuardianRevokationRequested(event: GuardianRevokationReque
   g.save()
 
   let ev          = new GuardianRevokationRequested(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction  = transactions.log(event).id
   ev.timestamp    = event.block.timestamp
   ev.wallet       = wallet.id
@@ -137,6 +142,7 @@ export function handleGuardianRevokationCancelled(event: GuardianRevokationCance
   store.remove("GuardianRevokation", id)
 
   let ev         = new GuardianRevokationCancelled(events.id(event))
+  ev.emitter     = fetchAccount(event.address).id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.wallet      = wallet.id

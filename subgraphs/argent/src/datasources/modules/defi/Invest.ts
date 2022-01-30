@@ -24,6 +24,7 @@ export function handleInvestmentAdded(event: InvestmentAddedEvent): void {
   let token        = fetchToken(event.params.token)
 
   let ev         = new InvestmentAdded(events.id(event))
+  ev.emitter     = module.id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.investment  = fetchInvestment(wallet, module, token).id
@@ -38,6 +39,7 @@ export function handleInvestmentRemoved(event: InvestmentRemovedEvent): void {
   let token        = fetchToken(event.params.token)
 
   let ev         = new InvestmentRemoved(events.id(event))
+  ev.emitter     = module.id
   ev.transaction = transactions.log(event).id
   ev.timestamp   = event.block.timestamp
   ev.investment  = fetchInvestment(wallet, module, token).id

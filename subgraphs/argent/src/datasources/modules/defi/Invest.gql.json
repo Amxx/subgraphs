@@ -36,6 +36,7 @@
   "name": "InvestmentAdded",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",            "type": "Transaction!"                                },
     { "name": "timestamp",              "type": "BigInt!"                                     },
     { "name": "investment",             "type": "Investment!"                                 },
@@ -46,6 +47,7 @@
   "name": "InvestmentRemoved",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",              "type": "Account!"           },
     { "name": "transaction",            "type": "Transaction!"                                },
     { "name": "timestamp",              "type": "BigInt!"                                     },
     { "name": "investment",             "type": "Investment!"                                 },

@@ -13,6 +13,7 @@
   "name": "SessionCreated",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                "type": "Account!"                                  },
     { "name": "transaction",            "type": "Transaction!"                              },
     { "name": "timestamp",              "type": "BigInt!"                                   },
     { "name": "wallet",                 "type": "Wallet!"                                   },
@@ -23,6 +24,7 @@
   "name": "SessionCleared",
   "parent": "Event",
   "fields": [
+    { "name": "emitter",                "type": "Account!"                                  },
     { "name": "transaction",            "type": "Transaction!"                              },
     { "name": "timestamp",              "type": "BigInt!"                                   },
     { "name": "wallet",                 "type": "Wallet!"                                   },
