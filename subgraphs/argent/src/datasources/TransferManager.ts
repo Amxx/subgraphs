@@ -73,7 +73,7 @@ export function handleCalledContract(event: CalledContractEvent): void {
   ev.wallet      = fetchWallet(event.params.wallet).id
   ev.to          = fetchAccount(event.params.to).id
   ev.amount      = decimals.toDecimals(event.params.amount)
-  ev.selector    = event.params.data.subarray(0,4) as Bytes // Only store the first 4 bytes
+  ev.selector    = Bytes.fromUint8Array(event.params.data.subarray(0,4)) // Only store the first 4 bytes
   ev.save()
 }
 
@@ -113,7 +113,7 @@ export function handleApprovedAndCalledContract(event: ApprovedAndCalledContract
     ev.wallet      = fetchWallet(event.params.wallet).id
     ev.to          = contract.id
     ev.amount      = constants.BIGDECIMAL_ZERO
-    ev.selector    = event.params.data.subarray(0,4) as Bytes // Only store the first 4 bytes
+    ev.selector    = Bytes.fromUint8Array(event.params.data.subarray(0,4)) // Only store the first 4 bytes
     ev.save()
   }
 }

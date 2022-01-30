@@ -116,7 +116,7 @@ export function handleInvoked(event: InvokedEvent): void {
   ev.module      = module.id
   ev.target      = target.id
   ev.value       = decimals.toDecimals(event.params.value)
-  ev.selector    = event.params.data.subarray(0,4) as Bytes // Only store the first 4 bytes
+  ev.selector    = Bytes.fromUint8Array(event.params.data.subarray(0,4)) // Only store the first 4 bytes
   ev.save()
 }
 
