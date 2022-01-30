@@ -6,10 +6,6 @@ subgraphs/*
 !subgraphs/poap
 !subgraphs/usdt
 !subgraphs/top-erc20
-!subgraphs/old
-!subgraphs/old/access-control
-!subgraphs/old/eip721
-!subgraphs/old/eip1155
 
 node_modules
 artifacts
