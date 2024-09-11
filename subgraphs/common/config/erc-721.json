@@ -1,5 +1,5 @@
 {
-  "output": "generated/eip721.",
+  "output": "generated/erc-721.",
   "chain": "mainnet",
   "datasources": [
     { "startBlock": 5806610, "module": "erc721" }

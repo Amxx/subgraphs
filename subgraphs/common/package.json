@@ -14,14 +14,15 @@
   },
   "scripts": {
     "prepare": "scripts/prepare.sh",
-    "build": "scripts/build.sh generated/*.subgraph.yaml"
+    "build": "scripts/build.sh generated/*.subgraph.yaml",
+    "deploy": "scripts/deploy.sh "
   },
   "dependencies": {
-    "@amxx/graphprotocol-utils": "^1.1.0-alpha.2",
-    "@openzeppelin/subgraphs": "0.1.7-1"
+    "@amxx/graphprotocol-utils": "^1.1.0",
+    "@openzeppelin/subgraphs": "^0.1.8-5"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.26.0",
-    "@graphprotocol/graph-ts": "^0.24.1"
+    "@graphprotocol/graph-cli": "^0.81.0",
+    "@graphprotocol/graph-ts": "^0.35.1"
   }
 }
